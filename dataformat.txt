@@ -1,0 +1,3 @@
+- Add two new columns: Semester, Year (I did this for the three files)
+- Seperate Course section from Course subject number
+- Most sections only contain TA names, would be nice to have real professor names as well
