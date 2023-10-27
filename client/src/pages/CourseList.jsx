@@ -5,7 +5,7 @@ import CourseListItem from '../components/CourseListItem';
 import Pagination from '../components/Pagination';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../db/db.js';
-import Navbar from "../components/Navbar.jsx"
+import CourseListNavbar from "../components/CourseListNavbar.jsx"
 import Loading from "../components/Loading.jsx"
 import Footer from "../components/Footer.jsx"
 import { csvFiles } from "../data/CSVFiles.js"
@@ -178,7 +178,7 @@ return (
       } bg-cover bg-center bg-cover lg:bg-fixed`}
       style={{ zIndex: -1 }}
     ></div>
-    <Navbar />
+    <CourseListNavbar />
     <SearchBar handleSearch={handleSearch} setSearchQuery={setCurrSearchQuery} query={currSearchQuery}/>
     {loading ? (
       <Loading />
