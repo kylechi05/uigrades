@@ -15,6 +15,11 @@ const SearchBar = ({ handleSearch, setSearchQuery }) => {
     setSearchQuery("");
   };
 
+  // im getting kind of lost in my own code, but this appears to work, could use some more testing
+  /**
+   * TLDR: checks if there is a query in the url, if there is, set the search value to that query
+   * Search value will then be applied as the value of the input field
+   */
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get("query");

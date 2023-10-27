@@ -65,6 +65,11 @@ const CourseList = () => {
     });
   };
 
+  /**
+   * this is definitely where i started getting lost in my own code
+   * TLDR: checks if there is a query in the url, if there is, set the search value to that query
+   * then calls handleSearch to filter the courses based on the query
+   */
   useEffect(() => {
     // get the query from the url if it exists
     const urlParams = new URLSearchParams(window.location.search);
@@ -77,7 +82,7 @@ const CourseList = () => {
 
   // handles the search to filter courses based on user input
   const handleSearch = (query) => {
-    setCurrSearchQuery(query); // Update the search query state
+    setCurrSearchQuery(query); // if we've queried something before, but now we're searching for something else, we need to update the search query state
     const searchTerms = query.toLowerCase().split(" ");
 
     const filteredCourses = data.filter((course) => {
