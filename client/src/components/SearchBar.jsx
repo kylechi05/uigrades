@@ -13,6 +13,7 @@ const SearchBar = ({ handleSearch, setSearchQuery }) => {
     setSearchValue(""); // Clear the input field
     handleSearch("");
     setSearchQuery("");
+    window.history.replaceState({}, "", "/courses"); // Clear the query from the url
   };
 
   // im getting kind of lost in my own code, but this appears to work, could use some more testing
