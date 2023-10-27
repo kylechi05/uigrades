@@ -5,6 +5,9 @@ In the [src](/client/src/) folder, you will find the [db](/client/src/db/) folde
 
 Any csv files that need to be added should be added to the [data](/client/src/data/) folder with the same naming convention as follows: `Semester_YEAR.csv`.
 
-# BUG FIXES / IMPROVEMENTS
-- Back button holds search query
-- Back button after similar courses doesn't change course
+## TODO
+
+I am using this README as a todo - Liao Z.
+
+- Remember user page
+- Share course button on each page

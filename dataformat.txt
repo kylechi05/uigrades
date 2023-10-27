@@ -1,3 +1,13 @@
+Request of csv data formatting. 
+Last updated: 10/27/23 Liao Zhu
+
 - Add two new columns: Semester, Year (I did this for the three files)
 - Seperate Course section from Course subject number
 - Most sections only contain TA names, would be nice to have real professor names as well
+- Some sections have no primary instructor names at all: instead of being blank replace with N/A
+
+TLDR:
+1. **Column Headers** (ideally): COURSE_NUMBER, COURSE_SECTION, COURSE_TITLE, COURSE_INSTRUCTOR (professor not TA), SEMESTER, YEAR, A_PLUS, A, A_MINUS, ..., F, W
+2. **Row Data**: COURSE_INSTRUCTOR should be professors if possible, if COURSE_INSTRUCTOR is blank or not given fill with N/A 
+
+Check Fall_2022.csv under data/ for an example of how to structure the csv data.
