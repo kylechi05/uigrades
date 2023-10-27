@@ -65,16 +65,27 @@ const CourseList = () => {
     });
   };
 
+  useEffect(() => {
+    // get the query from the url if it exists
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get("query");
+    if (query) {
+      handleSearch(query);
+      setCurrSearchQuery(query); // Update the search query state
+    }
+  }, [data]);
+
   // handles the search to filter courses based on user input
   const handleSearch = (query) => {
-    const searchTerms = query.toLowerCase().split(' ');
+    setCurrSearchQuery(query); // Update the search query state
+    const searchTerms = query.toLowerCase().split(" ");
 
     const filteredCourses = data.filter((course) => {
       const subject = course["SUBJECT_COURSE_SECTION"] || "";
       const instructor1 = course["PRIMARY_INSTRUCTOR_NAME"] || "";
       const title = course["COURSE_TITLE"] || "";
-      const semester = course['SEMESTER'] || '';
-      const year = course['YEAR'] || '';
+      const semester = course["SEMESTER"] || "";
+      const year = course["YEAR"] || "";
 
       return searchTerms.every(
         (term) =>
@@ -130,18 +141,23 @@ const CourseList = () => {
       SEMESTER: modifiedRow["SEMESTER"],
     });
 
+    //append to the url the search query
+  const url =
+    currSearchQuery !== "" ? `/courses?query=${currSearchQuery}` : "/courses";
+  window.history.pushState({}, "", url);
+
     if (course) {
       navigate(
         `/search/selected?result=${modifiedRow["SUBJECT_COURSE_SECTION"]}&id=${
           course.id
-        }&query=${currSearchQuery ? currSearchQuery : "''"}`
+        }`
       );
     } else {
       const id = await db.courses.add(modifiedRow);
       navigate(
         `/search/selected?result=${
           modifiedRow["SUBJECT_COURSE_SECTION"]
-        }&id=${id}&query=${currSearchQuery ? currSearchQuery : "''"}`
+        }&id=${id}`
       );
     }
   };
@@ -155,7 +171,7 @@ return (
       style={{ zIndex: -1 }}
     ></div>
     <Navbar />
-    <SearchBar handleSearch={handleSearch} setSearchQuery={setCurrSearchQuery}/>
+    <SearchBar handleSearch={handleSearch} setSearchQuery={setCurrSearchQuery} query={currSearchQuery}/>
     {loading ? (
       <Loading />
     ) : (

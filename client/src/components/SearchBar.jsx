@@ -1,16 +1,27 @@
-import "../App.css"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faBackspace, faSearch} from '@fortawesome/free-solid-svg-icons';
+import "../App.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBackspace, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "../context/ThemeContext.js";
-import {useEffect} from 'react';
+import { useEffect, useState } from "react"; // Import useState
 
-const SearchBar = ({handleSearch, setSearchQuery}) => {
+const SearchBar = ({ handleSearch, setSearchQuery }) => {
+  // Pass 'query' as a prop
   const { isDarkMode, toggleTheme } = useTheme();
+  const [searchValue, setSearchValue] = useState("");
 
   const clearInput = () => {
-    document.getElementById("searchBar").value = "";
+    setSearchValue(""); // Clear the input field
     handleSearch("");
+    setSearchQuery("");
   };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get("query");
+    if (query) {
+      setSearchValue(query);
+    }
+  }, []);
 
   return (
     <div
@@ -30,10 +41,12 @@ const SearchBar = ({handleSearch, setSearchQuery}) => {
           id="searchBar"
           type="text"
           placeholder="ex. CS 1210 Fall 2022"
+          value={searchValue} // Set the input value to 'searchValue'
           onChange={(e) => {
             handleSearch(e.target.value);
-            setSearchQuery(e.target.value);
+            setSearchValue(e.target.value); // Update searchValue when the input changes
           }}
+          autoComplete="off"
         />
       </div>
       <FontAwesomeIcon
@@ -45,6 +58,6 @@ const SearchBar = ({handleSearch, setSearchQuery}) => {
       />
     </div>
   );
-}
+};
 
-export default SearchBar
+export default SearchBar;

@@ -28,9 +28,18 @@ const Footer = () => {
         >
           USG
         </a>{" "}
-        at UIowa
+          Organizations at UIowa
       </p>
-      {/* <p className="description">All the source code and data for this site can be found <a className="text-yellow-400" href="#" target="_blank">here</a></p> */}
+      <p className="description">
+        All the source code and data for this site can be found{" "}
+        <a
+          className="text-yellow-400"
+          href="https://github.com/acm-uiowa/uigrades"
+          target="_blank"
+        >
+          here
+        </a>
+      </p>
     </div>
   );
 }
