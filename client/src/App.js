@@ -9,7 +9,7 @@ import ReactGA from 'react-ga4';
 
 const App = () => {
 
-  const TRACKING_ID = 'G-N0SHNJQWS3'; // YOUR TRACKING ID
+  const TRACKING_ID = 'G-9NYXVBNR4G'; // YOUR TRACKING ID
   ReactGA.initialize(TRACKING_ID);
   ReactGA.send({hitType: 'pageview', page: "/"});
 
