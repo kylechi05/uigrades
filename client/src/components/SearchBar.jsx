@@ -26,8 +26,10 @@ const SearchBar = ({ handleSearch, setSearchQuery }) => {
     const query = urlParams.get("query");
     if (query) {
       setSearchValue(query);
+    } else {
+      setSearchValue("");
     }
-  }, []);
+  }, [window.location.search]);
 
   return (
     <div

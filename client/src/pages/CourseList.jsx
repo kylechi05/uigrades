@@ -77,8 +77,11 @@ const CourseList = () => {
     if (query) {
       handleSearch(query);
       setCurrSearchQuery(query); // Update the search query state
+    } else {
+      handleSearch("");
+      setCurrSearchQuery(""); // If there is no query, set the search query state to empty
     }
-  }, [data]);
+  }, [data, window.location.search]);
 
   // handles the search to filter courses based on user input
   const handleSearch = (query) => {
