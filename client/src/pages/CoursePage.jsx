@@ -7,9 +7,10 @@ import Navbar from '../components/Navbar.jsx';
 import { csvFiles } from "../data/CSVFiles.js"
 import Footer from '../components/Footer.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faUser } from '@fortawesome/free-solid-svg-icons';
+import {faUser, faShareNodes } from '@fortawesome/free-solid-svg-icons';
 import Papa from 'papaparse';
 import Loading from "../components/Loading.jsx"
+import MessagePopup from "../components/MessagePopup.jsx"
 import { useTheme } from '../context/ThemeContext.js';
 
 import '../App.css';
@@ -18,9 +19,10 @@ const CoursePage = () => {
   const [course, setCourse] = useState({});
   const [classTotal, setClassTotal] = useState(0);
   const [typeGraph, setTypeGraph] = useState('bar');
-  const id = window.location.search.split('=')[2];
+  // const id = window.location.search.split('=')[2];
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [shared, setShared] = useState(false);
   // const [totalCourses, setTotalCourses] = useState([]);
 
   const { isDarkMode, toggleTheme } = useTheme();
@@ -137,27 +139,6 @@ const CoursePage = () => {
           }
         }
       }
-      // // iterate each row in result.data and add a semester and year property
-      //   // this is used to filter by semester and year later
-      // for (const row of result.data) {
-      //   row['SEMESTER'] = `${semester}`;
-      //   row['Year'] = `${year}`;
-      // }
-
-      // let courseCatalogNumber = course['Catalog Nbr'] ? course['Catalog Nbr'] : course['Catalog Number'];
-        // only push the rows that match the course subject and catalog number 
-      // ======> DELETE THIS IF UP ABOVE WORKS <========
-      // result.data.forEach((row) => {   
-      //   if (row["COURSE"] === courseSubject) {
-      //     if (
-      //       (row["SEMESTER"] != course["SEMESTER"] &&
-      //         row["YEAR"] != course["YEAR"]) ||
-      //       row["SECTION"] != courseSection
-      //     ) {
-      //       parsedData.push(row);
-      //     }
-      //   }
-      // });
     }
     setData(parsedData);
     //set the loading state to false
@@ -213,6 +194,7 @@ const CoursePage = () => {
         } bg-cover bg-center lg:bg-fixed`}
         style={{ zIndex: -1 }}
       ></div>
+      {shared && <MessagePopup message="Link copied to clipboard!" />}
       <Navbar />
       <div id="top-of-page-placeholder"></div>
       <div className={`flex flex-col items-center my-20 w-full`}>
@@ -250,7 +232,10 @@ const CoursePage = () => {
               isDarkMode ? "text-stone-50" : ""
             } my-10 flex flex-col justify-center items-center`}
           >
-            <div className="flex gap-4" id="btn-group">
+            <div
+              className="flex gap-4 justify-center items-center"
+              id="btn-group"
+            >
               <button
                 className={`bg-black transition duration-200 rounded-md p-2 ${
                   typeGraph === "bar"
@@ -271,12 +256,21 @@ const CoursePage = () => {
               >
                 Pie Chart
               </button>
-              {/* <button
-                className={`btn bg-black white ${typeGraph === "average" ? 'graph-active' : ''}`}
-                onClick={handleGraphClick.bind(this, 'average')}
-              >
-                Average Graph
-              </button> */}
+              <div className="flex justify-center items-center transition duration-200 cursor-pointer text-yellow-400 hover:text-yellow-500">
+                <FontAwesomeIcon
+                  icon={faShareNodes}
+                  onClick={() => {
+                    setShared(true);
+                    var currentURL = window.location.href;
+                    navigator.clipboard.writeText(
+                      currentURL
+                    );
+                    setTimeout(() => {
+                      setShared(false);
+                    }, 2000);
+                  }}
+                />
+              </div>
             </div>
             {typeGraph === "bar" ? (
               <BarGraph course={course} />
