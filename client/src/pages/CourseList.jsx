@@ -143,31 +143,38 @@ const CourseList = () => {
     // check if course is already in db
     // console log all the courses in the db
     // console.log(await db.courses.toArray());
-    const course = await db.courses.get({
-      SUBJECT_COURSE_SECTION: modifiedRow["SUBJECT_COURSE_SECTION"],
-      YEAR: modifiedRow["YEAR"],
-      SEMESTER: modifiedRow["SEMESTER"],
-    });
+    // const course = await db.courses.get({
+    //   SUBJECT_COURSE_SECTION: modifiedRow["SUBJECT_COURSE_SECTION"],
+    //   YEAR: modifiedRow["YEAR"],
+    //   SEMESTER: modifiedRow["SEMESTER"],
+    // });
 
     //append to the url the search query
   const url =
     currSearchQuery !== "" ? `/courses?query=${currSearchQuery}` : "/courses";
   window.history.pushState({}, "", url);
 
-    if (course) {
-      navigate(
-        `/search/selected?result=${modifiedRow["SUBJECT_COURSE_SECTION"]}&id=${
-          course.id
-        }`
-      );
-    } else {
-      const id = await db.courses.add(modifiedRow);
-      navigate(
-        `/search/selected?result=${
-          modifiedRow["SUBJECT_COURSE_SECTION"]
-        }&id=${id}`
-      );
-    }
+    // if (course) {
+    //   navigate(
+    //     `/search/selected?result=${modifiedRow["SUBJECT_COURSE_SECTION"]}&id=${
+    //       course.id
+    //     }`
+    //   );
+    // } else {
+    //   const id = await db.courses.add(modifiedRow);
+    //   navigate(
+    //     `/search/selected?result=${
+    //       modifiedRow["SUBJECT_COURSE_SECTION"]
+    //     }&id=${id}`
+    //   );
+    // }
+
+    /**
+     * temporary solution to allow courses to be shared (this is terrible but it'll do the job)
+     * store course info in the url and then redirect to the course page
+     * this will allow each page to go through and linearly find the course in the csv files (essentially dropping the use of the db)
+     */
+    navigate(`/search/selected?result=${modifiedRow["SUBJECT_COURSE_SECTION"]}&semester=${modifiedRow["SEMESTER"]}&year=${modifiedRow["YEAR"]}`)
   };
 
 return (

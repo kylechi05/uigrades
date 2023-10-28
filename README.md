@@ -13,7 +13,7 @@ Necessary Libraries:
 - [ReactJS](https://reactjs.org/)
 - [PapaParse](https://www.papaparse.com/)
 - [React Router](https://reactrouter.com/)
-- [DexieJS](https://dexie.org/)
+- [DexieJS](https://dexie.org/) **Disclaimer** Dexie is still in the code but not being used anymore for db
 - [ChartJS](https://www.chartjs.org/)
 - [Tailwind](https://tailwindcss.com/)
 - [Fontawesome](https://fontawesome.com/)

@@ -28,7 +28,37 @@ const CoursePage = () => {
   const navigate = useNavigate();
 
   const getCourse = async () => {
-    const fetchedCourse = await db.courses.get(parseInt(id));
+    // const fetchedCourse = await db.courses.get(parseInt(id));
+
+    /**
+     * temporary solution to allow url to be shared
+     * get the course from the url and linearly search for it in the csv files
+     */
+
+    const url = window.location.search;
+    const params = new URLSearchParams(url);
+    const section = params.get("result");
+    const semester = params.get("semester");
+    const year = params.get("year");
+
+    let fetchedCourse = {};
+    //set the loading state to true
+    setIsLoading(true);
+
+    for (const file of csvFiles) {
+      const response = await fetch(file);
+      const text = await response.text();
+      const result = await parseCSV(text);
+      // iterate each row in result.data and add a course : section to the csv data
+      // this is used to filter by semester and year later
+      for (const row of result.data) {
+        // find the row that matches the section, semester, and year
+        if (row['SUBJECT_COURSE_SECTION'] === section && row['SEMESTER'] === semester && row['YEAR'] === year) {
+          fetchedCourse = row;
+        }
+      }
+    }
+
     // if the course is not found, redirect to the PageNotFound page
     if (!fetchedCourse) {
       navigate("/404");
@@ -56,7 +86,7 @@ const CoursePage = () => {
 
   useEffect(() => {
     document.title = `UIGrades | ${course['SUBJECT_COURSE_SECTION']}: ${course['SEMESTER']} ${course['YEAR']}`;
-    getSimilarCourses(false);
+    getSimilarCourses();
   }, [course]);
 
   // handles back button click
@@ -80,7 +110,7 @@ const CoursePage = () => {
   };
 
   const getSimilarCourses = async () => {
-    const parsedData = [];
+    const parsedData = []; 
     //set the loading state to true
     setIsLoading(true);
 
@@ -90,11 +120,22 @@ const CoursePage = () => {
       const result = await parseCSV(text);
       // iterate each row in result.data and add a course : section to the csv data
       // this is used to filter by semester and year later
-      for (const row of result.data) {
-        let course = row['SUBJECT_COURSE_SECTION'].slice(0, -5);
-        let section = row['SUBJECT_COURSE_SECTION'].slice(-4);
-        row['COURSE'] = course;
-        row['SECTION'] = section;
+      if (course && course['SUBJECT_COURSE_SECTION']) {
+        const courseSubject = course['SUBJECT_COURSE_SECTION'].slice(0, -5);
+        const courseSection = course['SUBJECT_COURSE_SECTION'].slice(-4);
+        for (const row of result.data) {
+          let potentialCourse = row['SUBJECT_COURSE_SECTION'].slice(0, -5);
+          let potentialSubject = row['SUBJECT_COURSE_SECTION'].slice(-4);
+          if (potentialCourse === courseSubject) {
+            if (
+              (row["SEMESTER"] != course["SEMESTER"] &&
+                row["YEAR"] != course["YEAR"]) ||
+              potentialSubject != courseSection
+            ) {
+              parsedData.push(row);
+            }
+          }
+        }
       }
       // // iterate each row in result.data and add a semester and year property
       //   // this is used to filter by semester and year later
@@ -104,14 +145,19 @@ const CoursePage = () => {
       // }
 
       // let courseCatalogNumber = course['Catalog Nbr'] ? course['Catalog Nbr'] : course['Catalog Number'];
-        // only push the rows that match the course subject and catalog number
-        result.data.forEach((row) => {   
-          if (row['COURSE'] === course['COURSE']) { 
-            if ((row["SEMESTER"] != course['SEMESTER'] && row["YEAR"] != course['YEAR']) || row["SECTION"] != course["SECTION"]){
-              parsedData.push(row);
-            }
-          }
-        });
+        // only push the rows that match the course subject and catalog number 
+      // ======> DELETE THIS IF UP ABOVE WORKS <========
+      // result.data.forEach((row) => {   
+      //   if (row["COURSE"] === courseSubject) {
+      //     if (
+      //       (row["SEMESTER"] != course["SEMESTER"] &&
+      //         row["YEAR"] != course["YEAR"]) ||
+      //       row["SECTION"] != courseSection
+      //     ) {
+      //       parsedData.push(row);
+      //     }
+      //   }
+      // });
     }
     setData(parsedData);
     //set the loading state to false
@@ -131,12 +177,17 @@ const CoursePage = () => {
     Dplus: similarCourse['D_PLUS'],
     Dminus: similarCourse['D_MINUS'],
     };   
-     // add the course to the database if it doesn't exist
-    const courseExists = await db.courses.get({ SUBJECT_COURSE_SECTION: modifiedRow['SUBJECT_COURSE_SECTION'], YEAR: modifiedRow['YEAR'], SEMESETER: modifiedRow['SEMESTER'] });
-    if (!courseExists) {
-      id = await db.courses.add(modifiedRow);
-    }
-    navigate(`/search/selected?result=${modifiedRow['SUBJECT_COURSE_SECTION']}&id=${id}`);
+
+    // =======> This has been scrapped for now <=======
+     // add the course to the database if it doesn't exist 
+    // const courseExists = await db.courses.get({ SUBJECT_COURSE_SECTION: modifiedRow['SUBJECT_COURSE_SECTION'], YEAR: modifiedRow['YEAR'], SEMESETER: modifiedRow['SEMESTER'] });
+    // if (!courseExists) {
+    //   id = await db.courses.add(modifiedRow);
+    // }
+    // navigate(`/search/selected?result=${modifiedRow['SUBJECT_COURSE_SECTION']}&id=${id}`);
+    navigate(
+      `/search/selected?result=${modifiedRow["SUBJECT_COURSE_SECTION"]}&semester=${modifiedRow["SEMESTER"]}&year=${modifiedRow["YEAR"]}`
+    );
     getCourse();
     // window.location.reload()
     // setCourse(modifiedRow);
