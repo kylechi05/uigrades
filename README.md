@@ -2,7 +2,7 @@
 
 UI Grades is a web application to view grade distributions of courses at UIowa. Visit the site at [uigrades.vercel.app](https://uigrades.vercel.app/).
 
-Based on UT Dallas Grades by [UTD Grades](https://utdgrades.com/). Maintained by ACM @UIowa, developed by [Liao Z.](https://liaozhu.dev/). For questions or concerns reach out to [liaozhu@uiowa.edu](mailto:liao-zhu@uiowa.edu) or current head of the project.
+Based on UT Dallas Grades by [UTD Grades](https://utdgrades.com/). Maintained by ACM @UIowa, developed by Liao Z. For code related  questions or concerns reach out to [liaozhu@uiowa.edu](mailto:liao-zhu@uiowa.edu) or current head of the project. For other concerns please reach out to the [Undergraduate Student Government](https://usg.uiowa.edu/) @ UIowa.
 
 ## Development
 
