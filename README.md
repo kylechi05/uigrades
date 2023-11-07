@@ -6,7 +6,7 @@ Based on UT Dallas Grades by [UTD Grades](https://utdgrades.com/). Maintained by
 
 ## Development
 
-The frontend is built with ReactJS, the DB being used is [DexieJS](https://dexie.org/). By using Dexie, we avoid the need to use a backend server and instead use the browser's IndexedDB to store the data. Thus allowing us to host the application on GitHub Pages or any other static hosting service.
+The frontend is built with ReactJS, the DB being used is [DexieJS](https://dexie.org/). By using Dexie, we avoid the need to use a backend server and instead use the browser's IndexedDB to store the data. Thus allowing us to host the application on GitHub Pages or any other static hosting service. *Note* As of 10/30/2023 Dexie is no longer being used.
 
 Necessary Libraries:
 
