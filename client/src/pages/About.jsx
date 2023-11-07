@@ -1,9 +1,9 @@
-import React from 'react'
 import Navbar from "../components/Navbar.jsx"
 import Footer from "../components/Footer.jsx"
 import CreditProfile from '../components/CreditProfile.jsx'
 import { Link } from 'react-router-dom'
 import {useTheme} from "../context/ThemeContext.js"
+import {useEffect} from 'react'
 function About() {
 
   const { isDarkMode, toggleTheme } = useTheme();
