@@ -10,7 +10,7 @@ function About() {
 
 	useEffect(() => {
 		document.title = "UIGrades | About"
-	}
+	})
 
   return (
     <div className="w-full flex justify-center items-center flex-col relative min-h-screen text-zinc-700">
