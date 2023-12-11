@@ -22,7 +22,9 @@ const CourseListItem = ({course, navigate}) => {
       <>
         <div className={`flex justify-center items-start flex-col`}>
           <h1 className="font-bold">{course["SUBJECT_COURSE_SECTION"]} </h1>
-          <h2>{course["COURSE_TITLE"]}</h2>
+          <h2 className="">
+            {course["COURSE_TITLE"]}
+          </h2>
           <p className="">{course["PRIMARY_INSTRUCTOR_NAME"]}</p>
           <p className="">
             {course["SEMESTER"]} {course["YEAR"]}

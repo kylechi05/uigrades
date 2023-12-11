@@ -6,7 +6,7 @@ import {faAngleLeft} from "@fortawesome/free-solid-svg-icons"
 
 const Pagination = ({handlePrevPage, handleNextPage, currentPage, totalPages}) => {
   return (
-    <div className="flex justify-center items-center mb-20 gap-10">
+    <div className="flex justify-center items-center mb-20 gap-10 mt-auto">
       <button
         onClick={handlePrevPage}
         disabled={currentPage === 1}

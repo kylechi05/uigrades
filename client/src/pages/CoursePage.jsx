@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { db } from '../db/db.js';
 import BarGraph from '../components/BarGraph.jsx';
 import PieGraph from '../components/PieGraph.jsx';
 import { Link, useNavigate } from 'react-router-dom';
