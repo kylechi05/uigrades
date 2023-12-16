@@ -60,13 +60,18 @@ function About() {
               s
             </span>{" "}
             is a website made by <strong>students</strong> that allows other{" "}
-            <span className="text-yellow-400 transition duration-200">
+            <a
+              href="https://uiowa.edu/"
+	     target="_blank"
+              className="text-yellow-400 hover:text-yellow-500 transition duration-200"
+            >
               University of Iowa
-            </span>{" "}
+            </a>{" "}
             students to view grades from previous semesters. <br />
             The data is provided by the University's{" "}
             <a
               href="https://transparency.uiowa.edu/"
+		target="_blank"
               className="text-yellow-400 hover:text-yellow-500 transition duration-200"
             >
               Office of Transparency
