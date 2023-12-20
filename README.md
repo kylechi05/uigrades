@@ -12,7 +12,6 @@ Hosting is done through Vercel, and analytics are handled via Google Analytics.
 Necessary Libraries:
 
 - [ReactJS](https://reactjs.org/)
-- [PapaParse](https://www.papaparse.com/)
 - [React Router](https://reactrouter.com/)
 - [SqlJS](https://github.com/sql-js/sql.js)
 - [ChartJS](https://www.chartjs.org/)
