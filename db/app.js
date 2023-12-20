@@ -104,19 +104,6 @@ app.get("/api", (req, res) => {
     console.log(db)
 })
 
-// app.get("/test-db", (req, res) => {
-//     const result = db.exec('SELECT * FROM courses WHERE COURSE_TITLE LIKE "%Networks%"');
-//     console.log(result[0].values);
-//     res.json(result[0].values);
-// })
-
-app.get("/search", (req, res) => {
-    const query = req.query.q;
-    const result = db.exec(`SELECT * FROM courses WHERE COURSE_TITLE LIKE "%${query}%"`);
-    console.log(result[0].values);
-    res.json(result[0].values);
-})
-
 app.get("/api/courses", (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -125,14 +112,24 @@ app.get("/api/courses", (req, res) => {
 
     const offset = (page - 1) * PAGESIZE;
 
-    const result = db.exec(`SELECT * FROM courses LIMIT ${PAGESIZE} OFFSET ${offset}`);
-    const allCourses = db.exec('SELECT COUNT(*) FROM courses');
-    const totalItems = allCourses[0].values[0][0];
+    if (searchQuery) {
+        const result = db.exec(`SELECT * FROM courses WHERE COURSE_TITLE LIKE "%${searchQuery}%" LIMIT ${PAGESIZE} OFFSET ${offset}`)
+        const allCourses = db.exec(`SELECT COUNT(*) FROM courses WHERE COURSE_TITLE LIKE "%${searchQuery}%"`)
+        const totalItems = allCourses[0].values[0][0]
+        res.json({
+            data: result[0].values,
+            totalItems
+        });
+    } else {
+        const result = db.exec(`SELECT * FROM courses LIMIT ${PAGESIZE} OFFSET ${offset}`);
+        const allCourses = db.exec('SELECT COUNT(*) FROM courses');
+        const totalItems = allCourses[0].values[0][0];
 
-    res.json({
-      data: result[0].values,
-      totalItems
-    });
+        res.json({
+            data: result[0].values,
+            totalItems
+        });
+    }
   } catch (error) {
     console.error("Error fetching courses", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -155,7 +152,8 @@ app.get("/api/similar-courses/:id", (req, res) => {
         const id = req.params.id;
         const result = db.exec(`SELECT * FROM courses WHERE id = ${id}`);
         const course = result[0].values[0];
-        const similarCourses = db.exec(`SELECT * FROM courses WHERE COURSE_TITLE LIKE "%${course[2]}%" AND id != ${id}`);
+        const courseSubjectSection = course[1].split(":")[0]+':'+course[1].split(":")[1]
+        const similarCourses = db.exec(`SELECT * FROM courses WHERE SUBJECT_COURSE_SECTION LIKE "%${courseSubjectSection}%" AND id != ${id}`);
         if (similarCourses.length === 0) {
             res.json([]);
             return;

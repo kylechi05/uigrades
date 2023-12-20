@@ -10,10 +10,13 @@ const SearchBar = ({ handleSearch, setSearchQuery }) => {
   const [searchValue, setSearchValue] = useState("");
 
   const clearInput = () => {
+    if (searchValue === "") {
+      return;
+    }
     setSearchValue(""); // Clear the input field
-    handleSearch("");
+    handleSearch(1, "");
     setSearchQuery("");
-    window.history.replaceState({}, "", "/courses"); // Clear the query from the url
+    window.history.replaceState({}, "", `/courses?page=${1}`); // Clear the query from the url
   };
 
   // im getting kind of lost in my own code, but this appears to work, could use some more testing
@@ -23,7 +26,7 @@ const SearchBar = ({ handleSearch, setSearchQuery }) => {
    */
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const query = urlParams.get("query");
+    const query = urlParams.get("q");
     if (query) {
       setSearchValue(query);
     } else {
@@ -51,7 +54,7 @@ const SearchBar = ({ handleSearch, setSearchQuery }) => {
           placeholder="ex. CS 1210 Fall 2022"
           value={searchValue} // Set the input value to 'searchValue'
           onChange={(e) => {
-            handleSearch(e.target.value);
+            handleSearch(1, e.target.value);
             setSearchValue(e.target.value); // Update searchValue when the input changes
           }}
           autoComplete="off"
