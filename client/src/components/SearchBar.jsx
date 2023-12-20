@@ -4,7 +4,7 @@ import { faBackspace, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "../context/ThemeContext.js";
 import { useEffect, useState } from "react"; // Import useState
 
-const SearchBar = ({ handleSearch, setSearchQuery }) => {
+const SearchBar = ({ handleSearch, setSearchQuery, setCurrentPage }) => {
   // Pass 'query' as a prop
   const { isDarkMode, toggleTheme } = useTheme();
   const [searchValue, setSearchValue] = useState("");
@@ -16,6 +16,7 @@ const SearchBar = ({ handleSearch, setSearchQuery }) => {
     setSearchValue(""); // Clear the input field
     handleSearch(1, "");
     setSearchQuery("");
+    setCurrentPage(1);
     window.history.replaceState({}, "", `/courses?page=${1}`); // Clear the query from the url
   };
 
@@ -56,6 +57,7 @@ const SearchBar = ({ handleSearch, setSearchQuery }) => {
           onChange={(e) => {
             handleSearch(1, e.target.value);
             setSearchValue(e.target.value); // Update searchValue when the input changes
+            setCurrentPage(1);
           }}
           autoComplete="off"
         />

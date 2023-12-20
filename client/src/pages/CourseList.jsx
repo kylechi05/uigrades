@@ -23,29 +23,19 @@ const CourseList = () => {
 
   const { isDarkMode, toggleTheme } = useTheme();
 
-  // useEffect(() => {
-  //   // get the query from the url if it exists
-  //   const urlParams = new URLSearchParams(window.location.search);
-  //   const query = urlParams.get("query");
-  //   if (query) {
-  //     handleSearch(query);
-  //     setCurrSearchQuery(query); // Update the search query state
-  //   } else {
-  //     handleSearch("");
-  //     setCurrSearchQuery(""); // If there is no query, set the search query state to empty
-  //   }
-  // }, [data, window.location.search]);
-
+  // checks the url for a page query, if it exists, set the current page to that page
   useEffect(() => {
     const pageParam = new URLSearchParams(window.location.search).get("page");
     const queryParam = new URLSearchParams(window.location.search).get("q");
     const page = pageParam ? parseInt(pageParam) : 1;
-    const query = queryParam ? queryParam : "";
-    getCourses(page, query);
+    const query = queryParam ? queryParam.toLowerCase() : "";
     setCurrentPage(page);
     setCurrSearchQuery(query);
+
+    getCourses(page, query);
   }, []);
 
+  // should trigger this useeffect when the current page or search query changes
   useEffect(() => {
     const url = `/courses?page=${currentPage}${
       currSearchQuery ? "&q=" + currSearchQuery : ""
@@ -59,9 +49,33 @@ const CourseList = () => {
     try {
       setCurrSearchQuery(q);
       const res = await fetch(`${SERVER}/courses?page=${page}&q=${q}`);
+
+      // invalid page, default to page 1
       if (!res.ok) {
-        throw new Error("Failed to fetch data");
+        console.log("Invalid Page, defaulting to page 1...")
+        const url = `/courses?page=${1}${
+          q ? "&q=" + q : ""
+        }`;
+        window.history.pushState({}, "", url);
+        setCurrentPage(1);
+        getDefaultCourses(q);
+        return;
       }
+      const { data, totalItems } = await res.json();
+      setData(data);
+      setTotalPages(Math.ceil(totalItems / pageSize));
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      setCurrentPage(1);
+      console.log(err.message);
+    }
+  };
+
+  // handles the case where the user enters an invalid page number in the url, then it'll default to page 1
+  const getDefaultCourses = async (q) => {
+    try {
+      const res = await fetch(`${SERVER}/courses?page=${1}&q=${q}`);
       const { data, totalItems } = await res.json();
       setData(data);
       setTotalPages(Math.ceil(totalItems / pageSize));
@@ -75,10 +89,12 @@ const CourseList = () => {
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
+    getCourses(currentPage + 1, currSearchQuery);
   };
 
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
+    getCourses(currentPage - 1, currSearchQuery)
   };
 
   const navigate = useNavigate();
@@ -99,6 +115,7 @@ const CourseList = () => {
       <SearchBar
         handleSearch={getCourses}
         setSearchQuery={setCurrSearchQuery}
+        setCurrentPage={setCurrentPage}
         query={currSearchQuery}
       />
       {loading ? (
@@ -134,9 +151,9 @@ const CourseList = () => {
         <div
           className={`text-lg ${
             isDarkMode ? "text-zinc-300" : "text-zinc-700"
-          } flex items-center justify-center flex-col text-center p-10`}
+          } flex items-center justify-center flex-col text-center px-10`}
         >
-          <p className="">No courses found 😥</p>
+          <p className="text-2xl">Uh, this is weird: 404 error 😨</p>
           <p className="">Did you spell it right?</p>
         </div>
       ) : (

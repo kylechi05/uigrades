@@ -114,6 +114,13 @@ app.get("/api/courses", (req, res) => {
 
     if (searchQuery) {
         const result = db.exec(`SELECT * FROM courses WHERE COURSE_TITLE LIKE "%${searchQuery}%" LIMIT ${PAGESIZE} OFFSET ${offset}`)
+        if (!result.length) {
+            res.json({
+                data: [],
+                totalItems: 0
+            });
+            return;
+        }
         const allCourses = db.exec(`SELECT COUNT(*) FROM courses WHERE COURSE_TITLE LIKE "%${searchQuery}%"`)
         const totalItems = allCourses[0].values[0][0]
         res.json({
@@ -122,6 +129,13 @@ app.get("/api/courses", (req, res) => {
         });
     } else {
         const result = db.exec(`SELECT * FROM courses LIMIT ${PAGESIZE} OFFSET ${offset}`);
+        if (!result.length) {
+            res.json({
+                data: [],
+                totalItems: 0
+            });
+            return;
+        }
         const allCourses = db.exec('SELECT COUNT(*) FROM courses');
         const totalItems = allCourses[0].values[0][0];
 
