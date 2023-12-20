@@ -21,6 +21,7 @@ Necessary Libraries:
 ## Updating
 
 When adding new data, go to [./db/data](./db/data/) and add the new `.csv` files.
+Then run `node app.js` when you're inside the `/db` directory.
 
 ## Running
 
