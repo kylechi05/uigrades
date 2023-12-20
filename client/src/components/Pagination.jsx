@@ -5,6 +5,9 @@ import {faAngleLeft} from "@fortawesome/free-solid-svg-icons"
 
 
 const Pagination = ({handlePrevPage, handleNextPage, currentPage, totalPages}) => {
+  if (totalPages <= 1) {
+    return null;
+  }
   return (
     <div className="flex justify-center items-center mb-20 gap-10 mt-auto">
       <button

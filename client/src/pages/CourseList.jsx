@@ -21,65 +21,78 @@ const CourseList = () => {
   const [currSearchQuery, setCurrSearchQuery] = useState("");
 
   const pageSize = 9;
+  const SERVER = 'http://localhost:8080/api' // idc about leaking this, this is all temp anyways
 
   const { isDarkMode, toggleTheme } = useTheme();
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const parsedData = [];
+
+  //     for (const file of csvFiles) {
+  //       const response = await fetch(file);
+  //       const text = await response.text();
+  //       const result = await parseCSV(text);
+  //       parsedData.push(...result.data);
+  //       // iterate each row in result.data and add a course : section to the csv data
+  //       // this is used to filter by semester and year later
+  //       for (const row of result.data) {
+  //         let course = row["SUBJECT_COURSE_SECTION"].slice(0, -5);
+  //         let section = row["SUBJECT_COURSE_SECTION"].slice(-4);
+  //         row["COURSE"] = course;
+  //         row["SECTION"] = section;
+  //       }
+  //     }
+
+  //     setData(parsedData);
+  //     setFilteredData(parsedData);
+  //     setTotalPages(Math.ceil(parsedData.length / pageSize));
+  //     setLoading(false); // Set loading to false once data is fetched
+  //   };
+
+  //   fetchData();
+  // }, []);
+  // // help function to parse the csv text
+  // const parseCSV = (text) => {
+  //   return new Promise((resolve, reject) => {
+  //     Papa.parse(text, {
+  //       header: true,
+  //       skipEmptyLines: true,
+  //       complete: resolve,
+  //       error: reject,
+  //     });
+  //   });
+  // };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const parsedData = [];
+    getCourses(currentPage, currSearchQuery);
+  }, [currentPage])
 
-      for (const file of csvFiles) {
-        const response = await fetch(file);
-        const text = await response.text();
-        const result = await parseCSV(text);
-        parsedData.push(...result.data);
-        // iterate each row in result.data and add a course : section to the csv data
-        // this is used to filter by semester and year later
-        for (const row of result.data) {
-          let course = row["SUBJECT_COURSE_SECTION"].slice(0, -5);
-          let section = row["SUBJECT_COURSE_SECTION"].slice(-4);
-          row["COURSE"] = course;
-          row["SECTION"] = section;
-        }
-      }
-
-      setData(parsedData);
-      setFilteredData(parsedData);
-      setTotalPages(Math.ceil(parsedData.length / pageSize));
-      setLoading(false); // Set loading to false once data is fetched
-    };
-
-    fetchData();
-  }, []);
-  // help function to parse the csv text
-  const parseCSV = (text) => {
-    return new Promise((resolve, reject) => {
-      Papa.parse(text, {
-        header: true,
-        skipEmptyLines: true,
-        complete: resolve,
-        error: reject,
-      });
-    });
-  };
+  const getCourses = async (page, q) => {
+    const res = await fetch(`${SERVER}/courses?page=${page}&q=${q}`);
+    const { data, totalItems } = await res.json();
+    setData(data);
+    setTotalPages(Math.ceil(totalItems / pageSize));
+    setLoading(false);
+  }
 
   /**
    * this is definitely where i started getting lost in my own code
    * TLDR: checks if there is a query in the url, if there is, set the search value to that query
    * then calls handleSearch to filter the courses based on the query
    */
-  useEffect(() => {
-    // get the query from the url if it exists
-    const urlParams = new URLSearchParams(window.location.search);
-    const query = urlParams.get("query");
-    if (query) {
-      handleSearch(query);
-      setCurrSearchQuery(query); // Update the search query state
-    } else {
-      handleSearch("");
-      setCurrSearchQuery(""); // If there is no query, set the search query state to empty
-    }
-  }, [data, window.location.search]);
+  // useEffect(() => {
+  //   // get the query from the url if it exists
+  //   const urlParams = new URLSearchParams(window.location.search);
+  //   const query = urlParams.get("query");
+  //   if (query) {
+  //     handleSearch(query);
+  //     setCurrSearchQuery(query); // Update the search query state
+  //   } else {
+  //     handleSearch("");
+  //     setCurrSearchQuery(""); // If there is no query, set the search query state to empty
+  //   }
+  // }, [data, window.location.search]);
 
   // handles the search to filter courses based on user input
   const handleSearch = (query) => {
@@ -122,33 +135,37 @@ const CourseList = () => {
 
   const navigate = useNavigate();
 
-  async function handleCourseClick(row) {
-    // since the db can't accept strange characters such as +, we must convert the csv file symbols to words
-    const modifiedRow = {
-      ...row,
-      Aplus: row["A_PLUS"],
-      Aminus: row["A_MINUS"],
-      Bplus: row["B_PLUS"],
-      Bminus: row["B_MINUS"],
-      Cplus: row["C_PLUS"],
-      Cminus: row["C_MINUS"],
-      Dplus: row["D_PLUS"],
-      Dminus: row["D_MINUS"],
-    };
+  // async function handleCourseClick(row) {
+  //   // since the db can't accept strange characters such as +, we must convert the csv file symbols to words
+  //   const modifiedRow = {
+  //     ...row,
+  //     Aplus: row["A_PLUS"],
+  //     Aminus: row["A_MINUS"],
+  //     Bplus: row["B_PLUS"],
+  //     Bminus: row["B_MINUS"],
+  //     Cplus: row["C_PLUS"],
+  //     Cminus: row["C_MINUS"],
+  //     Dplus: row["D_PLUS"],
+  //     Dminus: row["D_MINUS"],
+  //   };
 
-    //append to the url the search query
-    const url =
-      currSearchQuery !== "" ? `/courses?query=${currSearchQuery}` : "/courses";
-    window.history.pushState({}, "", url);
+  //   //append to the url the search query
+  //   const url =
+  //     currSearchQuery !== "" ? `/courses?query=${currSearchQuery}` : "/courses";
+  //   window.history.pushState({}, "", url);
 
-    /**
-     * temporary solution to allow courses to be shared (this is terrible but it'll do the job)
-     * store course info in the url and then redirect to the course page
-     * this will allow each page to go through and linearly find the course in the csv files (essentially dropping the use of the db)
-     */
-    navigate(
-      `/search/selected?result=${modifiedRow["SUBJECT_COURSE_SECTION"]}&semester=${modifiedRow["SEMESTER"]}&year=${modifiedRow["YEAR"]}`
-    );
+  //   /**
+  //    * temporary solution to allow courses to be shared (this is terrible but it'll do the job)
+  //    * store course info in the url and then redirect to the course page
+  //    * this will allow each page to go through and linearly find the course in the csv files (essentially dropping the use of the db)
+  //    */
+  //   navigate(
+  //     `/search/selected?result=${modifiedRow["SUBJECT_COURSE_SECTION"]}&semester=${modifiedRow["SEMESTER"]}&year=${modifiedRow["YEAR"]}`
+  //   );
+  // }
+
+  const handleCourseClick = (id) => {
+    console.log(id)
   }
 
   return (
@@ -171,10 +188,10 @@ const CourseList = () => {
         <div className="flex flex-col items-center p-10 w-full min-h-full mt-32">
           <div className="flex justify-center items-center w-full">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-2 w-full h-full">
-              {currentResults.map((course, index) => (
+              {data.map((course, index) => (
                 <div
                   key={index}
-                  onClick={() => handleCourseClick(course)}
+                  onClick={() => handleCourseClick(course[0])}
                   className={`${
                     isDarkMode
                       ? "bg-zinc-600 hover:bg-zinc-500 text-stone-50"
@@ -188,17 +205,13 @@ const CourseList = () => {
           </div>
         </div>
       )}
-      {filteredData.length > 10 ? (
-        <Pagination
+      <Pagination
           handlePrevPage={handlePrevPage}
           handleNextPage={handleNextPage}
           currentPage={currentPage}
           totalPages={totalPages}
-        />
-      ) : (
-        ""
-      )}
-      {filteredData.length == 0 && !loading ? (
+      />
+      {data.length == 0 && !loading ? (
         <div
           className={`text-lg ${
             isDarkMode ? "text-zinc-300" : "text-zinc-700"

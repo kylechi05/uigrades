@@ -12,22 +12,22 @@ const CourseListItem = ({course, navigate}) => {
         document.title = 'UIGrades | Course List';
     }, []);
 
-    let allLetterGrades = ["A_PLUS", "A", "A_MINUS", "B_PLUS", "B", "B_MINUS", "C_PLUS", "C", "C_MINUS", "D_PLUS", "D", "D_MINUS", "F", "WITHDRAWN"];
+    // index 4 - 17 contain all grades, we can sum these up to get the total number of students
     let classTotal = 0;
-    for (let i = 0; i < allLetterGrades.length; i++) {
-        classTotal += (parseFloat(course[allLetterGrades[i]]));
+    for (let i = 4; i < 18; i++) {
+        classTotal += parseInt(course[i]);
     }
 
     return (
       <>
         <div className={`flex justify-center items-start flex-col`}>
-          <h1 className="font-bold">{course["SUBJECT_COURSE_SECTION"]} </h1>
+          <h1 className="font-bold">{course[1]} </h1>
           <h2 className="">
-            {course["COURSE_TITLE"]}
+            {course[2]}
           </h2>
-          <p className="">{course["PRIMARY_INSTRUCTOR_NAME"]}</p>
+          <p className="">{course[3]}</p>
           <p className="">
-            {course["SEMESTER"]} {course["YEAR"]}
+            {course[18]} {course[19]}
           </p>
         </div>
         <p>

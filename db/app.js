@@ -6,12 +6,17 @@
 *
 */
 
+const express = require('express');
+const app = express();
+const cors = require('cors');
+app.use(cors());
 const initSqlJs = require('sql.js/dist/sql-wasm');
 const fs = require('fs');
 const csv = require('csv-parser');
+let db;
 
 initSqlJs().then(async SQL => {
-    const db = new SQL.Database();
+    db = new SQL.Database();
     const initScript = await fs.promises.readFile('courses.sql');
     db.run(initScript.toString());
 
@@ -40,7 +45,27 @@ initSqlJs().then(async SQL => {
                             }
                         });
 
-                        const insertStatement = `INSERT INTO courses VALUES (${values.join(', ')});`;
+                        const insertStatement = `INSERT INTO courses (
+                            SUBJECT_COURSE_SECTION,
+                            COURSE_TITLE,
+                            PRIMARY_INSTRUCTOR_NAME,
+                            A_PLUS,
+                            A,
+                            A_MINUS,
+                            B_PLUS,
+                            B,
+                            B_MINUS,
+                            C_PLUS,
+                            C,
+                            C_MINUS,
+                            D_PLUS,
+                            D,
+                            D_MINUS,
+                            F,
+                            WITHDRAWN,
+                            SEMESTER,
+                            YEAR
+                        ) VALUES (${values.join(', ')});`;
                         insertStatements.push(insertStatement);
                     })
                     .on('end', () => {
@@ -62,8 +87,9 @@ initSqlJs().then(async SQL => {
                     db.run(statement);
                 });
 
-                // const result = db.exec('SELECT * FROM courses WHERE PRIMARY_INSTRUCTOR_NAME LIKE "%%"');
+                // const result = db.exec('SELECT * FROM courses WHERE COURSE_TITLE LIKE "%Networks%"');
                 // console.log(result[0].values);
+                // Note to self, to query apostrophies add \' to the query
             })
             .catch(err => {
                 console.error('Error processing files:', err);
@@ -72,3 +98,42 @@ initSqlJs().then(async SQL => {
 }).catch(err => {
     console.error(err);
 });
+
+app.get("/api", (req, res) => {
+    res.send("Hello World");
+    console.log(db)
+})
+
+// app.get("/test-db", (req, res) => {
+//     const result = db.exec('SELECT * FROM courses WHERE COURSE_TITLE LIKE "%Networks%"');
+//     console.log(result[0].values);
+//     res.json(result[0].values);
+// })
+
+app.get("/search", (req, res) => {
+    const query = req.query.q;
+    const result = db.exec(`SELECT * FROM courses WHERE COURSE_TITLE LIKE "%${query}%"`);
+    console.log(result[0].values);
+    res.json(result[0].values);
+})
+
+app.get("/api/courses", (req, res) => {
+    const page = parseInt(req.query.page) || 1; // Get the requested page or default to page 1
+    const searchQuery = req.query.q || '';
+    const PAGESIZE = 9;
+
+    const offset = (page - 1) * PAGESIZE; // Calculate the offset for pagination
+
+    const result = db.exec(`SELECT * FROM courses LIMIT ${PAGESIZE} OFFSET ${offset}`);
+    const allCourses = db.exec('SELECT COUNT(*) FROM courses'); // Get the count of all data
+    const totalItems = allCourses[0].values[0][0]; // Extract total count from the result
+    res.json({
+        data: result[0].values,
+        totalItems
+    });
+})
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}...`)
+})
