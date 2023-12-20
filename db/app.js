@@ -118,14 +118,14 @@ app.get("/search", (req, res) => {
 })
 
 app.get("/api/courses", (req, res) => {
-    const page = parseInt(req.query.page) || 1; // Get the requested page or default to page 1
+    const page = parseInt(req.query.page) || 1; // should default to 1 automatically from front end but who cares
     const searchQuery = req.query.q || '';
     const PAGESIZE = 9;
 
-    const offset = (page - 1) * PAGESIZE; // Calculate the offset for pagination
+    const offset = (page - 1) * PAGESIZE; // calculate the offset for pagination
 
     const result = db.exec(`SELECT * FROM courses LIMIT ${PAGESIZE} OFFSET ${offset}`);
-    const allCourses = db.exec('SELECT COUNT(*) FROM courses'); // Get the count of all data
+    const allCourses = db.exec('SELECT COUNT(*) FROM courses'); // total courses in db
     const totalItems = allCourses[0].values[0][0]; // Extract total count from the result
     res.json({
         data: result[0].values,

@@ -15,8 +15,12 @@ def create_schema():
         sql_file.write('DROP TABLE IF EXISTS courses;\n') # dropping the table to avoid conflict with existing table
         sql_file.write('\nCREATE TABLE courses (\n') # then creating the table
         sql_file.write("\n    id INTEGER PRIMARY KEY AUTOINCREMENT, \n") # primary key for each course
-        for header in headers:
-            sql_file.write(f'    {header} TEXT,\n') # debating on whether to use TEXT for all, or be really diligent and use INTEGER for grades but meh should work out if i cast later on
+        for i, header in enumerate(headers):
+            if i == len(headers) - 1:  # Skip adding comma for the last column to avoid weird SQL syntax error (this is sql's one flaw imo)
+                sql_file.write(f'    {header} TEXT\n')
+            else:
+                sql_file.write(f'    {header} TEXT,\n')
+
         sql_file.write(');\n\n')
         
 if __name__ == '__main__':

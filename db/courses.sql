@@ -23,4 +23,3 @@ CREATE TABLE courses (
     SEMESTER TEXT,
     YEAR TEXT
 );
-
