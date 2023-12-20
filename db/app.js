@@ -118,19 +118,49 @@ app.get("/search", (req, res) => {
 })
 
 app.get("/api/courses", (req, res) => {
-    const page = parseInt(req.query.page) || 1; // should default to 1 automatically from front end but who cares
+  try {
+    const page = parseInt(req.query.page) || 1;
     const searchQuery = req.query.q || '';
     const PAGESIZE = 9;
 
-    const offset = (page - 1) * PAGESIZE; // calculate the offset for pagination
+    const offset = (page - 1) * PAGESIZE;
 
     const result = db.exec(`SELECT * FROM courses LIMIT ${PAGESIZE} OFFSET ${offset}`);
-    const allCourses = db.exec('SELECT COUNT(*) FROM courses'); // total courses in db
-    const totalItems = allCourses[0].values[0][0]; // Extract total count from the result
+    const allCourses = db.exec('SELECT COUNT(*) FROM courses');
+    const totalItems = allCourses[0].values[0][0];
+
     res.json({
-        data: result[0].values,
-        totalItems
+      data: result[0].values,
+      totalItems
     });
+  } catch (error) {
+    console.error("Error fetching courses", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/api/courses/:id", (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = db.exec(`SELECT * FROM courses WHERE id = ${id}`);
+        res.json(result[0].values[0]);
+    } catch (error) {
+        console.error("Error fetching course", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+})
+
+app.get("/api/similar-courses/:id", (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = db.exec(`SELECT * FROM courses WHERE id = ${id}`);
+        const course = result[0].values[0];
+        const similarCourses = db.exec(`SELECT * FROM courses WHERE COURSE_TITLE LIKE "%${course[2]}%" AND id != ${id}`);
+        res.json(similarCourses[0].values);
+    } catch (error) {
+        console.error("Error fetching similar courses", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 })
 
 const PORT = process.env.PORT || 8080;

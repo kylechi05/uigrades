@@ -66,9 +66,7 @@ const CourseList = () => {
 
   useEffect(() => {
     const pageParam = new URLSearchParams(window.location.search).get("page");
-    console.log(pageParam)
     const page = pageParam ? parseInt(pageParam) : 1;
-
     setCurrentPage(page);
   }, []);
 
@@ -82,11 +80,20 @@ const CourseList = () => {
   }, [currentPage, currSearchQuery]);
 
   const getCourses = async (page, q) => {
-    const res = await fetch(`${SERVER}/courses?page=${page}&q=${q}`);
-    const { data, totalItems } = await res.json();
-    setData(data);
-    setTotalPages(Math.ceil(totalItems / pageSize));
-    setLoading(false);
+    try {
+      const res = await fetch(`${SERVER}/courses?page=${page}&q=${q}`);
+      if (!res.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const { data, totalItems } = await res.json();
+      setData(data);
+      setTotalPages(Math.ceil(totalItems / pageSize));
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      setCurrentPage(1);
+      console.log(err.message)
+    }
   }
 
   /**
@@ -177,8 +184,15 @@ const CourseList = () => {
   //   );
   // }
 
-  const handleCourseClick = (id) => {
-    console.log(id)
+  const handleCourseClick = async (id) => {
+    const url = `/courses?page=${currentPage}${
+      currSearchQuery ? "&q=" + currSearchQuery : ""
+    }`;
+    window.history.pushState({}, "", url);
+
+    navigate(
+      `/course?id=${id}`
+    );
   }
 
   return (
@@ -224,7 +238,7 @@ const CourseList = () => {
           currentPage={currentPage}
           totalPages={totalPages}
       />
-      {data.length == 0 && !loading ? (
+      {filteredData.length === 0 && !loading ? (
         <div
           className={`text-lg ${
             isDarkMode ? "text-zinc-300" : "text-zinc-700"

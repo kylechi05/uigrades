@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import BarGraph from '../components/BarGraph.jsx';
 import PieGraph from '../components/PieGraph.jsx';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
-import { csvFiles } from "../data/CSVFiles.js"
 import Footer from '../components/Footer.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser, faShareNodes } from '@fortawesome/free-solid-svg-icons';
@@ -17,60 +16,37 @@ import '../App.css';
 const CoursePage = () => {
   const [course, setCourse] = useState({});
   const [classTotal, setClassTotal] = useState(0);
-  const [typeGraph, setTypeGraph] = useState('bar');
-  // const id = window.location.search.split('=')[2];
-  const [data, setData] = useState([]);
+  const [typeGraph, setTypeGraph] = useState("bar");
+  const [similarCourses, setSimilarCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [shared, setShared] = useState(false);
-  // const [totalCourses, setTotalCourses] = useState([]);
+  const id = Number(new URLSearchParams(window.location.search).get("id"));
+
+  const SERVER = "http://localhost:8080/api"; // idc about leaking this, this is all temp anyways
 
   const { isDarkMode, toggleTheme } = useTheme();
 
   const navigate = useNavigate();
 
   const getCourse = async () => {
-    // const fetchedCourse = await db.courses.get(parseInt(id));
 
-    /**
-     * temporary solution to allow url to be shared
-     * get the course from the url and linearly search for it in the csv files
-     */
+    if (isNaN(id)) {
+      console.log("Invalid 'id' value");
+      return;
+    }
 
-    const url = window.location.search;
-    const params = new URLSearchParams(url);
-    const section = params.get("result");
-    const semester = params.get("semester");
-    const year = params.get("year");
-
-    let fetchedCourse = {};
     //set the loading state to true
     setIsLoading(true);
 
-    for (const file of csvFiles) {
-      const response = await fetch(file);
-      const text = await response.text();
-      const result = await parseCSV(text);
-      // iterate each row in result.data and add a course : section to the csv data
-      // this is used to filter by semester and year later
-      for (const row of result.data) {
-        // find the row that matches the section, semester, and year
-        if (row['SUBJECT_COURSE_SECTION'] === section && row['SEMESTER'] === semester && row['YEAR'] === year) {
-          fetchedCourse = row;
-        }
-      }
+    const res = await fetch(`${SERVER}/courses/${id}`);
+    const fetchedCourse = await res.json();
+    setCourse(fetchedCourse);
+
+    let total = 0;
+    for (let i = 4; i < 18; i++) {
+      total += parseFloat(fetchedCourse[i]);
     }
 
-    // if the course is not found, redirect to the PageNotFound page
-    if (!fetchedCourse) {
-      navigate("/404");
-      return;
-    }
-    setCourse(fetchedCourse);
-    let allLetterGrades = ["A_PLUS", "A", "A_MINUS", "B_PLUS", "B", "B_MINUS", "C_PLUS", "C", "C_MINUS", "D_PLUS", "D", "D_MINUS", "F", "WITHDRAWN"];
-    let total = 0;
-    for (let i = 0; i < allLetterGrades.length; i++) {
-      total += (parseFloat(fetchedCourse[allLetterGrades[i]]));
-    }
     setClassTotal(total);
     const topOfPagePlaceholder = document.getElementById(
       "top-of-page-placeholder"
@@ -78,7 +54,7 @@ const CoursePage = () => {
 
     if (topOfPagePlaceholder) {
       topOfPagePlaceholder.scrollIntoView({ behavior: "smooth" });
-    } 
+    }
   };
 
   useEffect(() => {
@@ -86,104 +62,73 @@ const CoursePage = () => {
   }, []);
 
   useEffect(() => {
-    document.title = `UIGrades | ${course['SUBJECT_COURSE_SECTION']}: ${course['SEMESTER']} ${course['YEAR']}`;
+    document.title = `UIGrades | ${course[1]}: ${course[18]} ${course[19]}`;
     getSimilarCourses();
   }, [course]);
 
   // handles back button click
   useEffect(() => {
-    getCourse()
+    getCourse();
   }, [window.location.search]);
 
-  let allCourses = [];
   const handleGraphClick = (typeGraph) => {
-    allCourses.push(course);
-    data.map((similarCourse) => {
-        allCourses.push(similarCourse);
-      });
-      // setTotalCourses(allCourses);
 
-    if (typeGraph === 'bar') {
-      setTypeGraph('bar');
-    } else if (typeGraph === 'pie') {
-      setTypeGraph('pie');
+    if (typeGraph === "bar") {
+      setTypeGraph("bar");
+    } else if (typeGraph === "pie") {
+      setTypeGraph("pie");
     }
   };
+
+  // const getSimilarCourses = async () => {
+  //   const parsedData = [];
+  //   //set the loading state to true
+  //   setIsLoading(true);
+
+  //   for (const file of csvFiles) {
+  //     const response = await fetch(file);
+  //     const text = await response.text();
+  //     const result = await parseCSV(text);
+  //     // iterate each row in result.data and add a course : section to the csv data
+  //     // this is used to filter by semester and year later
+  //     if (course && course["SUBJECT_COURSE_SECTION"]) {
+  //       const courseSubject = course["SUBJECT_COURSE_SECTION"].slice(0, -5);
+  //       const courseSection = course["SUBJECT_COURSE_SECTION"].slice(-4);
+  //       for (const row of result.data) {
+  //         let potentialCourse = row["SUBJECT_COURSE_SECTION"].slice(0, -5);
+  //         let potentialSubject = row["SUBJECT_COURSE_SECTION"].slice(-4);
+  //         if (potentialCourse === courseSubject) {
+  //           if (
+  //             (row["SEMESTER"] != course["SEMESTER"] &&
+  //               row["YEAR"] != course["YEAR"]) ||
+  //             potentialSubject != courseSection
+  //           ) {
+  //             parsedData.push(row);
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  //   setData(parsedData);
+  //   //set the loading state to false
+  //   setIsLoading(false);
+  // };
 
   const getSimilarCourses = async () => {
-    const parsedData = []; 
-    //set the loading state to true
     setIsLoading(true);
+    const res = await fetch(`${SERVER}/similar-courses/${id}`);
+    const data = await res.json();
+    setSimilarCourses(data);
+    setIsLoading(false)
+  }
 
-    for (const file of csvFiles) {
-      const response = await fetch(file);
-      const text = await response.text();
-      const result = await parseCSV(text);
-      // iterate each row in result.data and add a course : section to the csv data
-      // this is used to filter by semester and year later
-      if (course && course['SUBJECT_COURSE_SECTION']) {
-        const courseSubject = course['SUBJECT_COURSE_SECTION'].slice(0, -5);
-        const courseSection = course['SUBJECT_COURSE_SECTION'].slice(-4);
-        for (const row of result.data) {
-          let potentialCourse = row['SUBJECT_COURSE_SECTION'].slice(0, -5);
-          let potentialSubject = row['SUBJECT_COURSE_SECTION'].slice(-4);
-          if (potentialCourse === courseSubject) {
-            if (
-              (row["SEMESTER"] != course["SEMESTER"] &&
-                row["YEAR"] != course["YEAR"]) ||
-              potentialSubject != courseSection
-            ) {
-              parsedData.push(row);
-            }
-          }
-        }
-      }
-    }
-    setData(parsedData);
-    //set the loading state to false
-    setIsLoading(false);
-  };
+  async function handleRowClick(similarCourseId) {
 
-  async function handleRowClick(similarCourse) {
-    let id;
-  const modifiedRow = {
-    ...similarCourse,
-    Aplus: similarCourse['A_PLUS'],
-    Aminus: similarCourse['A_MINUS'],
-    Bplus: similarCourse['B_PLUS'],
-    Bminus: similarCourse['B_MINUS'],
-    Cplus: similarCourse['C_PLUS'],
-    Cminus: similarCourse['C_MINUS'],
-    Dplus: similarCourse['D_PLUS'],
-    Dminus: similarCourse['D_MINUS'],
-    };   
-
-    // =======> This has been scrapped for now <=======
-     // add the course to the database if it doesn't exist 
-    // const courseExists = await db.courses.get({ SUBJECT_COURSE_SECTION: modifiedRow['SUBJECT_COURSE_SECTION'], YEAR: modifiedRow['YEAR'], SEMESETER: modifiedRow['SEMESTER'] });
-    // if (!courseExists) {
-    //   id = await db.courses.add(modifiedRow);
-    // }
-    // navigate(`/search/selected?result=${modifiedRow['SUBJECT_COURSE_SECTION']}&id=${id}`);
-    navigate(
-      `/search/selected?result=${modifiedRow["SUBJECT_COURSE_SECTION"]}&semester=${modifiedRow["SEMESTER"]}&year=${modifiedRow["YEAR"]}`
-    );
+    navigate(`/course?id=${similarCourseId}`);
     getCourse();
     // window.location.reload()
     // setCourse(modifiedRow);
-  };
-
-  // help function to parse the csv text
-  const parseCSV = (text) => {
-    return new Promise((resolve, reject) => {
-      Papa.parse(text, {
-        header: true,
-        skipEmptyLines: true,
-        complete: resolve,
-        error: reject,
-      });
-    });
-  };
+  }
 
   return (
     <div className="w-full flex justify-center items-center flex-col relative min-h-screen">
@@ -203,16 +148,14 @@ const CoursePage = () => {
               isDarkMode ? "text-zinc-400" : "text-zinc-700"
             }`}
           >
-            <h1 className={`font-bold text-4xl md:text-6xl`}>
-              {course["SUBJECT_COURSE_SECTION"]}{" "}
-            </h1>
+            <h1 className={`font-bold text-4xl md:text-6xl`}>{course[1]} </h1>
             <h2 className="font-bold text-xl md:text-3xl text-center">
-              {course["COURSE_TITLE"]}{" "}
+              {course[2]}{" "}
             </h2>
             <div className="flex items-center justify-start gap-1 text-md md:text-xl">
-              <p className="gray">{course["PRIMARY_INSTRUCTOR_NAME"]}</p> -
+              <p className="gray">{course[3]}</p> -
               <i>
-                {course["SEMESTER"]} {course["YEAR"]}
+                {course[18]} {course[19]}
               </i>
             </div>
             <p className="">
@@ -261,9 +204,7 @@ const CoursePage = () => {
                   onClick={() => {
                     setShared(true);
                     var currentURL = window.location.href;
-                    navigator.clipboard.writeText(
-                      currentURL
-                    );
+                    navigator.clipboard.writeText(currentURL);
                     setTimeout(() => {
                       setShared(false);
                     }, 2000);
@@ -280,7 +221,7 @@ const CoursePage = () => {
         </div>
         <div className="justify-center flex flex-col items-center gap-5 w-full">
           {isLoading && <Loading />}
-          {data.length !== 0 && (
+          {similarCourses.length !== 0 && (
             <h2
               className={`font-bold text-2xl w-full pl-5 ${
                 isDarkMode ? "text-zinc-500" : ""
@@ -290,10 +231,10 @@ const CoursePage = () => {
             </h2>
           )}
           <div className="gap-5 flex justify-start items-center overflow-scroll scrollbar w-full h-full px-5">
-            {data.map((similarCourse, index) => (
+            {similarCourses.map((similarCourse, index) => (
               <div
                 onClick={() => {
-                  handleRowClick(similarCourse);
+                  handleRowClick(similarCourse[0]);
                 }}
                 key={index}
                 className={`${
@@ -303,13 +244,13 @@ const CoursePage = () => {
                 } rounded-xl my-5 cursor-pointer hover:bg-white transition duration-300 min-w-[50%] md:min-w-[33%] lg:min-w-[33%] p-5 shadow-lg`}
               >
                 <h3 className="font-bold">
-                  {similarCourse["SUBJECT_COURSE_SECTION"]}
+                  {similarCourse[1]}
                 </h3>
                 <p className="description">
-                  {similarCourse["PRIMARY_INSTRUCTOR_NAME"]}
+                  {similarCourse[3]}
                 </p>
                 <p className="description">
-                  {similarCourse["SEMESTER"]} {similarCourse["YEAR"]}
+                  {similarCourse[18]} {similarCourse[19]}
                 </p>
               </div>
             ))}
