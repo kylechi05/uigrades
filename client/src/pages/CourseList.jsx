@@ -65,8 +65,21 @@ const CourseList = () => {
   // };
 
   useEffect(() => {
+    const pageParam = new URLSearchParams(window.location.search).get("page");
+    console.log(pageParam)
+    const page = pageParam ? parseInt(pageParam) : 1;
+
+    setCurrentPage(page);
+  }, []);
+
+  useEffect(() => {
+    const url = `/courses?page=${currentPage}${
+      currSearchQuery ? "&q=" + currSearchQuery : ""
+    }`;
+    window.history.pushState({}, "", url);
+
     getCourses(currentPage, currSearchQuery);
-  }, [currentPage])
+  }, [currentPage, currSearchQuery]);
 
   const getCourses = async (page, q) => {
     const res = await fetch(`${SERVER}/courses?page=${page}&q=${q}`);
