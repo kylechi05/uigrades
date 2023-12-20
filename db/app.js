@@ -156,6 +156,10 @@ app.get("/api/similar-courses/:id", (req, res) => {
         const result = db.exec(`SELECT * FROM courses WHERE id = ${id}`);
         const course = result[0].values[0];
         const similarCourses = db.exec(`SELECT * FROM courses WHERE COURSE_TITLE LIKE "%${course[2]}%" AND id != ${id}`);
+        if (similarCourses.length === 0) {
+            res.json([]);
+            return;
+        }
         res.json(similarCourses[0].values);
     } catch (error) {
         console.error("Error fetching similar courses", error);

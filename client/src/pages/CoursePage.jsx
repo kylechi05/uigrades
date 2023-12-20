@@ -29,7 +29,6 @@ const CoursePage = () => {
   const navigate = useNavigate();
 
   const getCourse = async () => {
-
     if (isNaN(id)) {
       console.log("Invalid 'id' value");
       return;
@@ -80,40 +79,6 @@ const CoursePage = () => {
     }
   };
 
-  // const getSimilarCourses = async () => {
-  //   const parsedData = [];
-  //   //set the loading state to true
-  //   setIsLoading(true);
-
-  //   for (const file of csvFiles) {
-  //     const response = await fetch(file);
-  //     const text = await response.text();
-  //     const result = await parseCSV(text);
-  //     // iterate each row in result.data and add a course : section to the csv data
-  //     // this is used to filter by semester and year later
-  //     if (course && course["SUBJECT_COURSE_SECTION"]) {
-  //       const courseSubject = course["SUBJECT_COURSE_SECTION"].slice(0, -5);
-  //       const courseSection = course["SUBJECT_COURSE_SECTION"].slice(-4);
-  //       for (const row of result.data) {
-  //         let potentialCourse = row["SUBJECT_COURSE_SECTION"].slice(0, -5);
-  //         let potentialSubject = row["SUBJECT_COURSE_SECTION"].slice(-4);
-  //         if (potentialCourse === courseSubject) {
-  //           if (
-  //             (row["SEMESTER"] != course["SEMESTER"] &&
-  //               row["YEAR"] != course["YEAR"]) ||
-  //             potentialSubject != courseSection
-  //           ) {
-  //             parsedData.push(row);
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  //   setData(parsedData);
-  //   //set the loading state to false
-  //   setIsLoading(false);
-  // };
-
   const getSimilarCourses = async () => {
     setIsLoading(true);
     const res = await fetch(`${SERVER}/similar-courses/${id}`);
@@ -123,11 +88,8 @@ const CoursePage = () => {
   }
 
   async function handleRowClick(similarCourseId) {
-
     navigate(`/course?id=${similarCourseId}`);
     getCourse();
-    // window.location.reload()
-    // setCourse(modifiedRow);
   }
 
   return (
