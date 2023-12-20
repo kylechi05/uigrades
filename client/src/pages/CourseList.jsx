@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
-import Papa from "papaparse";
+import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import CourseListItem from "../components/CourseListItem";
 import Pagination from "../components/Pagination";
@@ -52,30 +51,8 @@ const CourseList = () => {
 
       // invalid page, default to page 1
       if (!res.ok) {
-        console.log("Invalid Page, defaulting to page 1...")
-        const url = `/courses?page=${1}${
-          q ? "&q=" + q : ""
-        }`;
-        window.history.pushState({}, "", url);
-        setCurrentPage(1);
-        getDefaultCourses(q);
-        return;
+        throw new Error("Invalid Request");
       }
-      const { data, totalItems } = await res.json();
-      setData(data);
-      setTotalPages(Math.ceil(totalItems / pageSize));
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-      setCurrentPage(1);
-      console.log(err.message);
-    }
-  };
-
-  // handles the case where the user enters an invalid page number in the url, then it'll default to page 1
-  const getDefaultCourses = async (q) => {
-    try {
-      const res = await fetch(`${SERVER}/courses?page=${1}&q=${q}`);
       const { data, totalItems } = await res.json();
       setData(data);
       setTotalPages(Math.ceil(totalItems / pageSize));

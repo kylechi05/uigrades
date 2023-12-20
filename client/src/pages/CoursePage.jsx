@@ -91,6 +91,13 @@ const CoursePage = () => {
     getCourse();
   }
 
+  // index 4 - 17 contain all grades, we can sum these up to get the total number of students
+  const getTotalForSimilarCourse = (similarCourse) => {
+    return similarCourse
+      .slice(4, 18)
+      .reduce((acc, val) => acc + parseInt(val), 0);
+  };
+
   return (
     <div className="w-full flex justify-center items-center flex-col relative min-h-screen">
       <div
@@ -193,16 +200,17 @@ const CoursePage = () => {
           )}
           <div className="gap-5 flex justify-start items-center overflow-scroll scrollbar w-full h-full px-5">
             {similarCourses.map((similarCourse, index) => (
-              <div 
-                  onClick={() => {
-                    handleRowClick(similarCourse[0]);
-                  }}
-                  key={index}
-                  className={`${
-                    isDarkMode
-                      ? "bg-zinc-600 hover:bg-zinc-500 text-stone-50"
-                      : "hover:bg-white bg-stone-50"
-                  } rounded-xl my-5 cursor-pointer hover:bg-white transition duration-300 min-w-[50%] md:min-w-[33%] lg:min-w-[33%] p-5 shadow-lg flex justify-between items-center`}>
+              <div
+                onClick={() => {
+                  handleRowClick(similarCourse[0]);
+                }}
+                key={index}
+                className={`${
+                  isDarkMode
+                    ? "bg-zinc-600 hover:bg-zinc-500 text-stone-50"
+                    : "hover:bg-white bg-stone-50"
+                } rounded-xl my-5 cursor-pointer hover:bg-white transition duration-300 min-w-[50%] md:min-w-[33%] lg:min-w-[33%] p-5 shadow-lg flex justify-between items-center`}
+              >
                 <div>
                   <h3 className="font-bold">{similarCourse[1]}</h3>
                   <p className="description">{similarCourse[3]}</p>
@@ -215,22 +223,7 @@ const CoursePage = () => {
                     icon={faUser}
                     className="text-yellow-400 text-xl"
                   />{" "}
-                  <span className="text-xl">
-                    {parseInt(similarCourse[4]) +
-                      parseInt(similarCourse[5]) +
-                      parseInt(similarCourse[6]) +
-                      parseInt(similarCourse[7]) +
-                      parseInt(similarCourse[8]) +
-                      parseInt(similarCourse[9]) +
-                      parseInt(similarCourse[10]) +
-                      parseInt(similarCourse[11]) +
-                      parseInt(similarCourse[12]) +
-                      parseInt(similarCourse[13]) +
-                      parseInt(similarCourse[14]) +
-                      parseInt(similarCourse[15]) +
-                      parseInt(similarCourse[16]) +
-                      parseInt(similarCourse[17])}
-                  </span>
+                  <span className="text-xl">{getTotalForSimilarCourse(similarCourse)}</span>
                 </div>
               </div>
             ))}
