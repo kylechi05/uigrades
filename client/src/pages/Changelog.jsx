@@ -12,6 +12,12 @@ function Changelog() {
 
   useEffect(() => {
     document.title = "UIGrades | Changelog";
+    // initialize the showDescription property to false for each log
+    let newLogs = [...logs];
+    newLogs.forEach((log) => {
+      log.showDescription = false;
+    });
+    setLogs(newLogs);
   }, []);
 
   const toggleDescription = (idx) => {
