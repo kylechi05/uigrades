@@ -17,10 +17,6 @@ const CourseListNavbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const { isDarkMode, toggleTheme } = useTheme();
 
-  const goBack = () => {
-    window.history.back();
-  };
-
   return (
     <div className="flex justify-between items-center w-full p-4 h-14 absolute top-0 left-0">
       <div className="flex justify-start items-center md:w-1/3 ml-5">
@@ -69,6 +65,12 @@ const CourseListNavbar = () => {
           className="text-gray-500 hover:text-black transition duration-200 ease-in-out"
         >
           About
+        </Link>
+        <Link
+          to="/updates"
+          className="text-gray-500 hover:text-black transition duration-200 ease-in-out text-center"
+        >
+          Updates
         </Link>
         <div
           className="flex justify-center items-center text-xl w-5 cursor-pointer text-zinc-700 hover:text-zinc-800 tranisiton duration-200"
