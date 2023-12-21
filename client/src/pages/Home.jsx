@@ -20,7 +20,7 @@ const Home = () => {
       setTimeout(() => {
         setShowMaintenance(false);
         localStorage.setItem("seenMaintenance", true);
-      }, 5000);
+      }, 8000);
     }
   }, []);
 
@@ -35,8 +35,7 @@ const Home = () => {
               site may potentially be down during this window.
             </h1>
             <p className="text-lg text-center">
-              We are currently working on some updates to the website. Apologies
-              for any inconvenience.
+              Apologies for any inconvenience.
             </p>
           </div>
         </div>
