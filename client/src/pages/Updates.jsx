@@ -14,7 +14,7 @@ function Updates() {
   const { isDarkMode, toggleTheme } = useTheme();
 
   useEffect(() => {
-    document.title = "UIGrades | Change Log";
+    document.title = "UIGrades | Updates";
   }, []);
 
   return (
