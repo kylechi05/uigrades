@@ -7,11 +7,12 @@ Maintained by ACM @UIowa, developed by Liao Z. For code related  questions or co
 ## Development
 
 The frontend is built with ReactJS, the DB being used is [Sql.js](https://github.com/sql-js/sql.js).
-Hosting is done through Vercel, and analytics are handled via Google Analytics.
+Frontend hosting is done through [Vercel](https://vercel.com/), backend is done through [Render](https://render.com/) and analytics are handled via [Google Analytics](https://marketingplatform.google.com/about/analytics/).
 
 Necessary Libraries:
 
 - [ReactJS](https://reactjs.org/)
+- [ExpressJS](https://expressjs.com/)
 - [React Router](https://reactrouter.com/)
 - [SqlJS](https://github.com/sql-js/sql.js)
 - [ChartJS](https://www.chartjs.org/)
