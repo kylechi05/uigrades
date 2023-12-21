@@ -2,7 +2,7 @@ import CourseList from './pages/CourseList';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import CoursePage from './pages/CoursePage';
-import Changelog from './pages/Changelog.jsx';
+import Changelog from './pages/ChangeLog.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PageNotFound from './pages/PageNotFound.jsx';
 import Home from './pages/Home.jsx';
