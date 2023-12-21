@@ -25,11 +25,20 @@ Then run `node app.js` when you're inside the `/db` directory.
 
 ## Running
 
-To run the application, run the following commands in the `client` directory:
+To run the application, run the following commands in your terminal:
 
 ```
+cd client
 npm install
 npm start
+```
+
+Then in a seperate terminal window (make sure you're in the `uigrades` directory not `client`):
+
+```
+cd db
+npm install
+node app.js
 ```
 
 Open up [http://localhost:3000](http://localhost:3000) to view it in the browser.
