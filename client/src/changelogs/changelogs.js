@@ -12,27 +12,27 @@
 
 
 const changelogs = [
-    {
-    version: '3.1.0',
-    type: ['Update'],
-    date: 'January 2024',
-    features: ['Fall 2023 courses added!'],
-    description: "Added Fall 2023 courses to the database.",
-    author: 'LZ',
-    showDescription: false
-  },
+  //   {
+  //   version: '3.1.0',
+  //   type: ['Update'],
+  //   date: 'January 2024',
+  //   features: ['Fall 2023 courses added!'],
+  //   description: "Added Fall 2023 courses to the database.",
+  //   author: 'LZ',
+  //   showDescription: false
+  // },
    {
     version: '3.0.1',
-    type: ['Update'],
+    type: ['Update', 'Release'],
     date: 'December 2023',
-    features: ['Updates / changelogs page'],
-    description: "Added updates / changelogs page to the application.",
+    features: ['Updates / changelogs page', 'Fullstack application'],
+    description: "Added updates / changelogs page to the application. Hosting backend on https://render.com/, only using free tier but we'll see how it goes.",
     author: 'LZ',
     showDescription: false
   },
     {
     version: '3.0.0',
-    type: ['Update', 'Improvement', 'Release'],
+    type: ['Update', 'Improvement'],
     date: 'December 2023',
     features: ['SQL database', 'Node/Express backend', 'Page retention in url', 'Improved search query retention in url', 'Courses now queriable by unique ID', 'Mobile dropdown navbar improved', 'Similar courses now display course size', 'Improved pagination'],
     description: "Version 3.0.0 is one of the biggest updates to the application. The application now uses a SQL database and a Node/Express backend to query the database. There are many benefits to switching the db to SQL: improved page / search query retention in the url, courses can now be queried by unique ID, similar courses are easier to fetch, and sharing courses is so much easier now since it's just an id. The mobile dropdown navbar has been improved to be more user friendly. Similar courses now display the course size. Pagination has been improved to be more user friendly regarding toggling theme.",
