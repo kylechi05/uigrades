@@ -24,7 +24,7 @@ function Changelog() {
     let newLogs = [...logs];
     newLogs[idx].showDescription = !newLogs[idx].showDescription;
     setLogs(newLogs);
-  }
+  };
 
   return (
     <div className="w-full flex justify-center items-center flex-col relative pb-24">
@@ -35,15 +35,15 @@ function Changelog() {
         style={{ zIndex: -1 }}
       ></div>
       <Navbar />
-      <div className={`w-full flex justify-start mt-20 items-center flex-col gap-5`}>
+      <div
+        className={`w-full flex justify-start mt-20 items-center flex-col gap-5`}
+      >
         <div
           className={`flex justify-center items-center flex-col ${
             isDarkMode ? "text-zinc-200" : "text-zinc-700"
           }`}
         >
-          <h1 className="font-bold text-3xl md:text-5xl">
-            Changelog
-          </h1>
+          <h1 className="font-bold text-3xl md:text-5xl">Changelog</h1>
         </div>
         <div className="flex justify-center items-center flex-col gap-16 w-full">
           {logs.map((changelog, idx) => {
