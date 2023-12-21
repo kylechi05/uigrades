@@ -112,11 +112,9 @@ const CourseListNavbar = () => {
         >
           About
         </Link>
-        <div className="flex justify-center items-center text-xl w-full h-full text-center p-3 border-zinc-600 hover:border-zinc-400">
+        <div className="cursor-pointer flex justify-center items-center text-xl w-full h-full text-center p-3 border-zinc-600 hover:border-zinc-400" onClick={toggleTheme}>
           <div
-            className="cursor-pointer flex justify-center items-center"
-            onClick={toggleTheme}
-          >
+            className="flex justify-center items-center">
             <FontAwesomeIcon
               className={`${
                 isDarkMode
