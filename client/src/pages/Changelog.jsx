@@ -4,7 +4,6 @@ import Footer from "../components/Footer.jsx";
 import { useTheme } from "../context/ThemeContext.js";
 import changelogs from "../changelogs/changelogs.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import caret up and down icons
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 function Changelog() {
