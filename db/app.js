@@ -113,7 +113,27 @@ app.get("/api/courses", (req, res) => {
     const offset = (page - 1) * PAGESIZE;
 
     if (searchQuery) {
-        const result = db.exec(`SELECT * FROM courses WHERE COURSE_TITLE LIKE "%${searchQuery}%" LIMIT ${PAGESIZE} OFFSET ${offset}`)
+        const terms = searchQuery.toLowerCase().split(' ');
+
+        const queryAttributes = [
+            'SUBJECT_COURSE_SECTION',
+            'COURSE_TITLE',
+            'PRIMARY_INSTRUCTOR_NAME',
+            'SEMESTER',
+            'YEAR'
+        ];
+
+        let whereClause = '';
+        terms.forEach(term => {
+            if (whereClause !== '') {
+                whereClause += ' AND ';
+            }
+            whereClause += '(' + queryAttributes.map(attr => `${attr} LIKE "%${term}%"`).join(' OR ') + ')';
+        });
+
+        const query = `SELECT * FROM courses WHERE ${whereClause} LIMIT ${PAGESIZE} OFFSET ${offset}`;
+        const result = db.exec(query);
+
         if (!result.length) {
             res.json({
                 data: [],
@@ -121,8 +141,12 @@ app.get("/api/courses", (req, res) => {
             });
             return;
         }
-        const allCourses = db.exec(`SELECT COUNT(*) FROM courses WHERE COURSE_TITLE LIKE "%${searchQuery}%"`)
-        const totalItems = allCourses[0].values[0][0]
+
+        // Count total items
+        const countQuery = `SELECT COUNT(*) FROM courses WHERE ${whereClause}`;
+        const allCourses = db.exec(countQuery);
+        const totalItems = allCourses[0].values[0][0];
+
         res.json({
             data: result[0].values,
             totalItems
