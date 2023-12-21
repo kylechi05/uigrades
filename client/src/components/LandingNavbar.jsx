@@ -28,12 +28,12 @@ const LandingNavbar = () => {
             About
           </Link>
           <Link
-            to="/changeLog"
+            to="/changelog"
             className={`text-zinc-400 ${
               isDarkMode ? "hover:text-zinc-200" : "hover:text-black"
             } transition duration-200 ease-in-out`}
           >
-            ChangeLog
+            Changelog
           </Link>
         </ul>
         <div className="flex justify-end items-center gap-8 mr-5 w-1/2">
