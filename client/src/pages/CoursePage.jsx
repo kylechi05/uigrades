@@ -9,6 +9,7 @@ import {faUser, faShareNodes } from '@fortawesome/free-solid-svg-icons';
 import Loading from "../components/Loading.jsx"
 import MessagePopup from "../components/MessagePopup.jsx"
 import { useTheme } from '../context/ThemeContext.js';
+import config from '../config';
 
 import '../App.css';
 
@@ -21,7 +22,7 @@ const CoursePage = () => {
   const [shared, setShared] = useState(false);
   const id = Number(new URLSearchParams(window.location.search).get("id"));
 
-  const SERVER = "http://localhost:8080/api"; // idc about leaking this, this is all temp anyways
+  const SERVER = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
 
   const { isDarkMode, toggleTheme } = useTheme();
 
@@ -70,7 +71,6 @@ const CoursePage = () => {
   }, [window.location.search]);
 
   const handleGraphClick = (typeGraph) => {
-
     if (typeGraph === "bar") {
       setTypeGraph("bar");
     } else if (typeGraph === "pie") {
@@ -83,8 +83,8 @@ const CoursePage = () => {
     const res = await fetch(`${SERVER}/similar-courses/${id}`);
     const data = await res.json();
     setSimilarCourses(data);
-    setIsLoading(false)
-  }
+    setIsLoading(false);
+  };
 
   async function handleRowClick(similarCourseId) {
     navigate(`/course?id=${similarCourseId}`);
@@ -223,7 +223,9 @@ const CoursePage = () => {
                     icon={faUser}
                     className="text-yellow-400 text-xl"
                   />{" "}
-                  <span className="text-xl">{getTotalForSimilarCourse(similarCourse)}</span>
+                  <span className="text-xl">
+                    {getTotalForSimilarCourse(similarCourse)}
+                  </span>
                 </div>
               </div>
             ))}

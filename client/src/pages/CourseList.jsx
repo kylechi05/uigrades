@@ -7,6 +7,7 @@ import CourseListNavbar from "../components/CourseListNavbar.jsx";
 import Loading from "../components/Loading.jsx";
 import Footer from "../components/Footer.jsx";
 import { useTheme } from "../context/ThemeContext.js";
+import config from "../config";
 
 import "../App.css";
 
@@ -18,7 +19,7 @@ const CourseList = () => {
   const [currSearchQuery, setCurrSearchQuery] = useState("");
 
   const pageSize = 9;
-  const SERVER = "http://localhost:8080/api"; // idc about leaking this, this is all temp anyways
+  const SERVER = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
 
   const { isDarkMode, toggleTheme } = useTheme();
 
