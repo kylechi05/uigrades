@@ -6,7 +6,7 @@ import changelogs from "../changelogs/changelogs.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
-function Changelog() {
+function ChangeLog() {
   const { isDarkMode, toggleTheme } = useTheme();
   const [logs, setLogs] = useState(changelogs);
 
@@ -149,4 +149,4 @@ function Changelog() {
   );
 }
 
-export default Changelog;
+export default ChangeLog;
