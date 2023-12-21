@@ -67,10 +67,10 @@ const CourseListNavbar = () => {
           About
         </Link>
         <Link
-          to="/updates"
+          to="/changelog"
           className="text-gray-500 hover:text-black transition duration-200 ease-in-out text-center"
         >
-          Updates
+          Changelog
         </Link>
         <div
           className="flex justify-center items-center text-xl w-5 cursor-pointer text-zinc-700 hover:text-zinc-800 tranisiton duration-200"
@@ -115,7 +115,7 @@ const CourseListNavbar = () => {
           About
         </Link>
         <Link
-          to="/updates"
+          to="/changelog"
           className={`${
             isDarkMode ? "hover:text-zinc-200" : ""
           } text-gray-500 hover:text-black transition duration-200 ease-in-out w-full h-full text-center p-3 border-b-2 ${
@@ -124,7 +124,7 @@ const CourseListNavbar = () => {
               : "hover:border-zinc-400"
           } `}
         >
-          Updates
+          Changelog
         </Link>
         <div
           className="flex justify-center items-center text-xl w-full h-full text-center p-3 border-zinc-600 hover:border-zinc-400 cursor-pointer"

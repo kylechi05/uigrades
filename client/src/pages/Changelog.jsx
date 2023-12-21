@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { useTheme } from "../context/ThemeContext.js";
 
-function Updates() {
+function Changelog() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -14,7 +14,7 @@ function Updates() {
   const { isDarkMode, toggleTheme } = useTheme();
 
   useEffect(() => {
-    document.title = "UIGrades | Updates";
+    document.title = "UIGrades | Changelog";
   }, []);
 
   return (
@@ -26,12 +26,20 @@ function Updates() {
         style={{ zIndex: -1 }}
       ></div>
       <Navbar />
-      <div className={`w-full flex justify-center items-center flex-col gap-5`}>
-        <h1>Hello</h1>
+      <div className={`w-full flex justify-start h-screen mt-20 items-center flex-col gap-5`}>
+        <div
+          className={`flex justify-center items-center flex-col ${
+            isDarkMode ? "text-zinc-200" : "text-zinc-700"
+          }`}
+        >
+          <h1 className="font-bold text-3xl md:text-5xl">
+            Changelog
+          </h1>
+        </div>
       </div>
       <Footer />
     </div>
   );
 }
 
-export default Updates;
+export default Changelog;
