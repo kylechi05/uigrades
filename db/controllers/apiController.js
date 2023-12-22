@@ -7,7 +7,7 @@ let db;
 
 initSqlJs().then(async SQL => {
     db = new SQL.Database();
-    const sqlFilePath = process.env.SQL_FILE_PATH || './courses.sql';
+    const sqlFilePath = process.env.SQL_FILE_PATH || path.join(__dirname, '../', 'courses.sql');
     const initScript = await fs.promises.readFile(sqlFilePath);
     db.run(initScript.toString());
 
