@@ -15,11 +15,14 @@ import '../App.css';
 
 const CoursePage = () => {
   const [course, setCourse] = useState({});
+  const [courseGrades, setCourseGrades] = useState([])
+  const [originalCourseGrades, setOriginalCourseGrades] = useState([]) // used to reset the courseGrades state
+  const [showingAggregatedGrades, setShowingAggregatedGrades] = useState(false) // used to determine if the courseGrades state is showing the aggregated grades or not
   const [classTotal, setClassTotal] = useState(0);
-  const [typeGraph, setTypeGraph] = useState("bar");
   const [similarCourses, setSimilarCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [shared, setShared] = useState(false);
+  const [aggregatedGrades, setAggregatedGrades] = useState([]);
   const id = Number(new URLSearchParams(window.location.search).get("id"));
 
   const SERVER = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
@@ -39,6 +42,9 @@ const CoursePage = () => {
 
     const res = await fetch(`${SERVER}/courses/${id}`);
     const fetchedCourse = await res.json();
+    const courseGrades = [fetchedCourse[4], fetchedCourse[5], fetchedCourse[6], fetchedCourse[7], fetchedCourse[8], fetchedCourse[9], fetchedCourse[10], fetchedCourse[11], fetchedCourse[12], fetchedCourse[13], fetchedCourse[14], fetchedCourse[15], fetchedCourse[16], fetchedCourse[17]]
+    setCourseGrades(courseGrades)
+    setOriginalCourseGrades(courseGrades)
     setCourse(fetchedCourse);
 
     let total = 0;
@@ -57,26 +63,20 @@ const CoursePage = () => {
   };
 
   useEffect(() => {
+    setShowingAggregatedGrades(false);
     getCourse();
   }, []);
 
   useEffect(() => {
     document.title = `UIGrades | ${course[1]}: ${course[18]} ${course[19]}`;
     getSimilarCourses();
+    getAggregatedCourseGrades();
   }, [course]);
 
   // handles back button click
   useEffect(() => {
     getCourse();
   }, [window.location.search]);
-
-  const handleGraphClick = (typeGraph) => {
-    if (typeGraph === "bar") {
-      setTypeGraph("bar");
-    } else if (typeGraph === "pie") {
-      setTypeGraph("pie");
-    }
-  };
 
   const getSimilarCourses = async () => {
     setIsLoading(true);
@@ -85,6 +85,22 @@ const CoursePage = () => {
     setSimilarCourses(data);
     setIsLoading(false);
   };
+
+  const getAggregatedCourseGrades = async () => {
+    const res = await fetch(`${SERVER}/aggregated-courses/${id}`);
+    const data = await res.json();
+    setAggregatedGrades(data.aggregatedGrades); // array of grades
+  }
+  
+  const toggleShowAggregatedGrades = () => {
+    if (showingAggregatedGrades) {
+      setCourseGrades(originalCourseGrades);
+      setShowingAggregatedGrades(false);
+    } else {
+      setCourseGrades(aggregatedGrades);
+      setShowingAggregatedGrades(true);
+    }
+  }
 
   async function handleRowClick(similarCourseId) {
     navigate(`/course?id=${similarCourseId}`);
@@ -134,57 +150,54 @@ const CoursePage = () => {
 
           {/* Graph container */}
           <div
-            className={`${
-              typeGraph === "bar"
-                ? "w-full px-2 md:w-3/5"
-                : "md:w-2/5 w-full px-2"
-            } ${
+            className={`${"w-full px-2 md:w-3/5"} ${
               isDarkMode ? "text-stone-50" : ""
             } my-10 flex flex-col justify-center items-center`}
           >
-            <div
-              className="flex gap-4 justify-center items-center"
-              id="btn-group"
+            <p
+              className={`${
+                isDarkMode ? "text-zinc-400" : "text-zinc-600"
+              } flex justify-center items-center`}
             >
-              <button
-                className={`bg-black transition duration-200 rounded-md p-2 ${
-                  typeGraph === "bar"
-                    ? "bg-yellow-400 text-black"
-                    : "text-white hover:bg-zinc-700"
-                }`}
-                onClick={handleGraphClick.bind(this, "bar")}
+              {!showingAggregatedGrades ? `${course[1]} ${course[18]} ${course[19]}` : `All ${course[1] && course[1].split(":")[0]}:${course[1] && course[1].split(":")[1]} ${course[18]} ${course[19]} Sections`} Grades
+            </p> 
+            <BarGraph course={courseGrades} />
+            <div className="flex justify-center items-center gap-2 m-5">
+              {aggregatedGrades && (
+                <p
+                  onClick={() => toggleShowAggregatedGrades()}
+                  className={`${
+                    isDarkMode
+                      ? "text-zinc-400 hover:text-zinc-300"
+                      : "text-zinc-600 hover:text-zinc-500"
+                  } flex justify-center items-center transition duration-200 cursor-pointer`}
+                >
+                  Show{" "}
+                  {showingAggregatedGrades
+                    ? course[1] +
+                      " " +
+                      course[18] +
+                      " " +
+                      course[19]
+                    : `All ${course[18] && course[18] + ' ' + course[19]} Sections`}{" "}
+                  Distribution
+                </p>
+              )}
+              <div
+                onClick={() => {
+                  setShared(true);
+                  var currentURL = window.location.href;
+                  navigator.clipboard.writeText(currentURL);
+                  setTimeout(() => {
+                    setShared(false);
+                  }, 2000);
+                }}
+                className="flex gap-2 justify-center items-center transition duration-200 cursor-pointer text-yellow-400 hover:text-yellow-500"
               >
-                Bar Graph
-              </button>
-              <button
-                className={`bg-black transition duration-200 rounded-md p-2 ${
-                  typeGraph === "pie"
-                    ? "bg-yellow-400 text-black"
-                    : "text-white hover:bg-zinc-700"
-                }`}
-                onClick={handleGraphClick.bind(this, "pie")}
-              >
-                Pie Chart
-              </button>
-              <div className="flex justify-center items-center transition duration-200 cursor-pointer text-yellow-400 hover:text-yellow-500">
-                <FontAwesomeIcon
-                  icon={faShareNodes}
-                  onClick={() => {
-                    setShared(true);
-                    var currentURL = window.location.href;
-                    navigator.clipboard.writeText(currentURL);
-                    setTimeout(() => {
-                      setShared(false);
-                    }, 2000);
-                  }}
-                />
+                Share
+                <FontAwesomeIcon icon={faShareNodes} />
               </div>
             </div>
-            {typeGraph === "bar" ? (
-              <BarGraph course={course} />
-            ) : (
-              <PieGraph course={course} />
-            )}
           </div>
         </div>
         <div className="justify-center flex flex-col items-center gap-5 w-full">

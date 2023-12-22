@@ -43,6 +43,10 @@ const BarGraph = ({course}) => {
         {
           label: ` Hawkeyes`,
           data: [
+            course[0],
+            course[1],
+            course[2],
+            course[3],
             course[4],
             course[5],
             course[6],
@@ -53,10 +57,6 @@ const BarGraph = ({course}) => {
             course[11],
             course[12],
             course[13],
-            course[14],
-            course[15],
-            course[16],
-            course[17],
           ],
           backgroundColor: [
             "rgba(255, 83, 83, 0.5)",

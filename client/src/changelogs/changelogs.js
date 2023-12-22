@@ -26,7 +26,7 @@ const changelogs = [
     type: ['Update', 'Release'],
     date: 'December 2023',
     features: ['Updates / changelogs page', 'Fullstack application'],
-    description: "Added updates / changelogs page to the application. Hosting backend on https://render.com/, only using free tier but we'll see how it goes.",
+    description: "Added updates / changelogs page to the application. Hosting backend on https://render.com , only using free tier but we'll see how it goes.",
     author: 'LZ',
     showDescription: false
   },

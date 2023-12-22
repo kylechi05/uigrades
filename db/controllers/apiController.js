@@ -20,6 +20,7 @@ initSqlJs().then(async SQL => {
         const csvFiles = files.filter(file => file.endsWith('.csv'));
 
         csvFiles.forEach(file => {
+            let courseSemesterYearToGrades = {}; // hashmap of course + semester + year to array of grades
             const promise = new Promise((resolve, reject) => {
                 fs.createReadStream(`./data/${file}`)
                     .pipe(csv())
@@ -68,7 +69,7 @@ initSqlJs().then(async SQL => {
             promises.push(promise); // Store each promise in the array
         });
 
-        // Wait for all promises to resolve before executing SQL statements
+        // After all promises are resolved, insert the grades into the database
         Promise.all(promises)
             .then(() => {
                 insertStatements.forEach(statement => {
@@ -186,4 +187,42 @@ const getSimilarCourses = (req, res) => {
     }
 }
 
-module.exports = {getAllCourses, getCourse, getSimilarCourses}
+const getAggregatedCourses = (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = db.exec(`SELECT * FROM courses WHERE id = ${id}`);
+        const course = result[0].values[0];
+        const courseSubjectSection = course[1].split(":")[0]+':'+course[1].split(":")[1]
+        const aggregatedCourses = db.exec(`SELECT * FROM courses WHERE SUBJECT_COURSE_SECTION LIKE "%${courseSubjectSection}%" AND SEMESTER = "${course[18]}" AND YEAR = "${course[19]}"`); // get a list of all courses with the same subject and section and semester and year
+        if (aggregatedCourses[0].values.length <= 1) {
+            res.json([]);
+            return;
+        }
+        // iterate through aggregated Courses and create an array that holds the total number of each grade
+        const aggregatedGrades = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        aggregatedCourses[0].values.forEach(course => {
+            aggregatedGrades[0] += Number(course[4]);
+            aggregatedGrades[1] += Number(course[5]);
+            aggregatedGrades[2] += Number(course[6]);
+            aggregatedGrades[3] += Number(course[7]);
+            aggregatedGrades[4] += Number(course[8]);
+            aggregatedGrades[5] += Number(course[9]);
+            aggregatedGrades[6] += Number(course[10]);
+            aggregatedGrades[7] += Number(course[11]);
+            aggregatedGrades[8] += Number(course[12]);
+            aggregatedGrades[9] += Number(course[13]);
+            aggregatedGrades[10] += Number(course[14]);
+            aggregatedGrades[11] += Number(course[15]);
+            aggregatedGrades[12] += Number(course[16]);
+            aggregatedGrades[13] += Number(course[17]);
+        });
+        res.json({
+            aggregatedGrades,
+        });
+    } catch (error) {
+        console.error("Error fetching aggregated courses", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
+module.exports = {getAllCourses, getCourse, getSimilarCourses, getAggregatedCourses}
