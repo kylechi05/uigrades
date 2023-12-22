@@ -23,10 +23,10 @@ const changelogs = [
   // },
   {
     version: '3.1.0',
-    type: ['Update', 'Improvement'],
+    type: ['Update', 'Improvement', 'Bug Fix'],
     date: 'January 2024',
-    features: ['Fall 2023 courses added!'],
-    description: "Added Fall 2023 courses to the database.",
+    features: ['Show all section grades', 'Removed Pie Graph (Unnecessary)', 'Fixed share link pop up message'],
+    description: "Added a feature to show all section grades for a course. Removed the pie graph since it was unnecessary. With this, I've moved the share button to the bottom as well as a new button that allows the user to toggle between section and course viewer. Fixed the share link pop up message that was originally sticking to the top.",
     author: 'LZ',
     showDescription: false
   },

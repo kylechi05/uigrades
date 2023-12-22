@@ -30,7 +30,7 @@ const CourseListItem = ({course, navigate}) => {
             {course[18]} {course[19]}
           </p>
         </div>
-        <p>
+        <p className="items-center flex pl-2 gap-1">
           <FontAwesomeIcon icon={faUser} className="text-yellow-400 text-xl" />{" "}
           <span className="text-xl">{classTotal}</span>
         </p>
