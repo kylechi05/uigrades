@@ -33,7 +33,7 @@ const SearchBar = ({ handleSearch, setSearchQuery, setCurrentPage }) => {
     } else {
       setSearchValue("");
     }
-  }, [window.location.search]);
+  }, []);
 
   return (
     <div
