@@ -64,13 +64,17 @@ const Navbar = () => {
         >
           About
         </Link>
+        <Link
+          to="/changelog"
+          className="text-gray-500 hover:text-black transition duration-200 ease-in-out"
+        >
+          Changelog
+        </Link>
         <div
           className="flex justify-center items-center text-xl w-5 cursor-pointer text-zinc-700 hover:text-zinc-800 tranisiton duration-200"
           onClick={toggleTheme}
         >
-          <FontAwesomeIcon
-            icon={isDarkMode ? faSun : faMoon}
-          />
+          <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
         </div>
       </ul>
 
@@ -78,13 +82,21 @@ const Navbar = () => {
       <ul
         className={`md:hidden ${
           showMenu ? "block" : "hidden"
-        } items-center z-50 flex flex-col justify-center absolute top-[50%] right-0 mr-5 mt-5 border-2 ${isDarkMode ? 'bg-zinc-800 border-zinc-400' : 'bg-stone-100 border-zinc-300'} rounded-md w-40`}
+        } items-center z-50 flex flex-col justify-center absolute top-[50%] right-0 mr-5 mt-5 border-2 ${
+          isDarkMode
+            ? "bg-zinc-800 border-zinc-400"
+            : "bg-stone-100 border-zinc-300"
+        } rounded-md w-40`}
       >
         <Link
           to="/contact"
           className={`${
             isDarkMode ? "hover:text-zinc-200" : ""
-          } text-gray-500 hover:text-black transition duration-200 ease-in-out w-full h-full text-center p-3 border-b-2 ${isDarkMode ? 'border-zinc-400 hover:border-zinc-300' :'hover:border-zinc-400'} `}
+          } text-gray-500 hover:text-black transition duration-200 ease-in-out w-full h-full text-center p-3 border-b-2 ${
+            isDarkMode
+              ? "border-zinc-400 hover:border-zinc-300"
+              : "hover:border-zinc-400"
+          } `}
         >
           Contact
         </Link>
@@ -92,15 +104,31 @@ const Navbar = () => {
           to="/about"
           className={`${
             isDarkMode ? "hover:text-zinc-200" : ""
-          } text-gray-500 hover:text-black transition duration-200 ease-in-out w-full h-full text-center p-3 border-b-2 ${isDarkMode ? 'border-zinc-400 hover:border-zinc-300' :'hover:border-zinc-400'} `}
+          } text-gray-500 hover:text-black transition duration-200 ease-in-out w-full h-full text-center p-3 border-b-2 ${
+            isDarkMode
+              ? "border-zinc-400 hover:border-zinc-300"
+              : "hover:border-zinc-400"
+          } `}
         >
           About
         </Link>
-        <div className="flex justify-center items-center text-xl w-full h-full text-center p-3 border-zinc-600 hover:border-zinc-400">
-          <div
-            className="cursor-pointer flex justify-center items-center"
-            onClick={toggleTheme}
-          >
+        <Link
+          to="/changelog"
+          className={`${
+            isDarkMode ? "hover:text-zinc-200" : ""
+          } text-gray-500 hover:text-black transition duration-200 ease-in-out w-full h-full text-center p-3 border-b-2 ${
+            isDarkMode
+              ? "border-zinc-400 hover:border-zinc-300"
+              : "hover:border-zinc-400"
+          } `}
+        >
+          Changelog
+        </Link>
+        <div
+          className="flex justify-center items-center text-xl w-full h-full text-center p-3 border-zinc-600 hover:border-zinc-400 cursor-pointer"
+          onClick={toggleTheme}
+        >
+          <div className="cursor-pointer flex justify-center items-center">
             <FontAwesomeIcon
               className={`${
                 isDarkMode

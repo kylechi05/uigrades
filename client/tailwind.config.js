@@ -12,6 +12,9 @@ module.exports = {
         'graph': "url('/src/static/images/graph.svg')",
         'landing-dark': "url('/src/static/images/landing-dark.svg')",
         'graph-dark': "url('/src/static/images/graph-dark.svg')",
+      },
+      colors: {
+        'darkTheme': 'rgb(38,39,42)'
       }
     },
   },

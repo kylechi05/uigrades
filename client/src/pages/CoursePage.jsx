@@ -1,76 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import BarGraph from '../components/BarGraph.jsx';
 import PieGraph from '../components/PieGraph.jsx';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
-import { csvFiles } from "../data/CSVFiles.js"
 import Footer from '../components/Footer.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser, faShareNodes } from '@fortawesome/free-solid-svg-icons';
-import Papa from 'papaparse';
 import Loading from "../components/Loading.jsx"
 import MessagePopup from "../components/MessagePopup.jsx"
 import { useTheme } from '../context/ThemeContext.js';
+import config from '../config';
 
 import '../App.css';
 
 const CoursePage = () => {
   const [course, setCourse] = useState({});
+  const [courseGrades, setCourseGrades] = useState([])
+  const [originalCourseGrades, setOriginalCourseGrades] = useState([]) // used to reset the courseGrades state
+  const [showingAggregatedGrades, setShowingAggregatedGrades] = useState(false) // used to determine if the courseGrades state is showing the aggregated grades or not
   const [classTotal, setClassTotal] = useState(0);
-  const [typeGraph, setTypeGraph] = useState('bar');
-  // const id = window.location.search.split('=')[2];
-  const [data, setData] = useState([]);
+  const [similarCourses, setSimilarCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [shared, setShared] = useState(false);
-  // const [totalCourses, setTotalCourses] = useState([]);
+  const [aggregatedGrades, setAggregatedGrades] = useState([]);
+  const id = Number(new URLSearchParams(window.location.search).get("id"));
+
+  const SERVER = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
 
   const { isDarkMode, toggleTheme } = useTheme();
 
   const navigate = useNavigate();
 
   const getCourse = async () => {
-    // const fetchedCourse = await db.courses.get(parseInt(id));
+    if (isNaN(id)) {
+      console.log("Invalid 'id' value");
+      return;
+    }
 
-    /**
-     * temporary solution to allow url to be shared
-     * get the course from the url and linearly search for it in the csv files
-     */
-
-    const url = window.location.search;
-    const params = new URLSearchParams(url);
-    const section = params.get("result");
-    const semester = params.get("semester");
-    const year = params.get("year");
-
-    let fetchedCourse = {};
     //set the loading state to true
     setIsLoading(true);
 
-    for (const file of csvFiles) {
-      const response = await fetch(file);
-      const text = await response.text();
-      const result = await parseCSV(text);
-      // iterate each row in result.data and add a course : section to the csv data
-      // this is used to filter by semester and year later
-      for (const row of result.data) {
-        // find the row that matches the section, semester, and year
-        if (row['SUBJECT_COURSE_SECTION'] === section && row['SEMESTER'] === semester && row['YEAR'] === year) {
-          fetchedCourse = row;
-        }
-      }
+    const res = await fetch(`${SERVER}/courses/${id}`);
+    const fetchedCourse = await res.json();
+    const courseGrades = [fetchedCourse[4], fetchedCourse[5], fetchedCourse[6], fetchedCourse[7], fetchedCourse[8], fetchedCourse[9], fetchedCourse[10], fetchedCourse[11], fetchedCourse[12], fetchedCourse[13], fetchedCourse[14], fetchedCourse[15], fetchedCourse[16], fetchedCourse[17]]
+    setCourseGrades(courseGrades)
+    setOriginalCourseGrades(courseGrades)
+    setCourse(fetchedCourse);
+
+    let total = 0;
+    for (let i = 4; i < 18; i++) {
+      total += parseFloat(fetchedCourse[i]);
     }
 
-    // if the course is not found, redirect to the PageNotFound page
-    if (!fetchedCourse) {
-      navigate("/404");
-      return;
-    }
-    setCourse(fetchedCourse);
-    let allLetterGrades = ["A_PLUS", "A", "A_MINUS", "B_PLUS", "B", "B_MINUS", "C_PLUS", "C", "C_MINUS", "D_PLUS", "D", "D_MINUS", "F", "WITHDRAWN"];
-    let total = 0;
-    for (let i = 0; i < allLetterGrades.length; i++) {
-      total += (parseFloat(fetchedCourse[allLetterGrades[i]]));
-    }
     setClassTotal(total);
     const topOfPagePlaceholder = document.getElementById(
       "top-of-page-placeholder"
@@ -78,122 +59,70 @@ const CoursePage = () => {
 
     if (topOfPagePlaceholder) {
       topOfPagePlaceholder.scrollIntoView({ behavior: "smooth" });
-    } 
+    }
   };
 
   useEffect(() => {
+    setShowingAggregatedGrades(false);
     getCourse();
   }, []);
 
   useEffect(() => {
-    document.title = `UIGrades | ${course['SUBJECT_COURSE_SECTION']}: ${course['SEMESTER']} ${course['YEAR']}`;
+    document.title = `UIGrades | ${course[1]}: ${course[18]} ${course[19]}`;
     getSimilarCourses();
+    getAggregatedCourseGrades();
   }, [course]);
 
   // handles back button click
   useEffect(() => {
-    getCourse()
+    getCourse();
   }, [window.location.search]);
 
-  let allCourses = [];
-  const handleGraphClick = (typeGraph) => {
-    allCourses.push(course);
-    data.map((similarCourse) => {
-        allCourses.push(similarCourse);
-      });
-      // setTotalCourses(allCourses);
-
-    if (typeGraph === 'bar') {
-      setTypeGraph('bar');
-    } else if (typeGraph === 'pie') {
-      setTypeGraph('pie');
-    }
-  };
-
   const getSimilarCourses = async () => {
-    const parsedData = []; 
-    //set the loading state to true
     setIsLoading(true);
-
-    for (const file of csvFiles) {
-      const response = await fetch(file);
-      const text = await response.text();
-      const result = await parseCSV(text);
-      // iterate each row in result.data and add a course : section to the csv data
-      // this is used to filter by semester and year later
-      if (course && course['SUBJECT_COURSE_SECTION']) {
-        const courseSubject = course['SUBJECT_COURSE_SECTION'].slice(0, -5);
-        const courseSection = course['SUBJECT_COURSE_SECTION'].slice(-4);
-        for (const row of result.data) {
-          let potentialCourse = row['SUBJECT_COURSE_SECTION'].slice(0, -5);
-          let potentialSubject = row['SUBJECT_COURSE_SECTION'].slice(-4);
-          if (potentialCourse === courseSubject) {
-            if (
-              (row["SEMESTER"] != course["SEMESTER"] &&
-                row["YEAR"] != course["YEAR"]) ||
-              potentialSubject != courseSection
-            ) {
-              parsedData.push(row);
-            }
-          }
-        }
-      }
-    }
-    setData(parsedData);
-    //set the loading state to false
+    const res = await fetch(`${SERVER}/similar-courses/${id}`);
+    const data = await res.json();
+    setSimilarCourses(data);
     setIsLoading(false);
   };
 
-  async function handleRowClick(similarCourse) {
-    let id;
-  const modifiedRow = {
-    ...similarCourse,
-    Aplus: similarCourse['A_PLUS'],
-    Aminus: similarCourse['A_MINUS'],
-    Bplus: similarCourse['B_PLUS'],
-    Bminus: similarCourse['B_MINUS'],
-    Cplus: similarCourse['C_PLUS'],
-    Cminus: similarCourse['C_MINUS'],
-    Dplus: similarCourse['D_PLUS'],
-    Dminus: similarCourse['D_MINUS'],
-    };   
+  const getAggregatedCourseGrades = async () => {
+    const res = await fetch(`${SERVER}/aggregated-courses/${id}`);
+    const data = await res.json();
+    setAggregatedGrades(data.aggregatedGrades); // array of grades
+  }
+  
+  const toggleShowAggregatedGrades = () => {
+    if (showingAggregatedGrades) {
+      setCourseGrades(originalCourseGrades);
+      setShowingAggregatedGrades(false);
+    } else {
+      setCourseGrades(aggregatedGrades);
+      setShowingAggregatedGrades(true);
+    }
+  }
 
-    // =======> This has been scrapped for now <=======
-     // add the course to the database if it doesn't exist 
-    // const courseExists = await db.courses.get({ SUBJECT_COURSE_SECTION: modifiedRow['SUBJECT_COURSE_SECTION'], YEAR: modifiedRow['YEAR'], SEMESETER: modifiedRow['SEMESTER'] });
-    // if (!courseExists) {
-    //   id = await db.courses.add(modifiedRow);
-    // }
-    // navigate(`/search/selected?result=${modifiedRow['SUBJECT_COURSE_SECTION']}&id=${id}`);
-    navigate(
-      `/search/selected?result=${modifiedRow["SUBJECT_COURSE_SECTION"]}&semester=${modifiedRow["SEMESTER"]}&year=${modifiedRow["YEAR"]}`
-    );
+  async function handleRowClick(similarCourseId) {
+    navigate(`/course?id=${similarCourseId}`);
     getCourse();
-    // window.location.reload()
-    // setCourse(modifiedRow);
-  };
+  }
 
-  // help function to parse the csv text
-  const parseCSV = (text) => {
-    return new Promise((resolve, reject) => {
-      Papa.parse(text, {
-        header: true,
-        skipEmptyLines: true,
-        complete: resolve,
-        error: reject,
-      });
-    });
+  // index 4 - 17 contain all grades, we can sum these up to get the total number of students
+  const getTotalForSimilarCourse = (similarCourse) => {
+    return similarCourse
+      .slice(4, 18)
+      .reduce((acc, val) => acc + parseInt(val), 0);
   };
 
   return (
-    <div className="w-full flex justify-center items-center flex-col relative min-h-screen">
+    <div className="w-full flex justify-center items-center flex-col relative">
+      {shared && <MessagePopup message="Link copied to clipboard!"/>}
       <div
         className={`absolute top-0 left-0 w-full h-full ${
           isDarkMode ? "bg-graph-dark" : "bg-graph"
         } bg-cover bg-center lg:bg-fixed`}
         style={{ zIndex: -1 }}
       ></div>
-      {shared && <MessagePopup message="Link copied to clipboard!" />}
       <Navbar />
       <div id="top-of-page-placeholder"></div>
       <div className={`flex flex-col items-center my-20 w-full`}>
@@ -203,16 +132,14 @@ const CoursePage = () => {
               isDarkMode ? "text-zinc-400" : "text-zinc-700"
             }`}
           >
-            <h1 className={`font-bold text-4xl md:text-6xl`}>
-              {course["SUBJECT_COURSE_SECTION"]}{" "}
-            </h1>
+            <h1 className={`font-bold text-4xl md:text-6xl`}>{course[1]} </h1>
             <h2 className="font-bold text-xl md:text-3xl text-center">
-              {course["COURSE_TITLE"]}{" "}
+              {course[2]}{" "}
             </h2>
             <div className="flex items-center justify-start gap-1 text-md md:text-xl">
-              <p className="gray">{course["PRIMARY_INSTRUCTOR_NAME"]}</p> -
+              <p className="gray">{course[3]}</p> -
               <i>
-                {course["SEMESTER"]} {course["YEAR"]}
+                {course[18]} {course[19]}
               </i>
             </div>
             <p className="">
@@ -223,64 +150,60 @@ const CoursePage = () => {
 
           {/* Graph container */}
           <div
-            className={`${
-              typeGraph === "bar"
-                ? "w-full px-2 md:w-3/5"
-                : "md:w-2/5 w-full px-2"
-            } ${
+            className={`${"w-full px-2 md:w-3/5"} ${
               isDarkMode ? "text-stone-50" : ""
             } my-10 flex flex-col justify-center items-center`}
           >
-            <div
-              className="flex gap-4 justify-center items-center"
-              id="btn-group"
+            <p
+              className={`${
+                isDarkMode ? "text-zinc-400" : "text-zinc-600"
+              } flex justify-center items-center text-lg font-bold`}
             >
-              <button
-                className={`bg-black transition duration-200 rounded-md p-2 ${
-                  typeGraph === "bar"
-                    ? "bg-yellow-400 text-black"
-                    : "text-white hover:bg-zinc-700"
-                }`}
-                onClick={handleGraphClick.bind(this, "bar")}
+              {!showingAggregatedGrades
+                ? `${course[1]} ${course[18]} ${course[19]}`
+                : `All ${course[1] && course[1].split(":")[0]}:${
+                    course[1] && course[1].split(":")[1]
+                  } ${course[18]} ${course[19]} Sections`}
+            </p>
+            <BarGraph course={courseGrades} />
+            <div className="flex justify-center items-center gap-2 m-5">
+              {aggregatedGrades && (
+                <p
+                  onClick={() => toggleShowAggregatedGrades()}
+                  className={`${
+                    isDarkMode
+                      ? "text-zinc-400 hover:text-zinc-300"
+                      : "text-zinc-600 hover:text-zinc-500"
+                  } flex justify-center items-center transition duration-200 cursor-pointer`}
+                >
+                  Show{" "}
+                  {showingAggregatedGrades
+                    ? course[1] + " " + course[18] + " " + course[19]
+                    : `All ${
+                        course[18] && course[18] + " " + course[19]
+                      } Sections`}{" "}
+                </p>
+              )}
+              <div
+                onClick={() => {
+                  setShared(true);
+                  var currentURL = window.location.href;
+                  navigator.clipboard.writeText(currentURL);
+                  setTimeout(() => {
+                    setShared(false);
+                  }, 2000);
+                }}
+                className="flex gap-2 justify-center items-center transition duration-200 cursor-pointer text-yellow-400 hover:text-yellow-500"
               >
-                Bar Graph
-              </button>
-              <button
-                className={`bg-black transition duration-200 rounded-md p-2 ${
-                  typeGraph === "pie"
-                    ? "bg-yellow-400 text-black"
-                    : "text-white hover:bg-zinc-700"
-                }`}
-                onClick={handleGraphClick.bind(this, "pie")}
-              >
-                Pie Chart
-              </button>
-              <div className="flex justify-center items-center transition duration-200 cursor-pointer text-yellow-400 hover:text-yellow-500">
-                <FontAwesomeIcon
-                  icon={faShareNodes}
-                  onClick={() => {
-                    setShared(true);
-                    var currentURL = window.location.href;
-                    navigator.clipboard.writeText(
-                      currentURL
-                    );
-                    setTimeout(() => {
-                      setShared(false);
-                    }, 2000);
-                  }}
-                />
+                Share
+                <FontAwesomeIcon icon={faShareNodes} />
               </div>
             </div>
-            {typeGraph === "bar" ? (
-              <BarGraph course={course} />
-            ) : (
-              <PieGraph course={course} />
-            )}
           </div>
         </div>
         <div className="justify-center flex flex-col items-center gap-5 w-full">
           {isLoading && <Loading />}
-          {data.length !== 0 && (
+          {similarCourses.length !== 0 && (
             <h2
               className={`font-bold text-2xl w-full pl-5 ${
                 isDarkMode ? "text-zinc-500" : ""
@@ -290,27 +213,34 @@ const CoursePage = () => {
             </h2>
           )}
           <div className="gap-5 flex justify-start items-center overflow-scroll scrollbar w-full h-full px-5">
-            {data.map((similarCourse, index) => (
+            {similarCourses.map((similarCourse, index) => (
               <div
                 onClick={() => {
-                  handleRowClick(similarCourse);
+                  handleRowClick(similarCourse[0]);
                 }}
                 key={index}
                 className={`${
                   isDarkMode
                     ? "bg-zinc-600 hover:bg-zinc-500 text-stone-50"
                     : "hover:bg-white bg-stone-50"
-                } rounded-xl my-5 cursor-pointer hover:bg-white transition duration-300 min-w-[50%] md:min-w-[33%] lg:min-w-[33%] p-5 shadow-lg`}
+                } rounded-xl my-5 cursor-pointer hover:bg-white transition duration-300 min-w-[50%] md:min-w-[33%] lg:min-w-[33%] p-5 shadow-lg flex justify-between items-center`}
               >
-                <h3 className="font-bold">
-                  {similarCourse["SUBJECT_COURSE_SECTION"]}
-                </h3>
-                <p className="description">
-                  {similarCourse["PRIMARY_INSTRUCTOR_NAME"]}
-                </p>
-                <p className="description">
-                  {similarCourse["SEMESTER"]} {similarCourse["YEAR"]}
-                </p>
+                <div>
+                  <h3 className="font-bold">{similarCourse[1]}</h3>
+                  <p className="description">{similarCourse[3]}</p>
+                  <p className="description">
+                    {similarCourse[18]} {similarCourse[19]}
+                  </p>
+                </div>
+                <div>
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    className="text-yellow-400 text-xl"
+                  />{" "}
+                  <span className="text-xl">
+                    {getTotalForSimilarCourse(similarCourse)}
+                  </span>
+                </div>
               </div>
             ))}
           </div>

@@ -17,10 +17,6 @@ const CourseListNavbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const { isDarkMode, toggleTheme } = useTheme();
 
-  const goBack = () => {
-    window.history.back();
-  };
-
   return (
     <div className="flex justify-between items-center w-full p-4 h-14 absolute top-0 left-0">
       <div className="flex justify-start items-center md:w-1/3 ml-5">
@@ -70,6 +66,12 @@ const CourseListNavbar = () => {
         >
           About
         </Link>
+        <Link
+          to="/changelog"
+          className="text-gray-500 hover:text-black transition duration-200 ease-in-out text-center"
+        >
+          Changelog
+        </Link>
         <div
           className="flex justify-center items-center text-xl w-5 cursor-pointer text-zinc-700 hover:text-zinc-800 tranisiton duration-200"
           onClick={toggleTheme}
@@ -112,9 +114,23 @@ const CourseListNavbar = () => {
         >
           About
         </Link>
-        <div className="cursor-pointer flex justify-center items-center text-xl w-full h-full text-center p-3 border-zinc-600 hover:border-zinc-400" onClick={toggleTheme}>
-          <div
-            className="flex justify-center items-center">
+        <Link
+          to="/changelog"
+          className={`${
+            isDarkMode ? "hover:text-zinc-200" : ""
+          } text-gray-500 hover:text-black transition duration-200 ease-in-out w-full h-full text-center p-3 border-b-2 ${
+            isDarkMode
+              ? "border-zinc-400 hover:border-zinc-300"
+              : "hover:border-zinc-400"
+          } `}
+        >
+          Changelog
+        </Link>
+        <div
+          className="flex justify-center items-center text-xl w-full h-full text-center p-3 border-zinc-600 hover:border-zinc-400 cursor-pointer"
+          onClick={toggleTheme}
+        >
+          <div className="cursor-pointer flex justify-center items-center">
             <FontAwesomeIcon
               className={`${
                 isDarkMode
