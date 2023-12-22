@@ -1,4 +1,7 @@
 {
+    "scripts": {
+        "start": "node server.js"
+    },
   "dependencies": {
     "@vercel/analytics": "^1.1.1",
     "cors": "^2.8.5",
