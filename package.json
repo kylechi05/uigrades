@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "start": "node ./db/server.js"
+        "start": "node index.js"
     },
   "dependencies": {
     "@vercel/analytics": "^1.1.1",

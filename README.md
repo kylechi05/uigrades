@@ -23,8 +23,8 @@ Necessary Libraries:
 
 ## Updating
 
-When adding new data, go to [./db/data](./db/data/) and add the new `.csv` files.
-Then run `node app.js` when you're inside the `/db` directory.
+When adding new data, go to [/data](./data/) and add the new `.csv` files.
+Then run `node index.js`
 
 ## Running
 
@@ -39,7 +39,6 @@ npm start
 Then in a seperate terminal window (make sure you're in the `uigrades` directory not `client`):
 
 ```
-cd db
 npm install
 node index.js
 ```
