@@ -115,14 +115,14 @@ const CoursePage = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center flex-col relative min-h-screen">
+    <div className="w-full flex justify-center items-center flex-col relative">
+      {shared && <MessagePopup message="Link copied to clipboard!"/>}
       <div
         className={`absolute top-0 left-0 w-full h-full ${
           isDarkMode ? "bg-graph-dark" : "bg-graph"
         } bg-cover bg-center lg:bg-fixed`}
         style={{ zIndex: -1 }}
       ></div>
-      {shared && <MessagePopup message="Link copied to clipboard!" />}
       <Navbar />
       <div id="top-of-page-placeholder"></div>
       <div className={`flex flex-col items-center my-20 w-full`}>
@@ -159,8 +159,12 @@ const CoursePage = () => {
                 isDarkMode ? "text-zinc-400" : "text-zinc-600"
               } flex justify-center items-center text-lg font-bold`}
             >
-              {!showingAggregatedGrades ? `${course[1]} ${course[18]} ${course[19]}` : `All ${course[1] && course[1].split(":")[0]}:${course[1] && course[1].split(":")[1]} ${course[18]} ${course[19]} Sections`}
-            </p> 
+              {!showingAggregatedGrades
+                ? `${course[1]} ${course[18]} ${course[19]}`
+                : `All ${course[1] && course[1].split(":")[0]}:${
+                    course[1] && course[1].split(":")[1]
+                  } ${course[18]} ${course[19]} Sections`}
+            </p>
             <BarGraph course={courseGrades} />
             <div className="flex justify-center items-center gap-2 m-5">
               {aggregatedGrades && (
@@ -174,12 +178,10 @@ const CoursePage = () => {
                 >
                   Show{" "}
                   {showingAggregatedGrades
-                    ? course[1] +
-                      " " +
-                      course[18] +
-                      " " +
-                      course[19]
-                    : `All ${course[18] && course[18] + ' ' + course[19]} Sections`}{" "}
+                    ? course[1] + " " + course[18] + " " + course[19]
+                    : `All ${
+                        course[18] && course[18] + " " + course[19]
+                      } Sections`}{" "}
                 </p>
               )}
               <div

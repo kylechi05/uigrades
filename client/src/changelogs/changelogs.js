@@ -21,6 +21,15 @@ const changelogs = [
   //   author: 'LZ',
   //   showDescription: false
   // },
+  {
+    version: '3.1.0',
+    type: ['Update', 'Improvement'],
+    date: 'January 2024',
+    features: ['Fall 2023 courses added!'],
+    description: "Added Fall 2023 courses to the database.",
+    author: 'LZ',
+    showDescription: false
+  },
    {
     version: '3.0.1',
     type: ['Update', 'Release'],
