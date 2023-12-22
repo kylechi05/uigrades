@@ -8,7 +8,7 @@ Maintained by ACM @UIowa, developed by Liao Z. For code related  questions or co
 
 ## Development
 
-The frontend is built with ReactJS, the DB being used is [Sql.js](https://github.com/sql-js/sql.js).
+The frontend is built with ReactJS, utilizing a Node/Express server, and the DB being used is [Sql.js](https://github.com/sql-js/sql.js).
 Frontend hosting is done through [Vercel](https://vercel.com/), backend is done through [Render](https://render.com/) and analytics are handled via [Google Analytics](https://marketingplatform.google.com/about/analytics/).
 
 Necessary Libraries:
