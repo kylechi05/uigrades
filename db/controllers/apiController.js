@@ -14,7 +14,7 @@ initSqlJs().then(async SQL => {
     const insertStatements = [];
     const promises = [];
 
-    const dataFilePath = path.join(__dirname, '../', 'data');
+    const dataFilePath = process.env.DATA_FILE_PATH || path.join(__dirname, '../', 'data');
     fs.readdir(dataFilePath, (err, files) => {
         if (err) {
             console.error('Error reading directory:', err);
