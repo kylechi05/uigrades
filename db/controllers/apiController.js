@@ -1,17 +1,21 @@
 const initSqlJs = require('sql.js/dist/sql-wasm');
 const fs = require('fs');
 const csv = require('csv-parser');
+const path = require('path');
+
 let db;
 
 initSqlJs().then(async SQL => {
     db = new SQL.Database();
-    const initScript = await fs.promises.readFile('courses.sql');
+    const sqlFilePath = path.join(__dirname, '../', 'courses.sql');
+    const initScript = await fs.promises.readFile(sqlFilePath);
     db.run(initScript.toString());
 
     const insertStatements = [];
     const promises = [];
 
-    fs.readdir('./data', (err, files) => {
+    const dataFilePath = path.join(__dirname, '../', 'data');
+    fs.readdir(dataFilePath, (err, files) => {
         if (err) {
             console.error('Error reading directory:', err);
             return;
@@ -22,7 +26,7 @@ initSqlJs().then(async SQL => {
         csvFiles.forEach(file => {
             let courseSemesterYearToGrades = {}; // hashmap of course + semester + year to array of grades
             const promise = new Promise((resolve, reject) => {
-                fs.createReadStream(`./data/${file}`)
+                fs.createReadStream(`${dataFilePath}/${file}`)
                     .pipe(csv())
                     .on('data', row => {
                         const values = Object.values(row).map(value => {
