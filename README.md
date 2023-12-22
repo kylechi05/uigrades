@@ -24,7 +24,6 @@ Necessary Libraries:
 ## Updating
 
 When adding new data, go to [/data](./data/) and add the new `.csv` files.
-Then run `node index.js`
 
 ## Running
 
@@ -40,7 +39,7 @@ Then in a seperate terminal window (make sure you're in the `uigrades` directory
 
 ```
 npm install
-node index.js
+npm start
 ```
 
 Open up [http://localhost:3000](http://localhost:3000) to view it in the browser.
