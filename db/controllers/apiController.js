@@ -19,7 +19,7 @@ initSqlJs().then(async SQL => {
         if (err) {
             console.error('Error reading directory:', err);
             return;
-        }
+        } 
 
         const csvFiles = files.filter(file => file.endsWith('.csv'));
 
