@@ -13,6 +13,7 @@ import config from '../config';
 
 import '../App.css';
 
+export const dynamic = "force-dynamic";
 const CoursePage = () => {
   const [course, setCourse] = useState({});
   const [courseGrades, setCourseGrades] = useState([])
@@ -42,6 +43,7 @@ const CoursePage = () => {
 
     const res = await fetch(`${SERVER}/courses/${id}`);
     const fetchedCourse = await res.json();
+    console.log(fetchedCourse);
     const courseGrades = [fetchedCourse[4], fetchedCourse[5], fetchedCourse[6], fetchedCourse[7], fetchedCourse[8], fetchedCourse[9], fetchedCourse[10], fetchedCourse[11], fetchedCourse[12], fetchedCourse[13], fetchedCourse[14], fetchedCourse[15], fetchedCourse[16], fetchedCourse[17]]
     setCourseGrades(courseGrades)
     setOriginalCourseGrades(courseGrades)
@@ -105,7 +107,6 @@ const CoursePage = () => {
 
   async function handleRowClick(similarCourseId) {
     navigate(`/course?id=${similarCourseId}`);
-    await getCourse();
   }
 
   // index 4 - 17 contain all grades, we can sum these up to get the total number of students
