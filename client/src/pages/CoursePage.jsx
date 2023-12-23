@@ -105,7 +105,7 @@ const CoursePage = () => {
 
   async function handleRowClick(similarCourseId) {
     navigate(`/course?id=${similarCourseId}`);
-    getCourse();
+    await getCourse();
   }
 
   // index 4 - 17 contain all grades, we can sum these up to get the total number of students
