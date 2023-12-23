@@ -76,6 +76,7 @@ const CoursePage = () => {
   // handles back button click
   useEffect(() => {
     getCourse();
+    setShowingAggregatedGrades(false);
   }, [window.location.search]);
 
   const getSimilarCourses = async () => {

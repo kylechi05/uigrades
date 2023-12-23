@@ -22,6 +22,15 @@ const changelogs = [
   //   showDescription: false
   // },
   {
+    version: '3.1.1',
+    type: ['Bug Fix'],
+    date: 'December 2023',
+    features: ['Fixed All Sections viewer bug', 'Fixed similar courses not rendering after clicking'], 
+    description: "Similar courses wouldn't load even after clicking on it due to rerender not triggering. Fixed by simiply changing the useEffect dependency. Fixed all sections viewer by improving logic of rendering.",
+    author: 'LZ',
+    showDescription: false
+  },
+  {
     version: '3.1.0',
     type: ['Update', 'Release', 'Bug Fix'],
     date: 'December 2023',
