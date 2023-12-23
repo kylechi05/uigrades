@@ -224,7 +224,7 @@ const CoursePage = () => {
                   isDarkMode
                     ? "bg-zinc-600 hover:bg-zinc-500 text-stone-50"
                     : "hover:bg-white bg-stone-50"
-                } rounded-xl my-5 cursor-pointer hover:bg-white transition duration-300 min-w-[50%] md:min-w-[33%] lg:min-w-[33%] p-5 shadow-lg flex justify-between items-center`}
+                } rounded-xl my-5 cursor-pointer hover:bg-white transition duration-300 min-w-[60%] md:min-w-[33%] lg:min-w-[33%] p-5 shadow-lg flex justify-between items-center`}
               >
                 <div>
                   <h3 className="font-bold">{similarCourse[1]}</h3>
@@ -233,7 +233,7 @@ const CoursePage = () => {
                     {similarCourse[18]} {similarCourse[19]}
                   </p>
                 </div>
-                <div>
+                <div className='ml-5'>
                   <FontAwesomeIcon
                     icon={faUser}
                     className="text-yellow-400 text-xl"
