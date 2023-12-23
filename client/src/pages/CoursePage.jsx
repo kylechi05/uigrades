@@ -43,7 +43,6 @@ const CoursePage = () => {
 
     const res = await fetch(`${SERVER}/courses/${id}`);
     const fetchedCourse = await res.json();
-    console.log(fetchedCourse);
     const courseGrades = [fetchedCourse[4], fetchedCourse[5], fetchedCourse[6], fetchedCourse[7], fetchedCourse[8], fetchedCourse[9], fetchedCourse[10], fetchedCourse[11], fetchedCourse[12], fetchedCourse[13], fetchedCourse[14], fetchedCourse[15], fetchedCourse[16], fetchedCourse[17]]
     setCourseGrades(courseGrades)
     setOriginalCourseGrades(courseGrades)
