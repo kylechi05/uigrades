@@ -2,7 +2,7 @@
     This file contains the changelogs for the application.
     Each changelog object contains the following fields:
     version: the version number of the application (large update.medium update.small update ex. 1.0.0 -> 1.0.1)
-    type: the type of change (Release, Improvement, Update, Bug Fix)
+    type: the type of change (Feature, Improvement, Update, Bug Fix)
     date: the date of the change
     features: the features added or changed
     description: a description of the change
@@ -22,17 +22,17 @@ const changelogs = [
   //   showDescription: false
   // },
   {
-    version: '3.1.1',
-    type: ['Bug Fix'],
+    version: '3.2.1',
+    type: ['Improvements', 'Bug Fix'],
     date: 'December 2023',
-    features: ['Fixed All Sections viewer bug', 'Fixed similar courses not rendering after clicking'], 
-    description: "Similar courses wouldn't load even after clicking on it due to rerender not triggering. Fixed by simiply changing the useEffect dependency. Fixed all sections viewer by improving logic of rendering.",
+    features: ['Fixed All Sections viewer bug', 'Fixed similar courses not rendering after clicking', 'New Pagination', 'All sections will now aggregate entire page', 'Better separation of graph columns', 'Refactor About Page'], 
+    description: "Updated Pagination so users can now see the first and last pages as well as click on them. Viewing entire courses instead of sections will now change the actual page instead of just the graph. Columns in graphs have been revamped to display different grades more clearly. Refactored about page to include contributors from Github. Similar courses wouldn't load even after clicking on it due to rerender not triggering, fixed by simiply changing the useEffect dependency. Fixed all sections viewer by improving logic of rendering.",
     author: 'LZ',
     showDescription: false
   },
   {
     version: '3.1.0',
-    type: ['Update', 'Release', 'Bug Fix'],
+    type: ['Update', 'Feature', 'Bug Fix'],
     date: 'December 2023',
     features: ['Show all section grades', 'Removed Pie Graph (Unnecessary)', 'Fixed share link pop up message', 'Dark theme for pagination', 'Moved share button to bottom', 'Added toggle between section and course viewer'],
     description: "Added a feature to show all section grades for a course. Removed the pie graph since it was unnecessary. With this, I've moved the share button to the bottom as well as a new button that allows the user to toggle between section and course viewer. Fixed the share link pop up message that was originally sticking to the top.",
@@ -41,7 +41,7 @@ const changelogs = [
   },
    {
     version: '3.0.1',
-    type: ['Update', 'Release'],
+    type: ['Update', 'Feature'],
     date: 'December 2023',
     features: ['Updates / changelogs page', 'Fullstack application'],
     description: "Added updates / changelogs page to the application. Hosting backend on https://render.com , only using free tier but we'll see how it goes.",
@@ -86,10 +86,10 @@ const changelogs = [
   },
   {
     version: '1.0.0',
-    type: ['Release'],
+    type: ['Update'],
     date: 'October 2023',
     features: ['Host UIGrades on Vercel'],
-    description: 'Initial release of UIGrades found at https://uigrades.vercel.app/',
+    description: 'Initial Feature of UIGrades found at https://uigrades.vercel.app/',
     author: 'LZ',
     showDescription: false
   },

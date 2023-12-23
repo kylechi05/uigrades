@@ -24,6 +24,7 @@ const CoursePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [shared, setShared] = useState(false);
   const [aggregatedGrades, setAggregatedGrades] = useState([]);
+  const [totalAggregatedStudents, setTotalAggregatedStudents] = useState(0); // total number of students in all sections of the course
   const id = Number(new URLSearchParams(window.location.search).get("id"));
 
   const SERVER = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
@@ -92,6 +93,7 @@ const CoursePage = () => {
     const res = await fetch(`${SERVER}/aggregated-courses/${id}`);
     const data = await res.json();
     setAggregatedGrades(data.aggregatedGrades); // array of grades
+    setTotalAggregatedStudents(data.totalStudents); // total number of students in all sections of the course
   }
   
   const toggleShowAggregatedGrades = () => {
@@ -117,7 +119,7 @@ const CoursePage = () => {
 
   return (
     <div className="w-full flex justify-center items-center flex-col relative">
-      {shared && <MessagePopup message="Link copied to clipboard!"/>}
+      {shared && <MessagePopup message="Link copied to clipboard!" />}
       <div
         className={`absolute top-0 left-0 w-full h-full ${
           isDarkMode ? "bg-graph-dark" : "bg-graph"
@@ -133,19 +135,24 @@ const CoursePage = () => {
               isDarkMode ? "text-zinc-400" : "text-zinc-700"
             }`}
           >
-            <h1 className={`font-bold text-4xl md:text-6xl`}>{course[1]} </h1>
+            <h1 className={`font-bold text-4xl md:text-6xl`}>
+              {aggregatedGrades && showingAggregatedGrades ? `${course[1].split(":")[0]}:${course[1].split(":")[1]}` : course[1]}{" "}
+            </h1>
             <h2 className="font-bold text-xl md:text-3xl text-center">
               {course[2]}{" "}
             </h2>
             <div className="flex items-center justify-start gap-1 text-md md:text-xl">
-              <p className="gray">{course[3]}</p> -
+              <p className="gray">{aggregatedGrades && showingAggregatedGrades ? "Primary Instructor" : course[3]}</p> -
               <i>
                 {course[18]} {course[19]}
               </i>
             </div>
             <p className="">
               <FontAwesomeIcon icon={faUser} className="text-yellow-400" />{" "}
-              {classTotal} Hawkeyes
+              {aggregatedGrades && showingAggregatedGrades
+                ? totalAggregatedStudents
+                : classTotal}{" "}
+              Hawkeyes
             </p>
           </div>
 
@@ -175,7 +182,7 @@ const CoursePage = () => {
                     isDarkMode
                       ? "text-zinc-400 hover:text-zinc-300"
                       : "text-zinc-600 hover:text-zinc-500"
-                  } flex justify-center items-center transition duration-200 cursor-pointer`}
+                  } flex justify-center items-center transition duration-200 cursor-pointer underline`}
                 >
                   Show{" "}
                   {showingAggregatedGrades
@@ -233,7 +240,7 @@ const CoursePage = () => {
                     {similarCourse[18]} {similarCourse[19]}
                   </p>
                 </div>
-                <div className='ml-5'>
+                <div className="ml-5">
                   <FontAwesomeIcon
                     icon={faUser}
                     className="text-yellow-400 text-xl"

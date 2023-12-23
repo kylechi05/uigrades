@@ -11,7 +11,7 @@ function CreditProfile({img, name, org, linkedin, github}) {
     <div className="flex flex-row justify-center items-center gap-5">
       <img
         src={img}
-        alt="{name}'s profile picture"
+        alt={`${name}'s profile picture`}
         className="rounded-full w-32 h-32 border-4 border-yellow-400"
       />
       <div className="flex flex-col justify-center items-start gap-2">

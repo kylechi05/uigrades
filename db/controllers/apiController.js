@@ -202,6 +202,7 @@ const getAggregatedCourses = (req, res) => {
         }
         // iterate through aggregated Courses and create an array that holds the total number of each grade
         const aggregatedGrades = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let totalStudents = 0;
         aggregatedCourses[0].values.forEach(course => {
             aggregatedGrades[0] += Number(course[4]);
             aggregatedGrades[1] += Number(course[5]);
@@ -218,8 +219,13 @@ const getAggregatedCourses = (req, res) => {
             aggregatedGrades[12] += Number(course[16]);
             aggregatedGrades[13] += Number(course[17]);
         });
+        // get the total amount of students
+        aggregatedGrades.forEach(grade => {
+            totalStudents += grade;
+        });
         res.json({
             aggregatedGrades,
+            totalStudents
         });
     } catch (error) {
         console.error("Error fetching aggregated courses", error);

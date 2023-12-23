@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { useTheme } from "../context/ThemeContext.js";
-import changelogs from "../changelogs/changelogs.js";
+import changelogs from "../modules/changelogs.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -66,7 +66,7 @@ function ChangeLog() {
                       className={`flex justify-center items-center rounded-md p-1 ${
                         type === "Update"
                           ? "bg-green-500"
-                          : type === "Release"
+                          : type === "Feature"
                           ? "bg-yellow-500"
                           : type === "Bug Fix"
                           ? "bg-red-500"

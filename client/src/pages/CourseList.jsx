@@ -65,15 +65,22 @@ const CourseList = () => {
     }
   };
 
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-    getCourses(currentPage + 1, currSearchQuery);
-  };
-
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
-    getCourses(currentPage - 1, currSearchQuery)
-  };
+  // page can either be '+1' or '-1' or '1' or 'last'
+  const handleChangePage = (page) => {
+    if (page === "+1") {
+      setCurrentPage((prevPage) => prevPage + 1);
+      getCourses(currentPage + 1, currSearchQuery);
+    } else if (page === "-1") {
+      setCurrentPage((prevPage) => prevPage - 1);
+      getCourses(currentPage - 1, currSearchQuery);
+    } else if (page === "1") {
+      setCurrentPage(1);
+      getCourses(1, currSearchQuery);
+    } else if (page === "last") {
+      setCurrentPage(totalPages);
+      getCourses(totalPages, currSearchQuery);
+    }
+  }
 
   const navigate = useNavigate();
 
@@ -120,10 +127,9 @@ const CourseList = () => {
         </div>
       )}
       <Pagination
-        handlePrevPage={handlePrevPage}
-        handleNextPage={handleNextPage}
         currentPage={currentPage}
         totalPages={totalPages}
+        handleChangePage={handleChangePage}
       />
       {data.length === 0 && !loading ? (
         <div

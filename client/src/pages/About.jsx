@@ -4,6 +4,8 @@ import CreditProfile from '../components/CreditProfile.jsx'
 import { Link } from 'react-router-dom'
 import {useTheme} from "../context/ThemeContext.js"
 import {useEffect} from 'react'
+import contributors from "../modules/contributors.js"
+import ContributorProfile from "../components/ContributorProfile.jsx"
 function About() {
 
   const { isDarkMode, toggleTheme } = useTheme();
@@ -62,7 +64,7 @@ function About() {
             is a website made by <strong>students</strong> that allows other{" "}
             <a
               href="https://uiowa.edu/"
-	     target="_blank"
+              target="_blank"
               className="text-yellow-400 hover:text-yellow-500 transition duration-200"
             >
               University of Iowa
@@ -71,7 +73,7 @@ function About() {
             The data is provided by the University's{" "}
             <a
               href="https://transparency.uiowa.edu/"
-		target="_blank"
+              target="_blank"
               className="text-yellow-400 hover:text-yellow-500 transition duration-200"
             >
               Office of Transparency
@@ -118,31 +120,40 @@ function About() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-start items-center gap-8 w-full flex-grow">
-          <h1 className="font-bold text-4xl lg:text-6xl w-full text-left">
-            Contributors
-          </h1>
-          <div className="flex flex-col justify-center w-full items-start gap-5 md:gap-8">
-            <CreditProfile
-              name="Quinn Eldridge"
-              img="/static/images/quinn.jpeg"
-              org="Undergraduate Student Government"
-              linkedin="https://www.linkedin.com/in/quinn-eldridge-606137242"
-            />
-            <CreditProfile
-              name="Liao Zhu"
-              img="/static/images/liao.jpeg"
-              org="Association for Computing Machinery"
-              linkedin="https://www.linkedin.com/in/liao-zhu/"
-              github="https://github.com/liaozhuzhu"
-            />
-            <CreditProfile
-              name="Amol Bhagavathi"
-              img="/static/images/amol.jpeg"
-              org="Association for Computing Machinery"
-              linkedin="https://www.linkedin.com/in/ambha21/"
-              github="https://github.com/AmBha21"
-            />
+        <div className="flex flex-col justify-start items-center w-full flex-grow gap-4">
+          <div className="flex flex-col justify-start items-center gap-8 w-full flex-grow">
+            <h1 className="font-bold text-4xl lg:text-6xl w-full text-left">
+              Organizers
+            </h1>
+            <div className="flex flex-col justify-center w-full items-start gap-5 md:gap-8">
+              <CreditProfile
+                name="Quinn Eldridge"
+                img="/static/images/quinn.jpeg"
+                org="Undergraduate Student Government"
+                linkedin="https://www.linkedin.com/in/quinn-eldridge-606137242"
+              />
+              <CreditProfile
+                name="Liao Zhu"
+                img="/static/images/liao.jpeg"
+                org="Association for Computing Machinery"
+                linkedin="https://www.linkedin.com/in/liao-zhu/"
+                github="https://github.com/liaozhuzhu"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col justify-start items-center gap-4 w-full flex-grow">
+            <h1 className="font-bold text-2xl lg:text-4xl w-full text-left">
+              Contributors
+            </h1>
+            <div className="flex flex justify-start w-full items-center gap-2">
+              {contributors.map((contributor) => (
+                <ContributorProfile
+                  username={contributor.username}
+                  img={contributor.img}
+                  github={contributor.github}
+                />
+              ))}  
+            </div>
           </div>
         </div>
       </div>
