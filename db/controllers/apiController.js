@@ -24,7 +24,7 @@ initSqlJs().then(async SQL => {
         csvFiles.forEach(file => {
             let courseSemesterYearToGrades = {}; // hashmap of course + semester + year to array of grades
             const promise = new Promise((resolve, reject) => {
-                fs.createReadStream(`${dataFilePath}/${file}`)
+                fs.createReadStream(`./data/${file}`)
                     .pipe(csv())
                     .on('data', row => {
                         const values = Object.values(row).map(value => {
