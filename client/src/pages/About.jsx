@@ -129,12 +129,14 @@ function About() {
               <CreditProfile
                 name="Quinn Eldridge"
                 img="/static/images/quinn.jpeg"
+                title="Project Coordinator"
                 org="Undergraduate Student Government"
                 linkedin="https://www.linkedin.com/in/quinn-eldridge-606137242"
               />
               <CreditProfile
                 name="Liao Zhu"
                 img="/static/images/liao.jpeg"
+                title="Lead Developer"
                 org="Association for Computing Machinery"
                 linkedin="https://www.linkedin.com/in/liao-zhu/"
                 github="https://github.com/liaozhuzhu"

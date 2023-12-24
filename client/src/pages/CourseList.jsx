@@ -108,7 +108,7 @@ const CourseList = () => {
       ) : (
         <div className="flex flex-col items-center p-10 w-full min-h-full mt-32">
           <div className="flex justify-center items-center w-full">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-2 w-full h-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-2 w-full h-full">
               {data.map((course, index) => (
                 <div
                   key={index}

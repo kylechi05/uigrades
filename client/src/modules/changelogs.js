@@ -22,6 +22,15 @@ const changelogs = [
   //   showDescription: false
   // },
   {
+    version: '3.2.2',
+    type: ['Improvement'],
+    date: 'December 2023',
+    features: ['Pagination buttons no longer move on mobile', 'Added titles for organizers'],
+    description: '',
+    author: 'LZ',
+    showDescription: false
+  },
+  {
     version: '3.2.1',
     type: ['Improvements', 'Bug Fix'],
     date: 'December 2023',

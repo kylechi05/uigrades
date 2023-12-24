@@ -19,12 +19,12 @@ const CourseListItem = ({course, navigate}) => {
     }
 
     return (
-      <>
+      <div className='flex justify-between items-center w-full'>
         <div className={`flex justify-center items-start flex-col`}>
           <h1 className="font-bold">{course[1]} </h1>
-          <h2 className="">
-            {course[2]}
-          </h2>
+            <h2 className="w-[200px] sm:w-full md:w-[150px] lg:w-[225px] xl:w-[350px] truncate overflow-hidden whitespace-nowrap overflow-ellipsis">
+              {course[2]}
+            </h2>
           <p className="">{course[3]}</p>
           <p className="">
             {course[18]} {course[19]}
@@ -34,7 +34,7 @@ const CourseListItem = ({course, navigate}) => {
           <FontAwesomeIcon icon={faUser} className="text-yellow-400 text-xl" />{" "}
           <span className="text-xl">{classTotal}</span>
         </p>
-      </>
+      </div>
     );
 }
 
