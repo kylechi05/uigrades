@@ -32,6 +32,7 @@ const CoursePage = () => {
 
   const navigate = useNavigate();
 
+  
   const getCourse = async () => {
     if (isNaN(id)) {
       console.log("Invalid 'id' value");
@@ -63,6 +64,7 @@ const CoursePage = () => {
     }
   };
 
+
   useEffect(() => {
     setShowingAggregatedGrades(false);
     getCourse();
@@ -81,11 +83,9 @@ const CoursePage = () => {
   }, [window.location.search]);
 
   const getSimilarCourses = async () => {
-    setIsLoading(true);
     const res = await fetch(`${SERVER}/similar-courses/${id}`);
     const data = await res.json();
     setSimilarCourses(data);
-    setIsLoading(false);
   };
 
   const getAggregatedCourseGrades = async () => {
@@ -105,6 +105,24 @@ const CoursePage = () => {
     }
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+  
+      try {
+        await getCourse();
+        await getSimilarCourses();
+        await getAggregatedCourseGrades();
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+  
+      setIsLoading(false);
+    };
+  
+    fetchData();
+  }, []);
+
   async function handleRowClick(similarCourseId) {
     navigate(`/course?id=${similarCourseId}`);
   }
@@ -115,6 +133,7 @@ const CoursePage = () => {
       .slice(4, 18)
       .reduce((acc, val) => acc + parseInt(val), 0);
   };
+
 
   return (
     <div className="w-full flex justify-center items-center flex-col relative">
