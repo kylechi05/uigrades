@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import BarGraph from '../components/BarGraph.jsx';
-import PieGraph from '../components/PieGraph.jsx';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
@@ -140,6 +139,7 @@ const CoursePage = () => {
         <div className=" flex flex-col items-center justify-center w-full">
 
         {courseGrades.length > 0 && (
+
           <div
             className={`flex items-center flex-col gap-4 w-full ${
               isDarkMode ? "text-zinc-400" : "text-zinc-700"
@@ -168,7 +168,6 @@ const CoursePage = () => {
           </div>)}
 
           {/* Graph container */}
-          {courseGrades.length > 0 && (
           <div
             className={`${"w-full px-2 md:w-3/5"} ${
               isDarkMode ? "text-stone-50" : ""
@@ -219,7 +218,7 @@ const CoursePage = () => {
                 <FontAwesomeIcon icon={faShareNodes} />
               </div>
             </div>
-          </div>)}
+          </div>
         </div>
         <div className="justify-center flex flex-col items-center gap-5 w-full">
           {similarCourses.length !== 0 && (
@@ -265,8 +264,10 @@ const CoursePage = () => {
           </div>
         </div>
         {/* add button to filter only by course subject */}
+
       </div>
       {courseGrades.length > 0 && (
+
       <Footer />)}
     </div>
   );
