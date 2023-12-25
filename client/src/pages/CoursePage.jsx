@@ -126,10 +126,14 @@ const CoursePage = () => {
         } bg-cover bg-center lg:bg-fixed`}
         style={{ zIndex: -1 }}
       ></div>
+      
       <Navbar />
+
       <div id="top-of-page-placeholder"></div>
+      {courseGrades.length > 0 && (
       <div className={`flex flex-col items-center my-20 w-full`}>
         <div className=" flex flex-col items-center justify-center w-full">
+        {courseGrades.length > 0 && (
           <div
             className={`flex items-center flex-col gap-4 w-full ${
               isDarkMode ? "text-zinc-400" : "text-zinc-700"
@@ -154,9 +158,10 @@ const CoursePage = () => {
                 : classTotal}{" "}
               Hawkeyes
             </p>
-          </div>
+          </div>)}
 
           {/* Graph container */}
+          {courseGrades.length > 0 && (
           <div
             className={`${"w-full px-2 md:w-3/5"} ${
               isDarkMode ? "text-stone-50" : ""
@@ -207,7 +212,7 @@ const CoursePage = () => {
                 <FontAwesomeIcon icon={faShareNodes} />
               </div>
             </div>
-          </div>
+          </div>)}
         </div>
         <div className="justify-center flex flex-col items-center gap-5 w-full">
           {isLoading && <Loading />}
@@ -254,8 +259,9 @@ const CoursePage = () => {
           </div>
         </div>
         {/* add button to filter only by course subject */}
-      </div>
-      <Footer />
+      </div>)}
+      {courseGrades.length > 0 && (
+      <Footer />)}
     </div>
   );
 };
