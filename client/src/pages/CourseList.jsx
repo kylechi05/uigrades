@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/SearchBar.tsx";
 import CourseListItem from "../components/CourseListItem";
 import Pagination from "../components/Pagination";
 import { useNavigate } from "react-router-dom";
