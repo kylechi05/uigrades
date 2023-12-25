@@ -129,16 +129,23 @@ const CoursePage = () => {
       
       <Navbar />
 
-      <div id="top-of-page-placeholder"></div>
-      {courseGrades.length > 0 && (
+
+      {isLoading && (
+        <div className="flex justify-center items-center min-h-screen">
+          <Loading />
+        </div>
+      )}
+    
       <div className={`flex flex-col items-center my-20 w-full`}>
         <div className=" flex flex-col items-center justify-center w-full">
+
         {courseGrades.length > 0 && (
           <div
             className={`flex items-center flex-col gap-4 w-full ${
               isDarkMode ? "text-zinc-400" : "text-zinc-700"
             }`}
           >
+            
             <h1 className={`font-bold text-4xl md:text-6xl`}>
               {aggregatedGrades && showingAggregatedGrades ? `${course[1].split(":")[0]}:${course[1].split(":")[1]}` : course[1]}{" "}
             </h1>
@@ -215,7 +222,6 @@ const CoursePage = () => {
           </div>)}
         </div>
         <div className="justify-center flex flex-col items-center gap-5 w-full">
-          {isLoading && <Loading />}
           {similarCourses.length !== 0 && (
             <h2
               className={`font-bold text-2xl w-full pl-5 ${
@@ -259,7 +265,7 @@ const CoursePage = () => {
           </div>
         </div>
         {/* add button to filter only by course subject */}
-      </div>)}
+      </div>
       {courseGrades.length > 0 && (
       <Footer />)}
     </div>
