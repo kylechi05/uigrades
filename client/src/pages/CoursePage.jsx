@@ -135,6 +135,8 @@ const CoursePage = () => {
         </div>
       )}
     
+    {courseGrades.length > 0 && (
+
       <div className={`flex flex-col items-center my-20 w-full`}>
         <div className=" flex flex-col items-center justify-center w-full">
 
@@ -265,9 +267,8 @@ const CoursePage = () => {
         </div>
         {/* add button to filter only by course subject */}
 
-      </div>
+      </div>)}
       {courseGrades.length > 0 && (
-
       <Footer />)}
     </div>
   );
