@@ -15,11 +15,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className={`flex justify-between items-center w-full p-4 h-14 absolute top-0 left-0 fixed sticky ${
-      isDarkMode
-        ? "bg-zinc-800"
-        : "bg-white"
-    } transition duration-200 ease-in-out`}>
+    <div className="flex justify-between items-center w-full p-4 h-14 absolute top-0 left-0 fixed">
       <div className="flex justify-start items-center md:w-1/3 ml-5">
         <button
           onClick={goBack}
@@ -80,7 +76,7 @@ const Navbar = () => {
         >
           <FontAwesomeIcon 
           icon={isDarkMode ? faSun : faMoon} 
-          className={isDarkMode ? "text-yellow-400" : "text-current"} // Tailwind yellow color for dark mode
+          // className={isDarkMode ? "text-yellow-400" : "text-current"} // Tailwind yellow color for dark mode
           />
 
         </div>
