@@ -1,4 +1,4 @@
-import ambha21 from '../static/images/ambha21.png';
+import ambha21 from '../static/images/ambha21.jpeg';
 import kylechi05 from '../static/images/kylechi05.png';
 
 const contributors = [
