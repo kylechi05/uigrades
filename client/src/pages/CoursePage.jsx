@@ -76,6 +76,8 @@ const CoursePage = () => {
     }
 };
 
+
+
   useEffect(() => {
     setShowingAggregatedGrades(false);
     getCourse();
@@ -135,7 +137,6 @@ const CoursePage = () => {
   }, []);
 
   async function handleRowClick(similarCourseId) {
-    setIsLoading(true);
     navigate(`/course?id=${similarCourseId}`);
   }
 

@@ -5,7 +5,6 @@ import { faBackspace, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "../context/ThemeContext";
 import { useEffect, useState } from "react";
 
-// Define a type for the component props
 interface SearchBarProps {
   handleSearch: (page: number, query: string) => void;
   setSearchQuery: (query: string) => void;
