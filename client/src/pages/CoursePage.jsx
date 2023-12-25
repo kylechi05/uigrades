@@ -35,34 +35,51 @@ const CoursePage = () => {
   
   const getCourse = async () => {
     if (isNaN(id)) {
-      console.log("Invalid 'id' value");
-      return;
+        console.log("Invalid 'id' value");
+        return;
     }
 
-    //set the loading state to true
+    // Clear previous course data and set loading state
+    setCourse({});
+    setCourseGrades([]);
+    setOriginalCourseGrades([]);
+    setAggregatedGrades([]);
+    setClassTotal(0);
+    setTotalAggregatedStudents(0);
     setIsLoading(true);
 
-    const res = await fetch(`${SERVER}/courses/${id}`);
-    const fetchedCourse = await res.json();
-    const courseGrades = [fetchedCourse[4], fetchedCourse[5], fetchedCourse[6], fetchedCourse[7], fetchedCourse[8], fetchedCourse[9], fetchedCourse[10], fetchedCourse[11], fetchedCourse[12], fetchedCourse[13], fetchedCourse[14], fetchedCourse[15], fetchedCourse[16], fetchedCourse[17]]
-    setCourseGrades(courseGrades)
-    setOriginalCourseGrades(courseGrades)
-    setCourse(fetchedCourse);
+    try {
+        const res = await fetch(`${SERVER}/courses/${id}`);
+        if (!res.ok) {
+            throw new Error('Failed to fetch course data');
+        }
+        const fetchedCourse = await res.json();
+        
+        // Process the fetched course data
+        const courseGrades = [fetchedCourse[4], fetchedCourse[5], fetchedCourse[6], fetchedCourse[7], fetchedCourse[8], fetchedCourse[9], fetchedCourse[10], fetchedCourse[11], fetchedCourse[12], fetchedCourse[13], fetchedCourse[14], fetchedCourse[15], fetchedCourse[16], fetchedCourse[17]];
+        setCourseGrades(courseGrades);
+        setOriginalCourseGrades(courseGrades);
+        setCourse(fetchedCourse);
 
-    let total = 0;
-    for (let i = 4; i < 18; i++) {
-      total += parseFloat(fetchedCourse[i]);
+        let total = 0;
+        for (let i = 4; i < 18; i++) {
+            total += parseFloat(fetchedCourse[i]);
+        }
+        setClassTotal(total);
+
+        // Scroll to the top of the page placeholder if it exists
+        const topOfPagePlaceholder = document.getElementById("top-of-page-placeholder");
+        if (topOfPagePlaceholder) {
+            topOfPagePlaceholder.scrollIntoView({ behavior: "smooth" });
+        }
+    } catch (error) {
+        console.error('Error fetching course data:', error);
+        // Handle the error appropriately
+    } finally {
+        setIsLoading(false); // Ensure this is called even if an error occurs
     }
+};
 
-    setClassTotal(total);
-    const topOfPagePlaceholder = document.getElementById(
-      "top-of-page-placeholder"
-    );
-
-    if (topOfPagePlaceholder) {
-      topOfPagePlaceholder.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
 
   useEffect(() => {
