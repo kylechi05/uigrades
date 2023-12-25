@@ -38,8 +38,9 @@ npm start
 Then in a seperate terminal window (make sure you're in the `uigrades` directory not `client`):
 
 ```
+cd db
 npm install
-npm start
+node index.js
 ```
 
 Open up [http://localhost:3000](http://localhost:3000) to view it in the browser.
