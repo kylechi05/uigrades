@@ -3,12 +3,19 @@ import Footer from "../components/Footer.tsx"
 import CreditProfile from '../components/CreditProfile.tsx'
 import { Link } from 'react-router-dom'
 import {useTheme} from "../context/ThemeContext.js"
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import contributors from "../modules/contributors.js"
 import ContributorProfile from "../components/ContributorProfile.tsx"
-function About() {
 
-  const { isDarkMode, toggleTheme } = useTheme();
+interface ContributorInterface {
+  username: string;
+  img: string;
+  github: string;
+}
+
+const About: React.FC = () => {
+
+  const { isDarkMode } = useTheme();
 
 	useEffect(() => {
 		document.title = "UIGrades | About"
@@ -148,7 +155,7 @@ function About() {
               Contributors
             </h1>
             <div className="flex flex justify-start w-full items-center gap-2">
-              {contributors.map((contributor) => (
+              {contributors.map((contributor: ContributorInterface) => (
                 <ContributorProfile
                   username={contributor.username}
                   img={contributor.img}

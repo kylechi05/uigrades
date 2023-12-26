@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
 import { useTheme } from "../context/ThemeContext.js";
@@ -6,21 +6,31 @@ import changelogs from "../modules/changelogs.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
-function ChangeLog() {
-  const { isDarkMode, toggleTheme } = useTheme();
-  const [logs, setLogs] = useState(changelogs);
+interface ChangeLog {
+  version: string;
+  type: string[];
+  date: string;
+  features: string[];
+  description: string;
+  author: string;
+  showDescription: boolean;
+}
+
+const ChangeLog:React.FC = () => {
+  const { isDarkMode } = useTheme();
+  const [logs, setLogs] = useState<ChangeLog[]>(changelogs);
 
   useEffect(() => {
     document.title = "UIGrades | Changelog";
     // initialize the showDescription property to false for each log
     let newLogs = [...logs];
-    newLogs.forEach((log) => {
+    newLogs.forEach((log: ChangeLog) => {
       log.showDescription = false;
     });
     setLogs(newLogs);
   }, []);
 
-  const toggleDescription = (idx) => {
+  const toggleDescription = (idx:number) => {
     let newLogs = [...logs];
     newLogs[idx].showDescription = !newLogs[idx].showDescription;
     setLogs(newLogs);

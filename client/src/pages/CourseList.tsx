@@ -7,19 +7,47 @@ import CourseListNavbar from "../components/CourseListNavbar.tsx";
 import Loading from "../components/Loading.tsx";
 import Footer from "../components/Footer.tsx";
 import { useTheme } from "../context/ThemeContext.js";
-import config from "../config";
+import config from "../config.js";
 
 import "../App.css";
 
-const CourseList = () => {
-  const [loading, setLoading] = useState(true); // Added loading state
-  const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [currSearchQuery, setCurrSearchQuery] = useState("");
+interface Course {
+  id: number;
+  SUBJECT_COURSE_SECTION: string;
+  COURSE_TITLE: string;
+  PRIMARY_INSTRUCTOR_NAME: string;
+  A_PLUS: string;
+  A: string;
+  A_MINUS: string;
+  B_PLUS: string;
+  B: string;
+  B_MINUS: string;
+  C_PLUS: string;
+  C: string;
+  C_MINUS: string;
+  D_PLUS: string;
+  D: string;
+  D_MINUS: string;
+  F: string;
+  WITHDRAWN: string;
+  SEMESTER: string;
+  YEAR: string;
+}
 
-  const pageSize = 9;
-  const SERVER = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
+interface ApiDataInterface {
+  data: Course[],
+  totalItems: number
+}
+
+const CourseList: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(true); // Added loading state
+  const [data, setData] = useState<Course[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [currSearchQuery, setCurrSearchQuery] = useState<string>("");
+
+  const pageSize:number = 9;
+  const SERVER:string = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
 
   const { isDarkMode } = useTheme();
 
@@ -27,8 +55,8 @@ const CourseList = () => {
   useEffect(() => {
     const pageParam = new URLSearchParams(window.location.search).get("page");
     const queryParam = new URLSearchParams(window.location.search).get("q");
-    const page = pageParam ? parseInt(pageParam) : 1;
-    const query = queryParam ? queryParam.toLowerCase() : "";
+    const page:number = pageParam ? parseInt(pageParam) : 1;
+    const query:string = queryParam ? queryParam.toLowerCase() : "";
     setCurrentPage(page);
     setCurrSearchQuery(query);
 
@@ -37,7 +65,7 @@ const CourseList = () => {
 
   // should trigger this useeffect when the current page or search query changes
   useEffect(() => {
-    const url = `/courses?page=${currentPage}${
+    const url:string = `/courses?page=${currentPage}${
       currSearchQuery ? "&q=" + currSearchQuery : ""
     }`;
     window.history.pushState({}, "", url);
@@ -45,7 +73,7 @@ const CourseList = () => {
     // getCourses(currentPage, currSearchQuery);
   }, [currentPage, currSearchQuery]);
 
-  const getCourses = async (page, q) => {
+  const getCourses = async (page:number, q:string) => {
     try {
       setCurrSearchQuery(q);
       const res = await fetch(`${SERVER}/courses?page=${page}&q=${q}`);
@@ -54,7 +82,7 @@ const CourseList = () => {
       if (!res.ok) {
         throw new Error("Invalid Request");
       }
-      const { data, totalItems } = await res.json();
+      const { data, totalItems }: ApiDataInterface = await res.json();
       setData(data);
       setTotalPages(Math.ceil(totalItems / pageSize));
       setLoading(false);
@@ -66,12 +94,12 @@ const CourseList = () => {
   };
 
   // page can either be '+1' or '-1' or '1' or 'last'
-  const handleChangePage = (page) => {
+  const handleChangePage = (page:string) => {
     if (page === "+1") {
-      setCurrentPage((prevPage) => prevPage + 1);
+      setCurrentPage((prevPage:number) => prevPage + 1);
       getCourses(currentPage + 1, currSearchQuery);
     } else if (page === "-1") {
-      setCurrentPage((prevPage) => prevPage - 1);
+      setCurrentPage((prevPage:number) => prevPage - 1);
       getCourses(currentPage - 1, currSearchQuery);
     } else if (page === "1") {
       setCurrentPage(1);
@@ -84,7 +112,7 @@ const CourseList = () => {
 
   const navigate = useNavigate();
 
-  const handleCourseClick = async (id) => {
+  const handleCourseClick = async (id:number) => {
     navigate(`/course?id=${id}`);
   };
 
@@ -108,7 +136,7 @@ const CourseList = () => {
         <div className="flex flex-col items-center p-10 w-full min-h-full mt-32">
           <div className="flex justify-center items-center w-full">
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-2 w-full h-full">
-              {data.map((course, index) => (
+              {data.map((course: Course, index: number) => (
                 <div
                   key={index}
                   onClick={() => handleCourseClick(course[0])}

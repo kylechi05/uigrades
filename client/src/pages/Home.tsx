@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext.js'
 import "../App.css";
+import React from 'react';
 
-const Home = () => {
+const Home: React.FC = () => {
 
   const { isDarkMode } = useTheme();
 
