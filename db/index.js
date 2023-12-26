@@ -2,7 +2,6 @@
 *
 * RUN THIS FILE TO CREATE THE DB AND POPULATE IT WITH DATA
 * make sure all .csv files are in the data folder
-* `node app.js`
 *
 */
 
