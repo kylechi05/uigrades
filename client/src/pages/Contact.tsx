@@ -1,13 +1,24 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
 import Loading from "../components/Loading.tsx";
 import { useTheme } from "../context/ThemeContext.js";
 
-const Contact = () => {
-  const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
+interface ContactForm {
+  name: string;
+  email: string;
+  message: string;
+}
+
+interface FormDataInterface {
+  name: string;
+  value: string;
+}
+
+const Contact:React.FC = () => {
+  const [result, setResult] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [formData, setFormData] = useState<ContactForm>({
     name: "",
     email: "",
     message: "",
@@ -18,11 +29,11 @@ const Contact = () => {
     document.title = "UIGrades | Contact";
   }, []);
 
-  const onSubmit = async (event) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
 
-    const formData = new FormData(event.target);
+    const formData = new FormData(event.currentTarget);
     formData.append("access_key", "de4c836a-d8df-45b4-a690-b2221217e60c");
 
     const res = await fetch("https://api.web3forms.com/submit", {
@@ -40,8 +51,8 @@ const Contact = () => {
     }
   };
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value }: FormDataInterface = event.currentTarget;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,

@@ -4,8 +4,31 @@ import {faUser} from '@fortawesome/free-solid-svg-icons';
 import { useEffect } from 'react';
 import React from 'react';
 
+interface Course {
+  id: number;
+  SUBJECT_COURSE_SECTION: string;
+  COURSE_TITLE: string;
+  PRIMARY_INSTRUCTOR_NAME: string;
+  A_PLUS: string;
+  A: string;
+  A_MINUS: string;
+  B_PLUS: string;
+  B: string;
+  B_MINUS: string;
+  C_PLUS: string;
+  C: string;
+  C_MINUS: string;
+  D_PLUS: string;
+  D: string;
+  D_MINUS: string;
+  F: string;
+  WITHDRAWN: string;
+  SEMESTER: string;
+  YEAR: string;
+}
+
 interface CourseListItemProps {
-  course: Array<string>
+  course: Course
 }
 
 const CourseListItem: React.FC<CourseListItemProps> = ({course}) => {

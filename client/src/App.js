@@ -1,11 +1,11 @@
-import CourseList from './pages/CourseList';
-import Contact from './pages/Contact';
-import About from './pages/About';
-import CoursePage from './pages/CoursePage';
-import ChangeLog from './pages/ChangeLog';
+import CourseList from './pages/CourseList.tsx';
+import Contact from './pages/Contact.tsx';
+import About from './pages/About.tsx';
+import CoursePage from './pages/CoursePage.tsx';
+import ChangeLog from './pages/ChangeLog.tsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import PageNotFound from './pages/PageNotFound.jsx';
-import Home from './pages/Home.jsx';
+import PageNotFound from './pages/PageNotFound.tsx';
+import Home from './pages/Home.tsx';
 import ReactGA from 'react-ga4';
 
 const App = () => {

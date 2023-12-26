@@ -8,25 +8,70 @@ import {faUser, faShareNodes } from '@fortawesome/free-solid-svg-icons';
 import Loading from "../components/Loading.tsx"
 import MessagePopup from "../components/MessagePopup.tsx"
 import { useTheme } from '../context/ThemeContext.js';
-import config from '../config';
+import config from '../config.js';
 
 import '../App.css';
 
+// this is necessary for correct rerender of similar courses do not delete pwetty pwease - liao
 export const dynamic = "force-dynamic";
-const CoursePage = () => {
-  const [course, setCourse] = useState({});
-  const [courseGrades, setCourseGrades] = useState([])
-  const [originalCourseGrades, setOriginalCourseGrades] = useState([]) // used to reset the courseGrades state
-  const [showingAggregatedGrades, setShowingAggregatedGrades] = useState(false) // used to determine if the courseGrades state is showing the aggregated grades or not
-  const [classTotal, setClassTotal] = useState(0);
-  const [similarCourses, setSimilarCourses] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [shared, setShared] = useState(false);
-  const [aggregatedGrades, setAggregatedGrades] = useState([]);
-  const [totalAggregatedStudents, setTotalAggregatedStudents] = useState(0); // total number of students in all sections of the course
-  const id = Number(new URLSearchParams(window.location.search).get("id"));
 
-  const SERVER = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
+interface Course {
+  id: number;
+  SUBJECT_COURSE_SECTION: string;
+  COURSE_TITLE: string;
+  PRIMARY_INSTRUCTOR_NAME: string;
+  A_PLUS: string;
+  A: string;
+  A_MINUS: string;
+  B_PLUS: string;
+  B: string;
+  B_MINUS: string;
+  C_PLUS: string;
+  C: string;
+  C_MINUS: string;
+  D_PLUS: string;
+  D: string;
+  D_MINUS: string;
+  F: string;
+  WITHDRAWN: string;
+  SEMESTER: string;
+  YEAR: string;
+}
+
+const CoursePage:React.FC = () => {
+  const [course, setCourse] = useState<Course>({  id: 0,
+    SUBJECT_COURSE_SECTION: '',
+    COURSE_TITLE: '',
+    PRIMARY_INSTRUCTOR_NAME: '',
+    A_PLUS: '',
+    A: '',
+    A_MINUS: '',
+    B_PLUS: '',
+    B: '',
+    B_MINUS: '',
+    C_PLUS: '',
+    C: '',
+    C_MINUS: '',
+    D_PLUS: '',
+    D: '',
+    D_MINUS: '',
+    F: '',
+    WITHDRAWN: '',
+    SEMESTER: '',
+    YEAR: '',
+  });
+  const [courseGrades, setCourseGrades] = useState<number[]>([])
+  const [originalCourseGrades, setOriginalCourseGrades] = useState<number[]>([]) // used to reset the courseGrades state
+  const [showingAggregatedGrades, setShowingAggregatedGrades] = useState<boolean>(false) // used to determine if the courseGrades state is showing the aggregated grades or not
+  const [classTotal, setClassTotal] = useState<number>(0);
+  const [similarCourses, setSimilarCourses] = useState<Course[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [shared, setShared] = useState<boolean>(false);
+  const [aggregatedGrades, setAggregatedGrades] = useState<number[]>([]);
+  const [totalAggregatedStudents, setTotalAggregatedStudents] = useState<number>(0); // total number of students in all sections of the course
+  const id:number = Number(new URLSearchParams(window.location.search).get("id"));
+
+  const SERVER:string = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
 
   const { isDarkMode } = useTheme();
 
@@ -39,7 +84,28 @@ const CoursePage = () => {
         return;
     }
 
-    setCourse({});
+    setCourse({  
+      id: 0,
+      SUBJECT_COURSE_SECTION: '',
+      COURSE_TITLE: '',
+      PRIMARY_INSTRUCTOR_NAME: '',
+      A_PLUS: '',
+      A: '',
+      A_MINUS: '',
+      B_PLUS: '',
+      B: '',
+      B_MINUS: '',
+      C_PLUS: '',
+      C: '',
+      C_MINUS: '',
+      D_PLUS: '',
+      D: '',
+      D_MINUS: '',
+      F: '',
+      WITHDRAWN: '',
+      SEMESTER: '',
+      YEAR: '',
+    });
     setCourseGrades([]);
     setOriginalCourseGrades([]);
     setAggregatedGrades([]);
@@ -54,7 +120,7 @@ const CoursePage = () => {
         }
         const fetchedCourse = await res.json();
         
-        const courseGrades = [fetchedCourse[4], fetchedCourse[5], fetchedCourse[6], fetchedCourse[7], fetchedCourse[8], fetchedCourse[9], fetchedCourse[10], fetchedCourse[11], fetchedCourse[12], fetchedCourse[13], fetchedCourse[14], fetchedCourse[15], fetchedCourse[16], fetchedCourse[17]];
+        const courseGrades: number[] = [fetchedCourse[4], fetchedCourse[5], fetchedCourse[6], fetchedCourse[7], fetchedCourse[8], fetchedCourse[9], fetchedCourse[10], fetchedCourse[11], fetchedCourse[12], fetchedCourse[13], fetchedCourse[14], fetchedCourse[15], fetchedCourse[16], fetchedCourse[17]];
         setCourseGrades(courseGrades);
         setOriginalCourseGrades(courseGrades);
         setCourse(fetchedCourse);
@@ -141,10 +207,10 @@ const CoursePage = () => {
   }
 
   // index 4 - 17 contain all grades, we can sum these up to get the total number of students
-  const getTotalForSimilarCourse = (similarCourse) => {
+  const getTotalForSimilarCourse = (similarCourse): number => {
     return similarCourse
       .slice(4, 18)
-      .reduce((acc, val) => acc + parseInt(val), 0);
+      .reduce((acc: number, val: string) => acc + parseInt(val), 0);
   };
 
 

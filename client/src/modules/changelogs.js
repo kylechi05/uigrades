@@ -22,11 +22,11 @@ const changelogs = [
   //   showDescription: false
   // },
   {
-    version: '3.3.1',
-    type: ['Bug Fix'],
+    version: '3.4.1',
+    type: ['Imporvement', 'Bug Fix'],
     date: 'December 2023',
-    features: ['Space key no longer deletes randomly when searchhing'],
-    description: 'Sometimes when searching, the space key would randomly disappear. This has been fixed. Please refer to https://github.com/acm-uiowa/uigrades/issues/10 for more details.',
+    features: ['Fully converted to TypeScript', 'Space key no longer deletes randomly when searchhing'],
+    description: 'Converted all pages to TypeScript. Sometimes when searching, the space key would randomly disappear. This has been fixed. Please refer to https://github.com/acm-uiowa/uigrades/issues/10 for more details.',
     author: 'LZ',
     showDescription: false
   },
@@ -34,7 +34,7 @@ const changelogs = [
     version: '3.3.0',
     type: ['Improvement'],
     date: 'December 2023',
-    features: ['Typescript Components!', 'Bolded Landing Page Title'],
+    features: ['TypeScript Components!', 'Bolded Landing Page Title'],
     description: 'With initiative from https://github.com/AmBha21 , all components have been converted to Typescript components for better clarity of types. This is perfect since some components may share similar prop names even though the props have varying types.',
     author: 'LZ',
     showDescription: false

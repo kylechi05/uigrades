@@ -6,7 +6,7 @@ import { useTheme } from '../context/ThemeContext.js'
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const PageNotFound = () => {
+const PageNotFound: React.FC = () => {
 
   const { isDarkMode } = useTheme()
 

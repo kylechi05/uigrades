@@ -9,7 +9,7 @@ interface CreditProfileProps {
   title: string;
   org: string;
   linkedin: string;
-  github: string;
+  github?: string;
 }
 
 const CreditProfile: React.FC<CreditProfileProps> = ({img, name, title, org, linkedin, github}) => {
