@@ -1,9 +1,16 @@
 import Footer from '../components/Footer.jsx'
 import LandingNavbar from '../components/LandingNavbar.jsx'
 import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext.js'
 import "../App.css";
+
+// const ThemedText = ({ children, additionalClasses = "" }) => (
+//   <span className={`${textColor} ${additionalClasses}`}>
+//     {children}
+//   </span>
+// );
+
 
 const Home = () => {
 
@@ -30,42 +37,42 @@ const Home = () => {
               UI
             </span>
             <span
-              className={`${
+              className={`font-semibold ${
                 isDarkMode ? "text-zinc-200" : ""
               } hover:text-yellow-400 transition duration-200`}
             >
               G
             </span>
             <span
-              className={`${
+              className={`font-semibold ${
                 isDarkMode ? "text-zinc-200" : ""
               } hover:text-yellow-400 transition duration-200`}
             >
               R
             </span>
             <span
-              className={`${
+              className={`font-semibold ${
                 isDarkMode ? "text-zinc-200" : ""
               } hover:text-yellow-400 transition duration-200`}
             >
               A
             </span>
             <span
-              className={`${
+              className={`font-semibold ${
                 isDarkMode ? "text-zinc-200" : ""
               } hover:text-yellow-400 transition duration-200`}
             >
               D
             </span>
             <span
-              className={`${
+              className={`font-semibold ${
                 isDarkMode ? "text-zinc-200" : ""
               } hover:text-yellow-400 transition duration-200`}
             >
               E
             </span>
             <span
-              className={`${
+              className={`font-semibold ${
                 isDarkMode ? "text-zinc-200" : ""
               } hover:text-yellow-400 transition duration-200`}
             >
@@ -75,7 +82,7 @@ const Home = () => {
           <h2
             className={`${
               isDarkMode ? "text-zinc-400" : ""
-            } font-light text-stone-600 m-4`}
+            } text-lg font-semibold font-light text-stone-600 m-4`}
           >
             Explore courses that fellow{" "}
             <span className="text-yellow-400 hover:text-yellow-500 transition duration-200">
@@ -85,13 +92,12 @@ const Home = () => {
           </h2>
           <Link
             to="/courses"
-            className="p-5 py-4 m-7 text-lg text-zinc-700 opacity-100 rounded-full bg-yellow-400 hover:bg-yellow-500 transition duration-300"
+            className="p-5 py-4 m-7 text-lg hover:scale-105 font-medium text-zinc-700 opacity-100 rounded-full bg-yellow-400 hover:bg-yellow-500 transition duration-300"
           >
             Browse Courses
           </Link>
         </div>
         <div className="hidden md:flex px-10 w-full flex-col items-center justify-center relative img-container h-40">
-          {/* <DisplayBarGraph /> */}
           <img
             src="/static/images/uigrades0.png"
             alt="UI Grades"
@@ -106,6 +112,7 @@ const Home = () => {
           />
         </div>
       </div>
+
       {/* Mobile View */}
       <div className="flex md:hidden md:px-10 w-full flex-col items-center justify-center relative img-container">
         <img
@@ -114,6 +121,7 @@ const Home = () => {
           className="w-full"
         />
       </div>
+
       <Footer />
     </div>
   );
