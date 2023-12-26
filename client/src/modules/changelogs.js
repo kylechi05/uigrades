@@ -22,6 +22,15 @@ const changelogs = [
   //   showDescription: false
   // },
   {
+    version: '3.3.1',
+    type: ['Bug Fix'],
+    date: 'December 2023',
+    features: ['Space key no longer deletes randomly when searchhing'],
+    description: 'Sometimes when searching, the space key would randomly disappear. This has been fixed. Please refer to https://github.com/acm-uiowa/uigrades/issues/10 for more details.',
+    author: 'LZ',
+    showDescription: false
+  },
+  {
     version: '3.3.0',
     type: ['Improvement'],
     date: 'December 2023',

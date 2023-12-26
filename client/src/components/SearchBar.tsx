@@ -3,32 +3,21 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBackspace, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "../context/ThemeContext";
-import { useEffect, useState } from "react";
 
 interface SearchBarProps {
   handleSearch: (page: number, query: string) => void;
-  setSearchQuery: (query: string) => void;
   setCurrentPage: (page: number) => void;
+  query: string;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, setSearchQuery, setCurrentPage }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, setCurrentPage, query }) => {
   const { isDarkMode } = useTheme();
-  const [searchValue, setSearchValue] = useState<string>("");
 
   const clearInput = () => {
-    setSearchValue("");
     handleSearch(1, "");
-    setSearchQuery("");
     setCurrentPage(1);
     window.history.replaceState({}, "", `/courses?page=1`);
   };
-
-  // checks url if previous query existed, if so load it as the current search value
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const query = urlParams.get("q") || "";
-    setSearchValue(query);
-  }, [window.location.search]);
 
   return (
     <div
@@ -46,13 +35,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, setSearchQuery, set
           id="searchBar"
           type="text"
           placeholder="ex. CS 1210 Fall 2022"
-          value={searchValue}
+          value={query}
           onChange={(e) => {
             handleSearch(1, e.target.value);
-            setSearchValue(e.target.value);
             setCurrentPage(1);
           }}
           autoComplete="off"
+          autoFocus
         />
       </div>
       <FontAwesomeIcon
