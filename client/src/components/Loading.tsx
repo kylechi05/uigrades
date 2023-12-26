@@ -1,7 +1,13 @@
 import {useEffect} from 'react';
 import '../App.css';
+import React from 'react';
 
-const Loading = ({justifyCenter, small}) => {
+interface LoadingProps {
+  justifyCenter?: boolean;
+  small?: boolean;
+}
+
+const Loading: React.FC<LoadingProps> = ({justifyCenter, small}) => {
 
   //scroll to top of page useEffect
   useEffect(() => {

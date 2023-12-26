@@ -1,5 +1,6 @@
 import '../App.css';
 import { useTheme } from "../context/ThemeContext.js";
+import React from 'react'
 
 const Footer = () => {
   

@@ -12,7 +12,11 @@ import {
   ArcElement,
 } from 'chart.js';
 
-const BarGraph = ({course}) => {
+interface BarGraphProps {
+  course: number[];
+}
+
+const BarGraph: React.FC<BarGraphProps> = ({course}) => {
     ChartJS.register(ArcElement, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
     const options = {

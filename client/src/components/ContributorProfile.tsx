@@ -1,6 +1,12 @@
 import React from 'react'
 
-function ContributorProfile({ img, username, github }) {
+interface ContributorProfileProps {
+    img: string;
+    username: string;
+    github: string;
+}
+
+const ContributorProfile: React.FC<ContributorProfileProps> = ({ img, username, github }) => {
   return (
     <a target='_blank' href={github}>
       <img

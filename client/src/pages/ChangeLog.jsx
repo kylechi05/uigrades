@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Navbar from "../components/Navbar.jsx";
-import Footer from "../components/Footer.jsx";
+import Navbar from "../components/Navbar.tsx";
+import Footer from "../components/Footer.tsx";
 import { useTheme } from "../context/ThemeContext.js";
 import changelogs from "../modules/changelogs.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
