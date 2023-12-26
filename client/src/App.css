@@ -56,12 +56,10 @@ body {
 
 .img-container {
   perspective: 1000px;
-  /* Add perspective to create the 3D effect */
 }
 
 .landing-img {
   transition: transform 1s ease;
-  /* Add a smooth transition effect */
 }
 
 #landing-img0 {
@@ -74,7 +72,6 @@ body {
 
 #landing-img0:hover {
   transform: rotateY(30deg);
-  /* Rotate the image on the Z-axis when hovered */
 }
 
 #landing-img1:hover {

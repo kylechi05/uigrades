@@ -5,16 +5,9 @@ import { useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext.js'
 import "../App.css";
 
-// const ThemedText = ({ children, additionalClasses = "" }) => (
-//   <span className={`${textColor} ${additionalClasses}`}>
-//     {children}
-//   </span>
-// );
-
-
 const Home = () => {
 
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     window.scrollTo(0, 0); // Scroll to the top when the component renders

@@ -28,7 +28,7 @@ const CoursePage = () => {
 
   const SERVER = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
 
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode } = useTheme();
 
   const navigate = useNavigate();
 
