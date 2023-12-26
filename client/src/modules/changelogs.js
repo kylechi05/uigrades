@@ -41,7 +41,7 @@ const changelogs = [
   },
   {
     version: '3.2.1',
-    type: ['Improvements', 'Bug Fix'],
+    type: ['Improvement', 'Bug Fix'],
     date: 'December 2023',
     features: ['Fixed All Sections viewer bug', 'Fixed similar courses not rendering after clicking', 'New Pagination', 'All sections will now aggregate entire page', 'Better separation of graph columns', 'Refactor About Page'], 
     description: "Updated Pagination so users can now see the first and last pages as well as click on them. Viewing entire courses instead of sections will now change the actual page instead of just the graph. Columns in graphs have been revamped to display different grades more clearly. Refactored about page to include contributors from Github. Similar courses wouldn't load even after clicking on it due to rerender not triggering, fixed by simiply changing the useEffect dependency. Fixed all sections viewer by improving logic of rendering.",
