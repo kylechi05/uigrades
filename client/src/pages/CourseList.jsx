@@ -21,7 +21,7 @@ const CourseList = () => {
   const pageSize = 9;
   const SERVER = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
 
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode } = useTheme();
 
   // checks the url for a page query, if it exists, set the current page to that page
   useEffect(() => {
@@ -99,7 +99,6 @@ const CourseList = () => {
       <CourseListNavbar />
       <SearchBar
         handleSearch={getCourses}
-        setSearchQuery={setCurrSearchQuery}
         setCurrentPage={setCurrentPage}
         query={currSearchQuery}
       />
