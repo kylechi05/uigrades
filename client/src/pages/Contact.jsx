@@ -106,7 +106,11 @@ const Contact = () => {
           ></textarea>
           <button
             type="submit"
-            className="text-stone-50 w-20 h-10 p-4 flex justify-center items-center rounded-lg bg-black hover:bg-zinc-700 hover:text-white transition duration-200"
+            className={`${
+              isDarkMode
+                ? "bg-zinc-300 text-zinc-700 hover:bg-zinc-400"
+                : "bg-black hover:bg-zinc-700 text-zinc-300"
+            } text-stone-50 w-20 h-10 p-4 flex justify-center items-center rounded-lg transition duration-200`}
           >
             Send
           </button>
