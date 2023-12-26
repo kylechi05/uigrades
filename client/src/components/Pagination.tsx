@@ -1,16 +1,22 @@
 import "../App.css"
+import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {faAngleRight} from "@fortawesome/free-solid-svg-icons"
 import {faAngleLeft} from "@fortawesome/free-solid-svg-icons"
 import { useTheme } from "../context/ThemeContext.js";
 
+interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  handleChangePage: (page: string) => void;
+}
 
-const Pagination = ({
+const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   handleChangePage,
 }) => {
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode } = useTheme();
   if (totalPages <= 1) {
     return null;
   }

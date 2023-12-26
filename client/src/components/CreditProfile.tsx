@@ -3,9 +3,18 @@ import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import React from 'react'
 import { useTheme } from '../context/ThemeContext';
 
-function CreditProfile({img, name, title, org, linkedin, github}) {
+interface CreditProfileProps {
+  img: string;
+  name: string;
+  title: string;
+  org: string;
+  linkedin: string;
+  github: string;
+}
 
-  const { isDarkMode, toggleTheme } = useTheme();
+const CreditProfile: React.FC<CreditProfileProps> = ({img, name, title, org, linkedin, github}) => {
+
+  const { isDarkMode } = useTheme();
 
   return (
     <div className="flex flex-row justify-center items-center gap-5">

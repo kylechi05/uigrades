@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import BarGraph from '../components/BarGraph.jsx';
+import BarGraph from '../components/BarGraph.tsx';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar.jsx';
-import Footer from '../components/Footer.jsx';
+import Navbar from '../components/Navbar.tsx';
+import Footer from '../components/Footer.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser, faShareNodes } from '@fortawesome/free-solid-svg-icons';
-import Loading from "../components/Loading.jsx"
-import MessagePopup from "../components/MessagePopup.jsx"
+import Loading from "../components/Loading.tsx"
+import MessagePopup from "../components/MessagePopup.tsx"
 import { useTheme } from '../context/ThemeContext.js';
 import config from '../config';
 

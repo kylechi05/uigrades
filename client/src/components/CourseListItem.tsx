@@ -2,11 +2,13 @@ import '../App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons';
 import { useEffect } from 'react';
-import { useTheme } from "../context/ThemeContext.js";
+import React from 'react';
 
-const CourseListItem = ({course, navigate}) => {
+interface CourseListItemProps {
+  course: Array<string>
+}
 
-    const { isDarkMode, toggleTheme } = useTheme();
+const CourseListItem: React.FC<CourseListItemProps> = ({course}) => {
 
     useEffect(() => {
         document.title = 'UIGrades | Course List';

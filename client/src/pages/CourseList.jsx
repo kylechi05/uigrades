@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar.tsx";
-import CourseListItem from "../components/CourseListItem";
-import Pagination from "../components/Pagination";
+import CourseListItem from "../components/CourseListItem.tsx";
+import Pagination from "../components/Pagination.tsx";
 import { useNavigate } from "react-router-dom";
-import CourseListNavbar from "../components/CourseListNavbar.jsx";
-import Loading from "../components/Loading.jsx";
-import Footer from "../components/Footer.jsx";
+import CourseListNavbar from "../components/CourseListNavbar.tsx";
+import Loading from "../components/Loading.tsx";
+import Footer from "../components/Footer.tsx";
 import { useTheme } from "../context/ThemeContext.js";
 import config from "../config";
 

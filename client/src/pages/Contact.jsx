@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import Navbar from "../components/Navbar.jsx";
-import Footer from "../components/Footer";
-import Loading from "../components/Loading";
+import Navbar from "../components/Navbar.tsx";
+import Footer from "../components/Footer.tsx";
+import Loading from "../components/Loading.tsx";
 import { useTheme } from "../context/ThemeContext.js";
 
-function Contact() {
+const Contact = () => {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -12,7 +12,7 @@ function Contact() {
     email: "",
     message: "",
   });
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     document.title = "UIGrades | Contact";

@@ -1,5 +1,5 @@
-import Footer from '../components/Footer.jsx'
-import LandingNavbar from '../components/LandingNavbar.jsx'
+import Footer from '../components/Footer.tsx'
+import LandingNavbar from '../components/LandingNavbar.tsx'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext.js'
@@ -82,13 +82,12 @@ const Home = () => {
           <h2
             className={`${
               isDarkMode ? "text-zinc-400" : ""
-            } text-lg font-semibold font-light text-stone-600 m-4`}
+            } text-lg font-light text-stone-600 m-4`}
           >
-            Explore courses that fellow{" "}
+            Explore courses taken by fellow{" "}
             <span className="text-yellow-400 hover:text-yellow-500 transition duration-200">
               Hawkeyes
-            </span>{" "}
-            have taken.
+            </span>
           </h2>
           <Link
             to="/courses"

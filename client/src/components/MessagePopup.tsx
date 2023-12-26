@@ -1,6 +1,11 @@
 import {useTheme} from '../context/ThemeContext'
+import React from 'react';
 
-function MessagePopup({message}) {
+interface MessagePopupProps {
+    message: String;
+}
+
+const MessagePopup: React.FC<MessagePopupProps> = ({message}) => {
     const {isDarkMode} = useTheme()
     return (
       <div

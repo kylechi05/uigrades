@@ -1,24 +1,27 @@
-import '../App.css';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoon, faArrowLeft, faBars, faX, faSun } from '@fortawesome/free-solid-svg-icons';
-import {useState, useEffect} from 'react';
+import "../App.css";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMoon,
+  faArrowLeft,
+  faBars,
+  faX,
+  faSun,
+} from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import React from 'react';
 import { useTheme } from "../context/ThemeContext.js";
 
-const Navbar = () => {
-
+// okay so now this is cheating, but essentially to avoid the issue where the search query gets deleted, but the user hits the back button still and nothing happens, i am making the course list page its own unique navbar
+// this is not scalable but should work for an application like this
+const CourseListNavbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const { isDarkMode, toggleTheme } = useTheme();
 
-  const goBack = () => {
-    window.history.back();
-  }
-
   return (
-    <div className="flex justify-between items-center w-full p-4 h-14 absolute top-0 left-0 fixed">
+    <div className="flex justify-between items-center w-full p-4 h-14 absolute top-0 left-0">
       <div className="flex justify-start items-center md:w-1/3 ml-5">
-        <button
-          onClick={goBack}
+        <Link
           to="/"
           className={`text-xl ${
             isDarkMode
@@ -27,7 +30,7 @@ const Navbar = () => {
           } transition duration-200 ease-in-out`}
         >
           <FontAwesomeIcon icon={faArrowLeft} />
-        </button>
+        </Link>
       </div>
       <Link
         to="/"
@@ -66,7 +69,7 @@ const Navbar = () => {
         </Link>
         <Link
           to="/changelog"
-          className="text-gray-500 hover:text-black transition duration-200 ease-in-out"
+          className="text-gray-500 hover:text-black transition duration-200 ease-in-out text-center"
         >
           Changelog
         </Link>
@@ -74,11 +77,7 @@ const Navbar = () => {
           className="flex justify-center items-center text-xl w-5 cursor-pointer text-zinc-700 hover:text-zinc-800 tranisiton duration-200"
           onClick={toggleTheme}
         >
-          <FontAwesomeIcon 
-          icon={isDarkMode ? faSun : faMoon} 
-          // className={isDarkMode ? "text-yellow-400" : "text-current"} // Tailwind yellow color for dark mode
-          />
-
+          <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
         </div>
       </ul>
 
@@ -146,6 +145,6 @@ const Navbar = () => {
       </ul>
     </div>
   );
-}
+};
 
-export default Navbar;
+export default CourseListNavbar;

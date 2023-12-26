@@ -1,11 +1,11 @@
-import Navbar from "../components/Navbar.jsx"
-import Footer from "../components/Footer.jsx"
-import CreditProfile from '../components/CreditProfile.jsx'
+import Navbar from "../components/Navbar.tsx"
+import Footer from "../components/Footer.tsx"
+import CreditProfile from '../components/CreditProfile.tsx'
 import { Link } from 'react-router-dom'
 import {useTheme} from "../context/ThemeContext.js"
 import {useEffect} from 'react'
 import contributors from "../modules/contributors.js"
-import ContributorProfile from "../components/ContributorProfile.jsx"
+import ContributorProfile from "../components/ContributorProfile.tsx"
 function About() {
 
   const { isDarkMode, toggleTheme } = useTheme();

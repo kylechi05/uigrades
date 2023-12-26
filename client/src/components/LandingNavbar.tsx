@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from "../context/ThemeContext.js";
+import React from 'react';
 
 const LandingNavbar = () => {
 
@@ -13,7 +14,7 @@ const LandingNavbar = () => {
         <ul className="flex justify-start items-center gap-8 ml-5 w-3/4">
           <Link
             to="/contact"
-            className={`text-lg hover:scale-105 text-zinc-600 hover:font-medium ${
+            className={`text-zinc-400 ${
               isDarkMode ? "hover:text-zinc-200" : "hover:text-black"
             } transition duration-200 ease-in-out`}
           >
@@ -21,7 +22,7 @@ const LandingNavbar = () => {
           </Link>
           <Link
             to="/about"
-            className={`text-lg hover:scale-105 text-zinc-600 hover:font-medium ${
+            className={`text-zinc-400 ${
               isDarkMode ? "hover:text-zinc-200" : "hover:text-black"
             } transition duration-200 ease-in-out`}
           >
@@ -29,7 +30,7 @@ const LandingNavbar = () => {
           </Link>
           <Link
             to="/changelog"
-            className={`text-lg hover:scale-105 text-zinc-600 hover:font-medium ${
+            className={`text-zinc-400 ${
               isDarkMode ? "hover:text-zinc-200" : "hover:text-black"
             } transition duration-200 ease-in-out`}
           >
@@ -46,7 +47,7 @@ const LandingNavbar = () => {
           <div className="cursor-pointer flex justify-center items-center w-5">
             <FontAwesomeIcon
               icon={isDarkMode ? faSun : faMoon}
-              className="text-xl hover:scale-110"
+              className="text-xl"
               onClick={toggleTheme}
             />
           </div>
