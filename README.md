@@ -23,7 +23,7 @@ Necessary Libraries:
 
 ## Updating
 
-When adding new data, go to [/data](./data/) and add the new `.csv` files.
+When adding new data, go to [/db/data](./db/data/) and add the new `.csv` files.
 
 ## Running
 
