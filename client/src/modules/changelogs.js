@@ -21,11 +21,12 @@ const changelogs = [
   //   author: 'LZ',
   //   showDescription: false
   // },
+
   {
     version: '3.4.1',
-    type: ['Imporvement', 'Bug Fix'],
+    type: ['Improvement', 'Bug Fix'],
     date: 'December 2023',
-    features: ['Fully converted to TypeScript', 'Space key no longer deletes randomly when searchhing'],
+    features: ['Fully converted to TypeScript', 'Space key no longer deletes randomly when searching'],
     description: 'Converted all pages to TypeScript. Sometimes when searching, the space key would randomly disappear. This has been fixed. Please refer to https://github.com/acm-uiowa/uigrades/issues/10 for more details.',
     author: 'LZ',
     showDescription: false
