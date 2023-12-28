@@ -1,7 +1,6 @@
 const initSqlJs = require('sql.js/dist/sql-wasm');
 const fs = require('fs');
 const csv = require('csv-parser');
-const path = require('path');
 
 let db;
 
@@ -11,81 +10,78 @@ initSqlJs().then(async SQL => {
     db.run(initScript.toString());
 
     const insertStatements = [];
-    const promises = [];
 
-    fs.readdir('./data', (err, files) => {
+    fs.readdir('./data', async (err, files) => {
         if (err) {
-            console.error('Error reading directory:', err);
+            console.error('Error reading directory:', err); 
             return;
-        }  
+        }
 
         const csvFiles = files.filter(file => file.endsWith('.csv'));
 
-        csvFiles.forEach(file => {
-            let courseSemesterYearToGrades = {}; // hashmap of course + semester + year to array of grades
-            const promise = new Promise((resolve, reject) => {
-                fs.createReadStream(`./data/${file}`)
-                    .pipe(csv())
-                    .on('data', row => {
-                        const values = Object.values(row).map(value => {
-                            if (typeof value === 'string') {
-                                // Escape single quotes by replacing them with two single quotes
-                                return `'${value.replace(/'/g, "''")}'`;
-                            } else {
-                                return value;
-                            }
-                        });
+        for (const file of csvFiles) {
+            try {
+                await processCSVFile(file);
+                console.log(`File ${file} processed.`);
+            } catch (error) {
+                console.error(`Error processing ${file}:`, error);
+            }
+        }
 
-                        const insertStatement = `INSERT INTO courses (
-                            SUBJECT_COURSE_SECTION,
-                            COURSE_TITLE,
-                            PRIMARY_INSTRUCTOR_NAME,
-                            A_PLUS,
-                            A,
-                            A_MINUS,
-                            B_PLUS,
-                            B,
-                            B_MINUS,
-                            C_PLUS,
-                            C,
-                            C_MINUS,
-                            D_PLUS,
-                            D,
-                            D_MINUS,
-                            F,
-                            WITHDRAWN,
-                            SEMESTER,
-                            YEAR
-                        ) VALUES (${values.join(', ')});`;
-                        insertStatements.push(insertStatement);
-                    })
-                    .on('end', () => {
-                        console.log(`File ${file} processed.`);
-                        resolve(); // Resolve the promise when processing for this file is done
-                    })
-                    .on('error', err => {
-                        reject(err); // Reject the promise if there's an error
-                    });
+        try {
+            // put them into the database after all files have been processed
+            insertStatements.forEach(statement => {
+                db.run(statement);
             });
-
-            promises.push(promise); // Store each promise in the array
-        });
-
-        // After all promises are resolved, insert the grades into the database
-        Promise.all(promises)
-            .then(() => {
-                insertStatements.forEach(statement => {
-                    db.run(statement);
-                });
-
-                // const result = db.exec('SELECT * FROM courses WHERE COURSE_TITLE LIKE "%Networks%"');
-                // console.log(result[0].values);
-                // Note to self, to query apostrophies add \' to the query
-            })
-            .catch(err => {
-                console.error('Error processing files:', err);
-            });
+        } catch (error) {
+            console.error('Error inserting into database:', error);
+        }
     });
+
+    async function processCSVFile(file) {
+        return new Promise((resolve, reject) => {
+            fs.createReadStream(`./data/${file}`)
+                .pipe(csv())
+                .on('data', row => {
+                    const values = Object.values(row).map(value => {
+                        if (typeof value === 'string') {
+                            return `'${value.replace(/'/g, "''")}'`;
+                        } else {
+                            return value;
+                        }
+                    });
+
+                    const insertStatement = `INSERT INTO courses (
+                        SUBJECT_COURSE_SECTION,
+                        COURSE_TITLE,
+                        PRIMARY_INSTRUCTOR_NAME,
+                        A_PLUS,
+                        A,
+                        A_MINUS,
+                        B_PLUS,
+                        B,
+                        B_MINUS,
+                        C_PLUS,
+                        C,
+                        C_MINUS,
+                        D_PLUS,
+                        D,
+                        D_MINUS,
+                        F,
+                        WITHDRAWN,
+                        SEMESTER,
+                        YEAR
+                    ) VALUES (${values.join(', ')});`;
+                    insertStatements.push(insertStatement);
+                })
+                .on('end', () => {
+                    resolve(); 
+                })
+                .on('error', err => {
+                    reject(err);
+                });
+        });
+    }
 }).catch(err => {
     console.error(err);
 });
