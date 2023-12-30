@@ -105,6 +105,7 @@ const Home: React.FC = () => {
               src="/static/images/uigrades0.png"
               alt="UI Grades"
               className="w-full rounded-lg landing-img tilt-box"
+              id="landing-img0"
             />
 	        </div>
           <div className="tilt-box-wrap md:w-3/4 w-full absolute bottom-2 left-20 z-0">
@@ -121,6 +122,7 @@ const Home: React.FC = () => {
               src="/static/images/uigrades1.png"
               alt="UI Grades"
               className="w-full rounded-lg landing-img tilt-box"
+              id="landing-img1"
             />
 	        </div>
         </div>

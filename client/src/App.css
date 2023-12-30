@@ -54,7 +54,14 @@ body {
   }
 }
 
-/* CREDIT: https: //www.youtube.com/watch?v=A5koWY5S6Q4&ab_channel=InventionTricks */
+#landing-img0 {
+  transform: rotateY(20deg);
+}
+
+#landing-img1 {
+  transform: rotateY(-20deg);
+}
+
 .tilt-box-wrap {
   transition: all 0.4s ease-out;
   perspective: 1000px
@@ -128,37 +135,37 @@ body {
 }
 
 .tilter:nth-child(1):hover~.tilt-box {
-  transform: rotateX(20deg) rotateY(-20deg);
+  transform: rotateX(20deg) rotateY(-20deg) !important;
 }
 
 .tilter:nth-child(2):hover~.tilt-box {
-  transform: rotateX(20deg) rotateY(0deg)
+  transform: rotateX(20deg) rotateY(0deg) !important;
 }
 
 .tilter:nth-child(3):hover~.tilt-box {
-  transform: rotateX(20deg) rotateY(20deg)
+  transform: rotateX(20deg) rotateY(20deg) !important;
 }
 
 .tilter:nth-child(4):hover~.tilt-box {
-  transform: rotateX(0deg) rotateY(-20deg)
+  transform: rotateX(0deg) rotateY(-20deg) !important;
 }
 
 .tilter:nth-child(5):hover~.tilt-box {
-  transform: rotateX(0deg) rotateY(0deg)
+  transform: rotateX(0deg) rotateY(0deg) !important;
 }
 
 .tilter:nth-child(6):hover~.tilt-box {
-  transform: rotateX(0deg) rotateY(20deg)
+  transform: rotateX(0deg) rotateY(20deg) !important;
 }
 
 .tilter:nth-child(7):hover~.tilt-box {
-  transform: rotateX(-20deg) rotateY(-20deg);
+  transform: rotateX(-20deg) rotateY(-20deg) !important;
 }
 
 .tilter:nth-child(8):hover~.tilt-box {
-  transform: rotateX(-20deg) rotateY(0deg)
+  transform: rotateX(-20deg) rotateY(0deg) !important;
 }
 
 .tilter:nth-child(9):hover~.tilt-box {
-  transform: rotateX(-20deg) rotateY(20deg)
+  transform: rotateX(-20deg) rotateY(20deg) !important; 
 }
