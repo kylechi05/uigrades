@@ -91,18 +91,52 @@ const Home: React.FC = () => {
           </Link>
         </div>
         <div className="hidden md:flex px-10 w-full flex-col items-center justify-center relative img-container h-40">
-          <img
+          {/* <img
             src="/static/images/uigrades0.png"
             alt="UI Grades"
             className="w-full md:w-3/4 rounded-lg landing-img absolute top-0 left-0 z-10"
             id="landing-img0"
-          />
-          <img
+          /> */}
+          {/* <img
             src="/static/images/uigrades1.png"
             alt="UI Grades"
             className="w-full md:w-3/4 rounded-lg landing-img absolute bottom-2 right-10 z-0"
             id="landing-img1"
-          />
+          /> */}
+          <div className="tilt-box-wrap w-full md:w-3/4 absolute top-0 left-0 z-10">
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+            <img
+              src="/static/images/uigrades0.png"
+              alt="UI Grades"
+              className="w-full rounded-lg landing-img tilt-box"
+              id="landing-img0"
+            />
+	        </div>
+          <div className="tilt-box-wrap md:w-3/4 w-full absolute bottom-2 left-20 z-0">
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+              <span className="tilter"></span>
+            <img
+              src="/static/images/uigrades1.png"
+              alt="UI Grades"
+              className="w-full rounded-lg landing-img tilt-box"
+              id="landing-img1"
+            />
+	        </div>
         </div>
       </div>
 

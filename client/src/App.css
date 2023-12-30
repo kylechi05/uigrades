@@ -54,7 +54,7 @@ body {
   }
 }
 
-.img-container {
+/* .img-container {
   perspective: 1000px;
 }
 
@@ -76,4 +76,112 @@ body {
 
 #landing-img1:hover {
   transform: rotateY(-20deg);
+} */
+
+.tilt-box-wrap {
+  transition: all 0.4s ease-out;
+  perspective: 1000px
+}
+
+.tilt-box-wrap:hover {
+  transition: all 0.3s linear;
+}
+
+.tilt-box {
+  transition: all 1s ease-out;
+  transform: rotateX(0deg) rotateY(0deg);
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.tilt-box strong {
+  transform: translateZ(40px);
+}
+
+.tilter {
+  width: 33.33333%;
+  height: 33.33333%;
+  position: absolute; 
+  z-index: 1;
+}
+
+.tilter:nth-child(1) {
+  left: 0;
+  top: 0;
+}
+
+.tilter:nth-child(2) {
+  left: 33.33333%;
+  top: 0;
+}
+
+.tilter:nth-child(3) {
+  left: 66.666%;
+  top: 0;
+}
+
+.tilter:nth-child(4) {
+  left: 0;
+  top: 33.33333%;
+}
+
+.tilter:nth-child(5) {
+  left: 33.33333%;
+  top: 33.33333%;
+}
+
+.tilter:nth-child(6) {
+  left: 66.666%;
+  top: 33.33333%;
+}
+
+.tilter:nth-child(7) {
+  left: 0;
+  top: 66.666%;
+}
+
+.tilter:nth-child(8) {
+  left: 33.33333%;
+  top: 66.666%;
+}
+
+.tilter:nth-child(9) {
+  left: 66.666%;
+  top: 66.666%;
+}
+
+.tilter:nth-child(1):hover~.tilt-box {
+  transform: rotateX(20deg) rotateY(-20deg);
+}
+
+.tilter:nth-child(2):hover~.tilt-box {
+  transform: rotateX(20deg) rotateY(0deg)
+}
+
+.tilter:nth-child(3):hover~.tilt-box {
+  transform: rotateX(20deg) rotateY(20deg)
+}
+
+.tilter:nth-child(4):hover~.tilt-box {
+  transform: rotateX(0deg) rotateY(-20deg)
+}
+
+.tilter:nth-child(5):hover~.tilt-box {
+  transform: rotateX(0deg) rotateY(0deg)
+}
+
+.tilter:nth-child(6):hover~.tilt-box {
+  transform: rotateX(0deg) rotateY(20deg)
+}
+
+.tilter:nth-child(7):hover~.tilt-box {
+  transform: rotateX(-20deg) rotateY(-20deg);
+}
+
+.tilter:nth-child(8):hover~.tilt-box {
+  transform: rotateX(-20deg) rotateY(0deg)
+}
+
+.tilter:nth-child(9):hover~.tilt-box {
+  transform: rotateX(-20deg) rotateY(20deg)
 }
