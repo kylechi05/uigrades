@@ -54,30 +54,7 @@ body {
   }
 }
 
-/* .img-container {
-  perspective: 1000px;
-}
-
-.landing-img {
-  transition: transform 1s ease;
-}
-
-#landing-img0 {
-  transform: rotateY(10deg);
-}
-
-#landing-img1 {
-  transform: rotateY(-10deg);
-}
-
-#landing-img0:hover {
-  transform: rotateY(30deg);
-}
-
-#landing-img1:hover {
-  transform: rotateY(-20deg);
-} */
-
+/* CREDIT: https: //www.youtube.com/watch?v=A5koWY5S6Q4&ab_channel=InventionTricks */
 .tilt-box-wrap {
   transition: all 0.4s ease-out;
   perspective: 1000px
