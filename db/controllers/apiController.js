@@ -51,6 +51,11 @@ initSqlJs().then(async SQL => {
                         }
                     });
 
+                    /* replace any null values given from data to N/A */
+                    if (values[2] === "' '") {
+                        values[2] = "'N/A'";
+                    }
+
                     const insertStatement = `INSERT INTO courses (
                         SUBJECT_COURSE_SECTION,
                         COURSE_TITLE,
