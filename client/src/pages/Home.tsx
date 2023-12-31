@@ -116,7 +116,7 @@ const Home: React.FC = () => {
               <span className="tilter"></span>
               <span className="tilter"></span>
               <span className="tilter"></span>
-              <span className="tilter"></span>
+              <span className="tilter"></span>    
               <span className="tilter"></span>
             <img
               src="/static/images/uigrades1.png"

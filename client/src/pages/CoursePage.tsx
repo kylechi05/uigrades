@@ -71,6 +71,7 @@ const CoursePage:React.FC = () => {
   const [totalAggregatedStudents, setTotalAggregatedStudents] = useState<number>(0); // total number of students in all sections of the course
   const id:number = Number(new URLSearchParams(window.location.search).get("id"));
 
+  // @ts-ignore
   const SERVER:string = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
 
   const { isDarkMode } = useTheme();
@@ -323,14 +324,14 @@ const CoursePage:React.FC = () => {
         <div className="justify-center flex flex-col items-center gap-5 w-full">
           {similarCourses.length !== 0 && (
             <h2
-              className={`font-bold text-2xl w-full pl-5 ${
+              className={`font-bold text-2xl w-full pl-5 text-center ${
                 isDarkMode ? "text-zinc-500" : ""
               }`}
             >
               Similar Courses
             </h2>
           )}
-          <div className="gap-5 flex justify-start items-center overflow-scroll scrollbar w-full h-full px-5">
+          <div className="gap-5 flex justify-start items-center overflow-auto w-full h-full px-5">
             {similarCourses.map((similarCourse, index) => (
               <div
                 onClick={() => {

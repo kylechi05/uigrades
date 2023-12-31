@@ -47,6 +47,7 @@ const CourseList: React.FC = () => {
   const [currSearchQuery, setCurrSearchQuery] = useState<string>("");
 
   const pageSize:number = 9;
+  // @ts-ignore
   const SERVER:string = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
 
   const { isDarkMode } = useTheme();
