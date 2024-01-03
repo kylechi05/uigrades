@@ -3,7 +3,7 @@ import Footer from "../components/Footer.tsx"
 import CreditProfile from '../components/CreditProfile.tsx'
 import { Link } from 'react-router-dom'
 import {useTheme} from "../context/ThemeContext.js"
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import contributors from "../modules/contributors.js"
 import ContributorProfile from "../components/ContributorProfile.tsx"
 
@@ -17,8 +17,32 @@ const About: React.FC = () => {
 
   const { isDarkMode } = useTheme();
 
+  const [allContributors, setAllContributors] = useState<any[]>([]);
+
+  // uses github's api to fetch each contributor's github data
+  const getContributors = async () => {
+    for (const contributor of contributors) {
+        try {
+          const response = await fetch(`https://api.github.com/users/${contributor}`);
+          if (response.ok) {
+            const data = await response.json();
+            setAllContributors((prev) => [...prev, {
+              username: data.login,
+              img: data.avatar_url,
+              github: data.html_url
+            }]);
+          } else {
+            console.error('Failed to fetch user data');
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+    }
+  }
+
 	useEffect(() => {
 		document.title = "UIGrades | About"
+    getContributors();
 	},[])
 
   return (
@@ -155,8 +179,9 @@ const About: React.FC = () => {
               Contributors
             </h1>
             <div className="flex flex justify-start w-full items-center gap-2">
-              {contributors.map((contributor: ContributorInterface) => (
+              {allContributors.map((contributor: ContributorInterface, idx: number) => (
                 <ContributorProfile
+                  key={idx}
                   username={contributor.username}
                   img={contributor.img}
                   github={contributor.github}
