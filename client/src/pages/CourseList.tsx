@@ -134,7 +134,7 @@ const CourseList: React.FC = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex flex-col items-center p-10 w-full min-h-full mt-32">
+        <div className="flex flex-col items-center p-10 w-full min-h-full mt-32 mb-[25px]">
           <div className="flex justify-center items-center w-full">
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-2 w-full h-full">
               {data.map((course: Course, index: number) => (
