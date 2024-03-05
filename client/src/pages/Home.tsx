@@ -24,10 +24,10 @@ const Home: React.FC = () => {
           <img src="/static/images/uigrades0.png" alt="UIGrades" className="w-2/3 md:w-1/2 absolute top-20 animated-outline" />
         </div>
         <div className="mb-52 md:mb-40 lg:mb-0 h-full flex justify-center items-center">
-          <a href="/signup" className='main-button-n'>
+          <a href="/courses" className='main-button-n'>
             <div className="main-button-inner">
               <div className='main-button-text'>
-              Explore Courses
+              Start Browsing
               </div>
             </div>
           </a>
