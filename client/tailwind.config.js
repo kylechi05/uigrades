@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'landing': "url('/src/static/images/landing.svg')",
+        'landing-page': "url('/src/static/images/landing-page.png')",
         'list-dark': "url('/src/static/images/list-dark.svg')",
         'list': "url('/src/static/images/list.svg')",
         'graph': "url('/src/static/images/graph.svg')",
@@ -14,7 +14,9 @@ module.exports = {
         'graph-dark': "url('/src/static/images/graph-dark.svg')",
       },
       colors: {
-        'darkTheme': 'rgb(38,39,42)'
+        'darkTheme': 'rgb(38,39,42)',
+        'primary': 'rgb(250 204 21)',
+        'dark': 'rgb(24 24 27)',
       }
     },
   },

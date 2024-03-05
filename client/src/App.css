@@ -2,9 +2,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 * {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Open Sans';
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -168,4 +169,233 @@ body {
 
 .tilter:nth-child(9):hover~.tilt-box {
   transform: rotateX(-20deg) rotateY(20deg) !important; 
+}
+
+.blurred-container {
+  background: rgba(21, 21, 21, 0.5);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+.darker-blurred-container {
+  background: rgba(21, 21, 21, 0.665);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+.glow:hover {
+  color: #fff;
+  text-shadow: 1px 1px 10px #fff, 1px 1px 10px #ccc;
+  text-align: center;
+  transition: 0.25s;
+}
+
+.glowing-head {
+  text-align: center;
+  letter-spacing: -.04em;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(#fff 30%, rgba(255, 255, 255, 0.201));
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  transition: transform .96s cubic-bezier(.3, 1.17, .55, .99);
+}
+
+.glowing-head-primary {
+  text-align: center;
+  letter-spacing: -.04em;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(rgb(250 204 21) 30%, rgba(255, 255, 255, 0.201));
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  transition: transform .96s cubic-bezier(.3, 1.17, .55, .99);
+} 
+
+@media (max-width: 768px) {
+  .glowing-head {
+    font-size: 3rem;
+  }
+
+  .glowing-head-primary {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .glowing-head {
+    font-size: 2rem;
+  }
+
+  .glowing-head-primary {
+    font-size: 2rem;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.animated-outline {
+  border-radius: 10px;
+  margin: auto;
+
+  display: grid;
+  place-content: center;
+  text-align: center;
+
+  font-size: 1.5em;
+
+  --border-size: 0.3rem;
+  border: var(--border-size) solid transparent;
+
+  /* Paint an image in the border */
+  border-image: conic-gradient(from var(--angle),
+      #ffffff 0deg 90deg,
+      rgb(250 204 21) 90deg 180deg,
+      rgba(255, 255, 255, 0.201) 180deg 270deg,
+      rgb(250 204 21) 270deg 360deg) 1 stretch;
+  background: rgb(255 255 255 / var(--opacity));
+}
+
+/* Animate when Houdini is available */
+@supports (background: paint(houdini)) {
+  @property --opacity {
+    syntax: "<number>";
+    initial-value: 0.5;
+    inherits: false;
+  }
+
+  @property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @keyframes opacityChange {
+    to {
+      --opacity: 1;
+    }
+  }
+
+  @keyframes rotate {
+    to {
+      --angle: 360deg;
+    }
+  }
+
+  .animated-outline {
+    animation: rotate 4s linear infinite, opacityChange 3s infinite alternate;
+  }
+}
+
+.animated-outline-counter {
+  border-radius: 10px;
+  margin: auto;
+
+  display: grid;
+  place-content: center;
+  text-align: center;
+
+  font-size: 1.5em;
+
+  --border-size: 0.3rem;
+  border: var(--border-size) solid transparent;
+
+  /* Paint an image in the border */
+  border-image: conic-gradient(from var(--angle),
+      #ffffff 0deg 90deg,
+      rgb(250 204 21) 90deg 180deg,
+      rgba(255, 255, 255, 0.201) 180deg 270deg,
+      rgb(250 204 21) 270deg 360deg) 1 stretch;
+  background: rgb(255 255 255 / var(--opacity));
+}
+
+/* Animate when Houdini is available */
+@supports (background: paint(houdini)) {
+  @property --opacity {
+    syntax: "<number>";
+    initial-value: 0.5;
+    inherits: false;
+  }
+
+  @property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @keyframes opacityChange {
+    to {
+      --opacity: 1;
+    }
+  }
+
+  @keyframes rotate-counter {
+    to {
+      --angle: -360deg;
+    }
+  }
+
+  .animated-outline-counter {
+    animation: rotate-counter 4.5s linear infinite, opacityChange 3s infinite alternate;
+  }
+}
+
+.main-button-n {
+  border-radius: 100rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+  text-decoration: none;
+  transition: all .4s;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(255, 217, 0, 0.566);
+}
+
+.main-button-n:hover {
+  box-shadow: 0 0 50px rgb(250 204 21);
+}
+
+.main-button-inner {
+  z-index: 1;
+  background-color: #151515;
+  border-radius: 100rem;
+  position: relative;
+}
+
+.main-button-text {
+  z-index: 2;
+  grid-column-gap: 0.5em;
+  white-space: nowrap;
+  -webkit-text-fill-color: transparent;
+  background-color: #151515;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, .7), #fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 1.7rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  display: flex;
+  position: static;
+  top: 1%;
+  bottom: 1%;
+  left: 1%;
+  right: 1%;
+  word-spacing: 3px;
 }
