@@ -16,6 +16,7 @@ module.exports = {
       colors: {
         'darkTheme': 'rgb(38,39,42)',
         'primary': 'rgb(250 204 21)',
+        'primary-text': 'rgb(212 212 216)',
         'dark': 'rgb(24 24 27)',
       }
     },

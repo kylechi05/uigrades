@@ -1,46 +1,39 @@
 import '../App.css';
-import { useTheme } from "../context/ThemeContext.js";
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
-  
-  const { isDarkMode, toggleTheme } = useTheme();
+
+  const [currentYear, setCurrentYear] = useState<number>(0)
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear())
+  }, [])
 
   return (
-    <div
-      className={`flex items-center justify-center flex-col text-center p-4 text-xs absolute bottom-0 ${
-        isDarkMode ? "text-stone-50" : ""
-      }`}
-    >
-      <p className="description">
-        Made by the 2023-2024{" "}
-        <a
-          className="text-yellow-400"
-          href="https://acm.org.uiowa.edu/"
-          target="_blank"
-        >
-          ACM
-        </a>{" "}
-        and{" "}
-        <a
-          className="text-yellow-400"
-          href="https://usg.uiowa.edu/"
-          target="_blank"
-        >
-          USG
-        </a>{" "}
-          Organizations at UIowa
-      </p>
-      <p className="description">
-        All the source code and data for this site can be found{" "}
-        <a
-          className="text-yellow-400"
-          href="https://github.com/acm-uiowa/uigrades"
-          target="_blank"
-        >
-          here
-        </a>
-      </p>
+    <div className='flex justify-center items-center w-full h-full flex-col static'>
+      <div className='flex justify-center items-center gap-4'></div>
+      <div className='flex justify-between items-center gap-4 border-t-2 border-white border-opacity-20 w-11/12 text-zinc-400 opacity-60 py-7 text-sm tracking-widest flex-col md:flex-row'>
+          <h1>© {currentYear} UIGrades Built With Excellence 💛 </h1>
+          <div className='flex justify-center items-center gap-10 text-zinc-200'>
+          <Link
+            to="https://acm.org.uiowa.edu/"
+            target='_blank'
+            className="hover:text-white opacity-100 transition duration-200 ease-in-out"
+          >
+            ACM
+          </Link>
+          <Link to="https://usg.uiowa.edu/" target='_blank' className='hover:text-white opacity-100 transition duration-200 ease-in-out'>
+            USG
+          </Link>
+          <Link
+            to="/"
+            className="hover:text-white opacity-100 transition duration-200 ease-in-out"
+          >
+            User Guide
+          </Link>
+          </div>
+      </div>
     </div>
   );
 }

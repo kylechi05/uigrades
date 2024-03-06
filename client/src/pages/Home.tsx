@@ -12,7 +12,7 @@ const Home: React.FC = () => {
   , []);
 
   return (
-    <div className="min-h-full flex flex-col z-10 relative justify-center items-center bg-dark pb-20">
+    <div className="min-h-full flex flex-col z-10 relative justify-center items-center bg-dark">
       <LandingNavbar />
       <div className='flex flex-col justify-start items-center gap-10 my-20'>
         <h1 className='text-7xl text-zinc-200 font-bold'><span className='text-primary'>UI</span>Grades</h1>
