@@ -11,26 +11,22 @@ const Footer = () => {
   }, [])
 
   return (
-    <div className='flex justify-center items-center w-full h-full flex-col static'>
+    <div className='flex justify-center items-center w-full h-full flex-col static mt-16'>
       <div className='flex justify-center items-center gap-4'></div>
-      <div className='flex justify-between items-center gap-4 border-t-2 border-white border-opacity-20 w-11/12 text-zinc-400 opacity-60 py-7 text-sm tracking-widest flex-col md:flex-row'>
+      <div className='flex justify-between items-center gap-4 border-t-2 border-white border-opacity-20 w-3/4 text-zinc-400 opacity-60 py-7 text-sm tracking-widest flex-col md:flex-row'>
           <h1>© {currentYear} UIGrades Built With Excellence 💛 </h1>
           <div className='flex justify-center items-center gap-10 text-zinc-200'>
           <Link
-            to="https://acm.org.uiowa.edu/"
-            target='_blank'
-            className="hover:text-white opacity-100 transition duration-200 ease-in-out"
+            to="/changelog"
+            className={`hover:text-white opacity-100 transition duration-200 ease-in-out`}
           >
-            ACM
-          </Link>
-          <Link to="https://usg.uiowa.edu/" target='_blank' className='hover:text-white opacity-100 transition duration-200 ease-in-out'>
-            USG
+            Changelog
           </Link>
           <Link
-            to="/"
+            to="/usage-guide"
             className="hover:text-white opacity-100 transition duration-200 ease-in-out"
           >
-            User Guide
+            Usage Guide
           </Link>
           </div>
       </div>

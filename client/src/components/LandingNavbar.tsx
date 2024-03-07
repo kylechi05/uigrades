@@ -24,16 +24,10 @@ const LandingNavbar = () => {
             About
           </Link>
           <Link
-            to="/"
+            to="/usage-guide"
             className={`text-zinc-400 glow`}
           >
-            User Guide
-          </Link>
-          <Link
-            to="/changelog"
-            className={`text-zinc-400 glow`}
-          >
-            Changelog
+            Usage Guide
           </Link>
         </ul>
       </div>

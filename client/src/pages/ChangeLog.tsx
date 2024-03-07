@@ -37,7 +37,7 @@ const ChangeLog:React.FC = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center flex-col relative pb-24">
+    <div className="w-full flex justify-center items-center flex-col relative">
       <div
         className={`absolute top-0 left-0 w-full h-full ${
           isDarkMode ? "bg-darkTheme" : "bg-graph"
