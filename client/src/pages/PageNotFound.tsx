@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Navbar from '../components/Navbar.tsx'
 import Footer from '../components/Footer.tsx'
 import { Link } from 'react-router-dom'
@@ -9,9 +9,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const PageNotFound: React.FC = () => {
 
   const { isDarkMode } = useTheme()
+  
+  const pageRef = useRef(null)
+
+  useEffect(() => {
+      pageRef.current.scrollIntoView()
+  }, [])
 
   return (
-    <div className="w-full flex justify-center items-center flex-col relative min-h-screen">
+    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative min-h-screen">
       <div
         className={`absolute top-0 left-0 w-full h-full ${
           isDarkMode ? "bg-graph-dark" : "bg-graph"

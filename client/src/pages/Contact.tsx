@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import React, { useState, useEffect, useRef, ChangeEvent, FormEvent } from "react";
 import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
 import Loading from "../components/Loading.tsx";
@@ -24,7 +24,10 @@ const Contact:React.FC = () => {
     message: "",
   });
 
+  const pageRef = useRef(null)
+
   useEffect(() => {
+    pageRef.current.scrollIntoView()
     document.title = "UIGrades | Contact";
   }, []);
 
@@ -59,7 +62,7 @@ const Contact:React.FC = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center flex-col relative min-h-screen bg-dark">
+    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative min-h-screen bg-dark">
       <LandingNavbar/>
       <div className="flex flex-col justify-start items-center h-screen gap-10 w-full">
           <div className="flex justify-center items flex-col w-full text-zinc-300 text-center gap-5 mt-10 px-4">

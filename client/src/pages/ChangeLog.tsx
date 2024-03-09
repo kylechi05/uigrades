@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
 import { useTheme } from "../context/ThemeContext.js";
@@ -19,8 +19,10 @@ interface ChangeLog {
 const ChangeLog:React.FC = () => {
   const { isDarkMode } = useTheme();
   const [logs, setLogs] = useState<ChangeLog[]>(changelogs);
+  const pageRef = useRef(null)
 
   useEffect(() => {
+    pageRef.current.scrollIntoView()
     document.title = "UIGrades | Changelog";
     // initialize the showDescription property to false for each log
     let newLogs = [...logs];
@@ -37,11 +39,11 @@ const ChangeLog:React.FC = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center flex-col relative">
+    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative">
       <div
         className={`absolute top-0 left-0 w-full h-full ${
           isDarkMode ? "bg-darkTheme" : "bg-graph"
-        } bg-cover bg-center bg-cover lg:bg-fixed`}
+        } bg-cover bg-center lg:bg-fixed`}
         style={{ zIndex: -1 }}
       ></div>
       <Navbar />

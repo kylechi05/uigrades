@@ -5,14 +5,16 @@ import React, { useRef, useEffect } from 'react';
 
 const Home: React.FC = () => {
 
+  const pageRef = useRef(null)
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    pageRef.current.scrollIntoView();
     document.title = `UIGrades`;
   }
   , []);
 
   return (
-    <div className="min-h-full flex flex-col z-10 relative justify-center items-center bg-dark">
+    <div ref={pageRef} className="min-h-full flex flex-col z-10 relative justify-center items-center bg-dark">
       <LandingNavbar />
       <div className='flex flex-col justify-start items-center gap-10 my-20'>
         <h1 className='text-7xl text-zinc-200 font-bold'><span className='text-primary'>UI</span>Grades</h1>

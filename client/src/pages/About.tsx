@@ -2,8 +2,8 @@ import Navbar from "../components/Navbar.tsx"
 import Footer from "../components/Footer.tsx"
 import CreditProfile from '../components/CreditProfile.tsx'
 import { Link } from 'react-router-dom'
-import {useTheme} from "../context/ThemeContext.js"
-import React, {useEffect, useState} from 'react'
+import { useTheme } from "../context/ThemeContext.js"
+import React, { useEffect, useState, useRef } from 'react'
 import contributors from "../modules/contributors.js"
 import ContributorProfile from "../components/ContributorProfile.tsx"
 
@@ -18,6 +18,8 @@ const About: React.FC = () => {
   const { isDarkMode } = useTheme();
 
   const [allContributors, setAllContributors] = useState<any[]>([]);
+
+  const pageRef = useRef(null)
 
   // uses github's api to fetch each contributor's github data
   const getContributors = async () => {
@@ -41,16 +43,17 @@ const About: React.FC = () => {
   }
 
 	useEffect(() => {
+    pageRef.current.scrollIntoView()
 		document.title = "UIGrades | About"
     getContributors();
 	},[])
 
   return (
-    <div className="w-full flex justify-center items-center flex-col relative min-h-screen text-zinc-700">
+    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative min-h-screen text-zinc-700">
       <div
         className={`absolute top-0 left-0 w-full h-full ${
           isDarkMode ? "bg-graph-dark" : "bg-graph"
-        } bg-cover bg-center bg-cover lg:bg-fixed`}
+        } bg-cover bg-center lg:bg-fixed`}
         style={{ zIndex: -1 }}
       ></div>
       <Navbar />
@@ -138,14 +141,14 @@ const About: React.FC = () => {
                 <img
                   src="/static/images/usg.jpeg"
                   alt="USG logo"
-                  className="cursor-pointer rounded-full w-16 md:w-16 md:h-16 lg:w-24 lg:h-24 h-16 md:w-16 md:h-16 lg:w-24 lg:h-24 hover:shadow-xl transition duration-200 border-4 border-zinc-700"
+                  className="cursor-pointer rounded-full w-16 md:w-16 md:h-16 lg:w-24 lg:h-24 h-16 hover:shadow-xl transition duration-200 border-4 border-zinc-700"
                 />
               </a>
               <a href="https://acm.org.uiowa.edu/" target="_blank" className="">
                 <img
                   src="/static/images/acm.png"
                   alt="ACM logo"
-                  className="cursor-pointer w-16 md:w-16 md:h-16 lg:w-24 lg:h-24 h-16 md:w-16 md:h-16 lg:w-24 lg:h-24 hover:shadow-xl transition duration-200 border-4 border-zinc-700 rounded-full"
+                  className="cursor-pointer w-16 md:w-16 md:h-16 lg:w-24 lg:h-24 h-16 hover:shadow-xl transition duration-200 border-4 border-zinc-700 rounded-full"
                 />
               </a>
             </div>
@@ -178,7 +181,7 @@ const About: React.FC = () => {
             <h1 className="font-bold text-2xl lg:text-4xl w-full text-left">
               Contributors
             </h1>
-            <div className="flex flex justify-start w-full items-center gap-2">
+            <div className="flex justify-start w-full items-center gap-2">
               {allContributors.map((contributor: ContributorInterface, idx: number) => (
                 <ContributorProfile
                   key={idx}

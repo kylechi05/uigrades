@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import BarGraph from '../components/BarGraph.tsx';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar.tsx';
@@ -78,6 +78,7 @@ const CoursePage:React.FC = () => {
 
   const navigate = useNavigate();
 
+  const pageRef = useRef(null);
   
   const getCourse = async () => {
     if (isNaN(id)) {
@@ -148,6 +149,7 @@ const CoursePage:React.FC = () => {
   useEffect(() => {
     setShowingAggregatedGrades(false);
     getCourse();
+    pageRef.current.scrollIntoView();
   }, []);
 
   useEffect(() => {
@@ -216,7 +218,7 @@ const CoursePage:React.FC = () => {
 
 
   return (
-    <div className="w-full flex justify-center items-center flex-col relative">
+    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative">
       {shared && <MessagePopup message="Link copied to clipboard!" />}
       <div
         className={`absolute top-0 left-0 w-full h-full ${

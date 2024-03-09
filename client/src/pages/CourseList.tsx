@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import SearchBar from "../components/SearchBar.tsx";
 import CourseListItem from "../components/CourseListItem.tsx";
 import Pagination from "../components/Pagination.tsx";
@@ -52,6 +52,8 @@ const CourseList: React.FC = () => {
 
   const { isDarkMode } = useTheme();
 
+  const pageRef = useRef(null);
+
   // checks the url for a page query, if it exists, set the current page to that page
   useEffect(() => {
     const pageParam = new URLSearchParams(window.location.search).get("page");
@@ -62,6 +64,8 @@ const CourseList: React.FC = () => {
     setCurrSearchQuery(query);
 
     getCourses(page, query);
+
+    pageRef.current.scrollIntoView();
   }, []);
 
   // should trigger this useeffect when the current page or search query changes
@@ -118,11 +122,11 @@ const CourseList: React.FC = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center flex-col relative min-h-screen">
+    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative min-h-screen">
       <div
         className={`absolute top-0 left-0 w-full h-full ${
           isDarkMode ? "bg-list-dark" : "bg-list"
-        } bg-cover bg-center bg-cover lg:bg-fixed`}
+        } bg-cover bg-center lg:bg-fixed`}
         style={{ zIndex: -1 }}
       ></div>
       <CourseListNavbar />
@@ -145,7 +149,7 @@ const CourseList: React.FC = () => {
                     isDarkMode
                       ? "bg-zinc-600 hover:bg-zinc-500 text-stone-50"
                       : "hover:bg-white bg-stone-200"
-                  } flex h-full w-full justify-between items-center rounded-md cursor-pointer rounded-xl transition duration-300 p-4`}
+                  } flex h-full w-full justify-between items-center cursor-pointer rounded-xl transition duration-300 p-4`}
                 >
                   <CourseListItem course={course} />
                 </div>
