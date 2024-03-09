@@ -1,16 +1,18 @@
-import React, {useLayoutEffect} from 'react'
+import React, { useEffect, useRef } from 'react'
 import LandingNavbar from '../components/LandingNavbar.tsx'
 import Footer from '../components/Footer.tsx'
 
 const UsageGuide: React.FC = () => {
 
-    useLayoutEffect(() => {
-        window.scrollTo(0, 0)
+    const pageRef = useRef(null)
+
+    useEffect(() => {
+        pageRef.current.scrollIntoView()
         document.title = `UIGrades | Usage Guide` 
     }, [])
 
     return (
-        <div className="w-full flex justify-center items-center flex-col relative min-h-screen bg-dark">
+        <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative min-h-screen bg-dark">
         <LandingNavbar />
             <div className='md:mt-0 mt-8 flex flex-col items-start justify-center gap-10 min-h-screen w-5/6 md:text-justify text-zinc-300 leading-relaxed px-12'>
                 <h1 className='md:text-5xl text-3xl text-primary font-bold underline-offset-[10px] underline'>Disclaimer</h1>
