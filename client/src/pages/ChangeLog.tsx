@@ -5,6 +5,7 @@ import { useTheme } from "../context/ThemeContext.js";
 import changelogs from "../modules/changelogs.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import "../App.css"
 
 interface ChangeLog {
   version: string;
@@ -22,7 +23,10 @@ const ChangeLog:React.FC = () => {
   const pageRef = useRef(null)
 
   useEffect(() => {
-    pageRef.current.scrollIntoView()
+    if (pageRef.current !== null) {
+      // @ts-ignore
+      pageRef.current.scrollIntoView()
+    }
     document.title = "UIGrades | Changelog";
     // initialize the showDescription property to false for each log
     let newLogs = [...logs];
@@ -39,16 +43,16 @@ const ChangeLog:React.FC = () => {
   };
 
   return (
-    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative">
+    <div className="w-full flex justify-center items-center flex-col relative" ref={pageRef}>
       <div
         className={`absolute top-0 left-0 w-full h-full ${
           isDarkMode ? "bg-darkTheme" : "bg-graph"
-        } bg-cover bg-center lg:bg-fixed`}
+        } bg-cover bg-center bg-cover lg:bg-fixed`}
         style={{ zIndex: -1 }}
       ></div>
       <Navbar />
       <div
-        className={`w-full flex justify-start mt-20 items-center flex-col gap-5`}
+        className={`w-4/5 flex justify-start mt-20 items-center flex-col gap-5`}
       >
         <div
           className={`flex justify-center items-center flex-col ${

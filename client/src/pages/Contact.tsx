@@ -27,6 +27,7 @@ const Contact:React.FC = () => {
   const pageRef = useRef(null)
 
   useEffect(() => {
+    // @ts-ignore
     pageRef.current.scrollIntoView()
     document.title = "UIGrades | Contact";
   }, []);

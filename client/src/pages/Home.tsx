@@ -5,13 +5,13 @@ import React, { useRef, useEffect } from 'react';
 
 const Home: React.FC = () => {
 
-  const pageRef = useRef(null)
+  const pageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // @ts-ignore
     pageRef.current.scrollIntoView();
     document.title = `UIGrades`;
-  }
-  , []);
+  }, []);
 
   return (
     <div ref={pageRef} className="min-h-full flex flex-col z-10 relative justify-center items-center bg-dark">
