@@ -70,40 +70,40 @@ const Contact:React.FC = () => {
               <h1 className="text-4xl md:text-7xl font-bold text-primary">Questions or Concerns?</h1>
               <p className="text-xl md:text-4xl">Reach out to us to stay up to date or report any issues you encounter</p>
           </div>
-          <form className="flex justify-center items-center flex-col gap-8 w-full text-white py-10 max-w-[400px]">
-            <div className="flex justify-between p-4 items-start outline-1 outline text-zinc-300 flex-col w-full rounded-2xl h-20 text-sm bg-zinc-800">
-              <p>Name</p>
+          <form className="flex justify-center items-center flex-col gap-5 w-full text-white py-10 max-w-[400px] mx-auto">
+            <div className="w-full h-20 text-sm">
+              <label htmlFor='name' className="mb-[-30px] pl-5 pt-10 text-zinc-300 z-50 flex relative opacity-80">Name</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
                 placeholder="Leo"
-                className="bg-transparent w-full outline-none"
+                className="w-full h-full relative py-10 px-5 pb-3 relative text-zinc-300 rounded-2xl outline outline-1 opacity-70 focus:opacity-100 focus:outline focus:outline-zinc-300 bg-zinc-800 transition duration-200"
               />
             </div>
-            <div className="flex justify-between p-4 items-start outline-1 outline text-zinc-300 flex-col w-full rounded-2xl h-20 text-sm bg-zinc-800">
-              <p>Email</p>
+            <div className="w-full h-20 text-sm">
+              <label htmlFor='email' className="mb-[-30px] pl-5 pt-10 text-zinc-300 z-50 flex relative opacity-80">Email</label>
               <input
                 type="text"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="leo@email.com"
-                className="bg-transparent w-full outline-none"
+                className="w-full h-full relative py-10 px-5 pb-3 relative text-zinc-300 rounded-2xl outline outline-1 opacity-70 focus:opacity-100 focus:outline focus:outline-zinc-300 bg-zinc-800 transition duration-200"
               />
             </div>
-            <div className="flex justify-start gap-4 p-4 items-start outline-1 outline text-zinc-300 flex-col w-full rounded-2xl h-40 text-sm bg-zinc-800">
-              <p>Message</p>
+            <div className="w-full h-40 text-sm">
+              <label htmlFor='message' className="mb-[-30px] pl-5 pt-10 text-zinc-300 z-50 flex relative opacity-80">Message</label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
                 placeholder="Your message here"
-                className="bg-transparent w-full outline-none"
+                className="w-full h-full relative py-10 px-5 pb-3 relative text-zinc-300 rounded-2xl outline outline-1 opacity-70 focus:opacity-100 focus:outline focus:outline-zinc-300 bg-zinc-800 transition duration-200"
               />
             </div>
-              <button type="submit" className="main-button-n">
+              <button type="submit" className="main-button-n mt-20">
                 <div className="main-button-inner">
                   <div className="main-button-text">Submit</div>
                 </div>

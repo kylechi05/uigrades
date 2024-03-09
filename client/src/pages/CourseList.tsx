@@ -3,7 +3,7 @@ import SearchBar from "../components/SearchBar.tsx";
 import CourseListItem from "../components/CourseListItem.tsx";
 import Pagination from "../components/Pagination.tsx";
 import { useNavigate } from "react-router-dom";
-import CourseListNavbar from "../components/CourseListNavbar.tsx";
+import LandingNavbar from "../components/LandingNavbar.tsx";
 import Loading from "../components/Loading.tsx";
 import Footer from "../components/Footer.tsx";
 import { useTheme } from "../context/ThemeContext.js";
@@ -64,7 +64,7 @@ const CourseList: React.FC = () => {
     setCurrSearchQuery(query);
 
     getCourses(page, query);
-
+    // @ts-ignore
     pageRef.current.scrollIntoView();
   }, []);
 
@@ -122,14 +122,8 @@ const CourseList: React.FC = () => {
   };
 
   return (
-    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative min-h-screen">
-      <div
-        className={`absolute top-0 left-0 w-full h-full ${
-          isDarkMode ? "bg-list-dark" : "bg-list"
-        } bg-cover bg-center lg:bg-fixed`}
-        style={{ zIndex: -1 }}
-      ></div>
-      <CourseListNavbar />
+    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative min-h-screen bg-dark">
+      <LandingNavbar showHome/>
       <SearchBar
         handleSearch={getCourses}
         setCurrentPage={setCurrentPage}

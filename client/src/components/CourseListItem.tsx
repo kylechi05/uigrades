@@ -44,7 +44,7 @@ const CourseListItem: React.FC<CourseListItemProps> = ({course}) => {
     }
 
     return (
-      <div className='flex justify-between items-center w-full'>
+      <div className='flex justify-between items-center w-full outline'>
         <div className={`flex justify-center items-start flex-col`}>
           <h1 className="font-bold">{course[1]} </h1>
             <h2 className="w-[200px] sm:w-full md:w-[150px] lg:w-[225px] xl:w-[350px] truncate overflow-hidden whitespace-nowrap overflow-ellipsis">
