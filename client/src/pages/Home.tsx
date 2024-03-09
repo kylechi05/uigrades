@@ -16,7 +16,7 @@ const Home: React.FC = () => {
       <LandingNavbar />
       <div className='flex flex-col justify-start items-center gap-10 my-20'>
         <h1 className='text-7xl text-zinc-200 font-bold'><span className='text-primary'>UI</span>Grades</h1>
-        <p className='text-zinc-200 text-center font-bold'><span className='glowing-head'>Explore Courses Taken by Fellow</span> <span className='glowing-head-primary'>Hawkeyes</span></p>
+        <p className='text-zinc-200 text-center font-bold'><span className='glowing-head'>Explore Courses Taken by Fellow </span> <span className='glowing-head-primary'>Hawkeyes</span></p>
       </div>
       <div className='flex flex-col justify-center items-center gap-10 relative h-screen w-full'>
         <div className='flex flex-col justify-center items-center gap-10 relative w-full h-full'>
