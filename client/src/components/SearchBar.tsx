@@ -21,17 +21,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, setCurrentPage, que
 
   return (
     <div
-      className={`flex items-center justify-between rounded-full gap-2 px-4 py-2 w-80 ${
-        isDarkMode ? "bg-zinc-600" : "bg-white"
-      } absolute top-20 shadow-lg`}
+      className={`flex items-center justify-center gap-2 mt-5 w-96`}
     >
-      <div className="flex justify-center items-center w-full">
         <FontAwesomeIcon
           icon={faSearch}
-          className={`${isDarkMode ? "text-stone-50" : "text-stone-600"}`}
+          className={`text-zinc-300 mr-[-30px] z-[40] opacity-50`}
         />
         <input
-          className={`${isDarkMode ? "bg-zinc-600 text-stone-50" : "text-stone-600"} focus:outline-none text-md pl-2 w-full`}
+          className={`bg-dark rounded-lg w-full py-2 text-md pl-8 w-full text-zinc-300 opacity-70 focus:opacity-100 outline outline-zinc-300 outline-1 transition duration-300`}
           id="searchBar"
           type="text"
           placeholder="ex. CS 1210 Fall 2022"
@@ -43,10 +40,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, setCurrentPage, que
           autoComplete="off"
           autoFocus
         />
-      </div>
       <FontAwesomeIcon
         icon={faBackspace}
-        className={`${isDarkMode ? "text-stone-50" : "text-stone-600"} cursor-pointer hover:text-stone-400 transition duration-300`}
+        className={`opacity-50 text-zinc-300 cursor-pointer hover:opacity-100 transition duration-300 ml-[-30px] z-[40]`}
         onClick={clearInput}
       />
     </div>

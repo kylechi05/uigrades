@@ -132,7 +132,7 @@ const CourseList: React.FC = () => {
       {loading ? (
         <Loading />
       ) : (
-          <div className="flex flex-col justify-start items-start p-10 mb-5 mt-20 w-full min-h-[32rem]">
+          <div className="flex flex-col justify-start items-start p-10 mb-5 mt-5 w-full min-h-[32rem]">
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-2 w-full h-full">
               {data.map((course: Course, index: number) => (
                 <div
