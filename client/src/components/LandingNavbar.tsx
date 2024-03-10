@@ -4,11 +4,13 @@ import React from 'react';
 import '../App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const LandingNavbar = ({showHome=false}) => {
+  const navigate = useNavigate();
 
   const goBack = () => {
-    window.history.back();
+    navigate(-1);
   }
 
   return (
@@ -17,12 +19,12 @@ const LandingNavbar = ({showHome=false}) => {
       <div className='flex items-center gap-4 justify-center'>
         <Link to="/" className='text-zinc-200 text-[1.5rem] cursor-pointer font-bold'><span className='text-primary'>UI</span>Grades</Link>
       </div> :
-      <Link
-          to="/"
-          className={`text-xl text-zinc-400 hover:text-zinc-300 transition duration-200 ease-in-out`}
+      <span
+          onClick={goBack}
+          className={`text-xl text-zinc-400 hover:text-zinc-300 transition duration-200 ease-in-out cursor-pointer`}
         >
           <FontAwesomeIcon icon={faArrowLeft} />
-        </Link>
+        </span>
     }
       
       <ul className="flex justify-end items-center gap-5 sm:gap-12 w-full pl-8">

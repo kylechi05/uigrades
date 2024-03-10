@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import BarGraph from '../components/BarGraph.tsx';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar.tsx';
+import LandingNavbar from '../components/LandingNavbar.tsx';
 import Footer from '../components/Footer.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faUser, faShareNodes } from '@fortawesome/free-solid-svg-icons';
+import {faUser, faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import Loading from "../components/Loading.tsx"
 import MessagePopup from "../components/MessagePopup.tsx"
 import { useTheme } from '../context/ThemeContext.js';
@@ -149,6 +149,7 @@ const CoursePage:React.FC = () => {
   useEffect(() => {
     setShowingAggregatedGrades(false);
     getCourse();
+    //@ts-ignore
     pageRef.current.scrollIntoView();
   }, []);
 
@@ -218,16 +219,9 @@ const CoursePage:React.FC = () => {
 
 
   return (
-    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative">
+    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative bg-dark">
       {shared && <MessagePopup message="Link copied to clipboard!" />}
-      <div
-        className={`absolute top-0 left-0 w-full h-full ${
-          isDarkMode ? "bg-graph-dark" : "bg-graph"
-        } bg-cover bg-center lg:bg-fixed`}
-        style={{ zIndex: -1 }}
-      ></div>
-      
-      <Navbar />
+      <LandingNavbar />
 
 
       {isLoading && (
@@ -244,17 +238,16 @@ const CoursePage:React.FC = () => {
         {courseGrades.length > 0 && (
 
           <div
-            className={`flex items-center flex-col gap-4 w-full ${
-              isDarkMode ? "text-zinc-400" : "text-zinc-700"
-            }`}
+            className={`flex items-center flex-col gap-4 w-full text-zinc-300`}
           >
-            
-            <h1 className={`font-bold text-4xl md:text-6xl`}>
-              {aggregatedGrades && showingAggregatedGrades ? `${course[1].split(":")[0]}:${course[1].split(":")[1]}` : course[1]}{" "}
-            </h1>
-            <h2 className="font-bold text-xl md:text-3xl text-center">
-              {course[2]}{" "}
-            </h2>
+            <div className='flex justify-center font-bold items-center gap-3 md:gap-5 text-2xl md:text-4xl lg:text-5xl'>
+              <h1 className={`text-primary`}>
+                {aggregatedGrades && showingAggregatedGrades ? `${course[1].split(":")[0]}:${course[1].split(":")[1]}` : course[1]}{" "}
+              </h1>
+              <h2 className="text-zinc-300">
+                {course[2]}{" "}
+              </h2>
+            </div>
             <div className="flex items-center justify-start gap-1 text-md md:text-xl">
               <p className="gray">{aggregatedGrades && showingAggregatedGrades ? "Primary Instructor" : course[3]}</p> -
               <i>
@@ -262,7 +255,7 @@ const CoursePage:React.FC = () => {
               </i>
             </div>
             <p className="">
-              <FontAwesomeIcon icon={faUser} className="text-yellow-400" />{" "}
+              <FontAwesomeIcon icon={faUser} className="text-primary" />{" "}
               {aggregatedGrades && showingAggregatedGrades
                 ? totalAggregatedStudents
                 : classTotal}{" "}
@@ -276,6 +269,7 @@ const CoursePage:React.FC = () => {
               isDarkMode ? "text-stone-50" : ""
             } my-10 flex flex-col justify-center items-center`}
           >
+            <div className='flex justify-center items-center gap-5'>
             <p
               className={`${
                 isDarkMode ? "text-zinc-400" : "text-zinc-600"
@@ -287,26 +281,7 @@ const CoursePage:React.FC = () => {
                     course[1] && course[1].split(":")[1]
                   } ${course[18]} ${course[19]} Sections`}
             </p>
-            <BarGraph course={courseGrades} />
-            <div className="flex justify-center items-center gap-2 m-5">
-              {aggregatedGrades && (
-                <p
-                  onClick={() => toggleShowAggregatedGrades()}
-                  className={`${
-                    isDarkMode
-                      ? "text-zinc-400 hover:text-zinc-300"
-                      : "text-zinc-600 hover:text-zinc-500"
-                  } flex justify-center items-center transition duration-200 cursor-pointer underline`}
-                >
-                  Show{" "}
-                  {showingAggregatedGrades
-                    ? course[1] + " " + course[18] + " " + course[19]
-                    : `All ${
-                        course[18] && course[18] + " " + course[19]
-                      } Sections`}{" "}
-                </p>
-              )}
-              <div
+            <div
                 onClick={() => {
                   setShared(true);
                   var currentURL = window.location.href;
@@ -315,39 +290,56 @@ const CoursePage:React.FC = () => {
                     setShared(false);
                   }, 2000);
                 }}
-                className="flex gap-2 justify-center items-center transition duration-200 cursor-pointer text-yellow-400 hover:text-yellow-500"
+                className="flex justify-center items-center gap-2 cursor-pointer text-zinc-300 opacity-70 hover:opacity-100 duration-300 transition outline-zinc-300 outline outline-1 rounded-md p-2 text-sm"
               >
-                Share
-                <FontAwesomeIcon icon={faShareNodes} />
+                <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
               </div>
+            </div>
+            <BarGraph course={courseGrades} />
+            <div className='flex justify-center items-center gap-5 w-full my-5'>
+                {aggregatedGrades && (
+                  <p
+                    onClick={() => toggleShowAggregatedGrades()}
+                    className={`text-zinc-300`}
+                  >
+                    {"Show " + course[1] + " " + course[18] + " " + course[19] + " Section"}
+                  </p>
+                )}
+
+              <label className="inline-flex items-center cursor-pointer">
+                <input type="checkbox" value="" className="sr-only peer" checked={showingAggregatedGrades} onChange={toggleShowAggregatedGrades}/>
+                <div className="relative w-11 h-6 rounded-md after:rounded-md bg-zinc-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-primary after:h-5 after:w-5 after:transition-all peer-checked:bg-white"></div>
+              </label>
+              {aggregatedGrades && (
+                <p
+                  onClick={() => toggleShowAggregatedGrades()}
+                  className={`text-zinc-300`}
+                >
+                  Show <span className='text-primary'>All</span> {course[1].split(":")[0] + ":" + course[1].split(":")[1] + " " + course[18] + " " + course[19] + " Sections"}
+                </p>
+              )}
             </div>
           </div>
         </div>
         <div className="justify-center flex flex-col items-center gap-5 w-full">
           {similarCourses.length !== 0 && (
             <h2
-              className={`font-bold text-2xl w-full pl-5 text-center ${
-                isDarkMode ? "text-zinc-500" : ""
-              }`}
+              className={`font-bold text-2xl w-full pl-5 text-center text-zinc-300`}
             >
               Similar Courses
             </h2>
           )}
-          <div className="gap-5 flex justify-start items-center overflow-auto w-full h-full px-5">
+          <div className="gap-5 flex justify-start items-center overflow-auto h-full w-3/4 px-4 no-scrollbar">
             {similarCourses.map((similarCourse, index) => (
               <div
                 onClick={() => {
                   handleRowClick(similarCourse[0]);
                 }}
                 key={index}
-                className={`${
-                  isDarkMode
-                    ? "bg-zinc-600 hover:bg-zinc-500 text-stone-50"
-                    : "hover:bg-white bg-stone-50"
-                } rounded-xl my-5 cursor-pointer hover:bg-white transition duration-300 min-w-[60%] md:min-w-[33%] lg:min-w-[33%] p-5 shadow-lg flex justify-between items-center`}
+                className={`text-zinc-300 bg-zinc-800 rounded-xl my-5 outline-1 outline outline-zinc-300 cursor-pointer opacity-70 hover:opacity-100 transition duration-300 min-w-[60%] md:min-w-[33%] lg:min-w-[33%] p-5 shadow-lg flex justify-between items-center`}
               >
                 <div>
-                  <h3 className="font-bold">{similarCourse[1]}</h3>
+                  <h3 className="font-bold text-primary">{similarCourse[1]}</h3>
                   <p className="description">{similarCourse[3]}</p>
                   <p className="description">
                     {similarCourse[18]} {similarCourse[19]}
