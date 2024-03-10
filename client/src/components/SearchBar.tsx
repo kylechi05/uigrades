@@ -42,7 +42,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, setCurrentPage, que
         />
       <FontAwesomeIcon
         icon={faBackspace}
-        className={`opacity-50 text-zinc-300 cursor-pointer hover:opacity-100 transition duration-300 ml-[-30px] z-[40]`}
+        className={`opacity-50 text-zinc-300 cursor-pointer hover:opacity-100 transition duration-300 ml-[-35px] z-[40]`}
         onClick={clearInput}
       />
     </div>
