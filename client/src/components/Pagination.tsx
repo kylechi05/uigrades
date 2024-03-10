@@ -39,62 +39,24 @@ const Pagination: React.FC<PaginationProps> = ({
           1
         </span>
         <span
-          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer`}
-          onClick={() => handleChangePage("2")}
+          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer ${totalPages >= 2 ? "" : "opacity-50 cursor-not-allowed"}`}
+          onClick={() => totalPages >= 2 ? handleChangePage("2") : null}
         >
           2
         </span>
         <span
-          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer`}
-          onClick={() => handleChangePage("3")}
+          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer ${totalPages >= 3 ? "" : "opacity-50 cursor-not-allowed"}`}
+          onClick={() => totalPages >= 3 ? handleChangePage("3") : null}
         >
           3
         </span>
         <span
-          className={`rounded-sm outline outline-1 text-zinc-300 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm`}
+          className={`rounded-sm outline outline-1 text-zinc-300 opacity-70 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm`}
         >
           ...
         </span>
         <span
-          className={`rounded-full ${
-            isDarkMode ? "bg-zinc-500 text-white" : "bg-stone-50 text-black"
-          } w-8 h-8 justify-center flex items-center shadow-md text-sm`}
-        >
-          {currentPage == 1 ? "-" : currentPage - 1}
-        </span>
-        <span
-          className={`rounded-full ${
-            isDarkMode
-              ? "bg-zinc-300 text-zinc-800"
-              : " bg-zinc-800 text-zinc-300"
-          } w-8 h-8 justify-center flex items-center shadow-xl text-sm`}
-        >
-          {currentPage}
-        </span>
-        <span
-          className={`rounded-full ${
-            isDarkMode ? "bg-zinc-500 text-white" : "bg-stone-50 text-black"
-          } w-8 h-8 justify-center flex items-center shadow-md text-sm`}
-        >
-          {currentPage == totalPages ? "-" : currentPage + 1}
-        </span>
-        <span
-          className={`rounded-full ${
-            isDarkMode ? "text-white" : "text-black"
-          } mx-1 justify-center flex items-center shadow-xl text-sm ${
-            totalPages - 1 <= currentPage ? "invisible" : ""
-          }`}
-        >
-          ...
-        </span>
-        <span
-          className={`rounded-full ${
-            isDarkMode
-              ? "bg-zinc-500 text-white hover:bg-zinc-300 hover:text-black"
-              : "bg-stone-50 text-black hover:bg-zinc-800 hover:text-zinc-300"
-          } w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer transition ${
-            totalPages - 1 <= currentPage ? "invisible" : ""
-          }`}
+          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer`}
           onClick={() => handleChangePage("last")}
         >
           {totalPages}
@@ -103,10 +65,8 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => handleChangePage("+1")}
         disabled={totalPages <= 1 || currentPage == totalPages}
-        className={`bg-yellow-400 rounded-full w-8 h-8 black br-black ${
-          totalPages <= 1 || currentPage == totalPages
-            ? "invisible"
-            : "hover:opacity-80"
+        className={`text-zinc-300 text-2xl w-8 h-8 ${
+          currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:opacity-80"
         }`}
       >
         <FontAwesomeIcon icon={faAngleRight} />

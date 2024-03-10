@@ -132,8 +132,7 @@ const CourseList: React.FC = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex flex-col items-center p-10 w-full mb-5 mt-20 text-white">
-          <div className="flex justify-center items-center w-full">
+          <div className="flex flex-col justify-start items-start p-10 mb-5 mt-20 w-full min-h-[32rem]">
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-2 w-full h-full">
               {data.map((course: Course, index: number) => (
                 <div
@@ -145,14 +144,13 @@ const CourseList: React.FC = () => {
                 </div>
               ))}
             </div>
-          </div>
         </div>
       )}
-      <Pagination
+      { totalPages > 1 && <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
             handleChangePage={handleChangePage}
-        />
+        />}
       {data.length === 0 && !loading ? (
         <div
           className={`text-lg ${
