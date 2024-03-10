@@ -43,16 +43,10 @@ const ChangeLog:React.FC = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center flex-col relative" ref={pageRef}>
-      <div
-        className={`absolute top-0 left-0 w-full h-full ${
-          isDarkMode ? "bg-darkTheme" : "bg-graph"
-        } bg-cover bg-center bg-cover lg:bg-fixed`}
-        style={{ zIndex: -1 }}
-      ></div>
+    <div className="w-full flex justify-center items-center flex-col relative bg-dark min-h-screen" ref={pageRef}>
       <Navbar />
       <div
-        className={`w-4/5 flex justify-start mt-20 items-center flex-col gap-5`}
+        className={`w-4/5 flex justify-start mt-20 items-center flex-col gap-5 mb-10`}
       >
         <div
           className={`flex justify-center items-center flex-col ${

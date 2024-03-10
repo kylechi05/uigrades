@@ -65,7 +65,7 @@ const Contact:React.FC = () => {
   return (
     <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative min-h-screen bg-dark">
       <LandingNavbar/>
-      <div className="flex flex-col justify-start items-center h-screen gap-10 w-full">
+      <div className="flex flex-col justify-start items-center min-h-screen gap-10 w-full">
           <div className="flex justify-center items flex-col w-full text-zinc-300 text-center gap-5 mt-10 px-4">
               <h1 className="text-4xl md:text-7xl font-bold text-primary">Questions or Concerns?</h1>
               <p className="text-xl md:text-4xl">Reach out to us to stay up to date or report any issues you encounter</p>

@@ -52,7 +52,7 @@ function Carousel() {
     // rotates the carousel
     const handleRotation = (direction) => {
         if (isClickable) {
-            if (direction === (((rotation + 90) % 360) + 360) % 360) {
+            if (direction === (((rotation - 90) % 360) + 360) % 360) {
                 setRotation((rotation) => rotation - 90)
             } else {
                 setRotation((rotation) => rotation + 90)

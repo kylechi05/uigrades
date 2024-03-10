@@ -21,35 +21,37 @@ const Pagination: React.FC<PaginationProps> = ({
     return null;
   }
   return (
-    <div className="flex justify-center items-center sm:gap-10 gap-4 mb-[100px] mt-auto">
+    <div className="flex justify-center items-center sm:gap-10 gap-4 mb-16 mt-auto">
       <button
         onClick={() => handleChangePage("-1")}
         disabled={currentPage === 1}
-        className={`bg-yellow-400 rounded-full w-8 h-8 ${
-          currentPage === 1 ? "invisible" : "hover:opacity-80"
+        className={`text-zinc-300 text-2xl w-8 h-8 ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:opacity-80"
         }`}
       >
         <FontAwesomeIcon icon={faAngleLeft} />
       </button>
-      <div className="flex justify-center items-center gap-1">
+      <div className="flex justify-center items-center gap-4">
         <span
-          className={`rounded-full ${
-            isDarkMode
-              ? "bg-zinc-500 text-white hover:bg-zinc-300 hover:text-black"
-              : "bg-stone-50 text-black hover:bg-zinc-800 hover:text-zinc-300"
-          } w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer transition ${
-            2 >= currentPage ? "invisible" : ""
-          }`}
+          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer`}
           onClick={() => handleChangePage("1")}
         >
           1
         </span>
         <span
-          className={`rounded-full ${
-            isDarkMode ? "text-white" : "text-black"
-          } mx-1 justify-center flex items-center shadow-xl text-sm ${
-            2 >= currentPage ? "invisible" : ""
-          }`}
+          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer`}
+          onClick={() => handleChangePage("2")}
+        >
+          2
+        </span>
+        <span
+          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer`}
+          onClick={() => handleChangePage("3")}
+        >
+          3
+        </span>
+        <span
+          className={`rounded-sm outline outline-1 text-zinc-300 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm`}
         >
           ...
         </span>

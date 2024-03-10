@@ -106,12 +106,12 @@ const CourseList: React.FC = () => {
     } else if (page === "-1") {
       setCurrentPage((prevPage:number) => prevPage - 1);
       getCourses(currentPage - 1, currSearchQuery);
-    } else if (page === "1") {
-      setCurrentPage(1);
-      getCourses(1, currSearchQuery);
     } else if (page === "last") {
       setCurrentPage(totalPages);
       getCourses(totalPages, currSearchQuery);
+    } else {
+      setCurrentPage(parseInt(page));
+      getCourses(parseInt(page), currSearchQuery);
     }
   }
 
@@ -122,7 +122,7 @@ const CourseList: React.FC = () => {
   };
 
   return (
-    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative min-h-screen bg-dark">
+    <div ref={pageRef} className="w-full flex justify-start items-center flex-col relative min-h-screen bg-dark">
       <LandingNavbar showHome/>
       <SearchBar
         handleSearch={getCourses}
@@ -132,18 +132,14 @@ const CourseList: React.FC = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex flex-col items-center p-10 w-full min-h-full mt-32 mb-[25px]">
+        <div className="flex flex-col items-center p-10 w-full mb-5 mt-20 text-white">
           <div className="flex justify-center items-center w-full">
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-2 w-full h-full">
               {data.map((course: Course, index: number) => (
                 <div
                   key={index}
                   onClick={() => handleCourseClick(course[0])}
-                  className={`${
-                    isDarkMode
-                      ? "bg-zinc-600 hover:bg-zinc-500 text-stone-50"
-                      : "hover:bg-white bg-stone-200"
-                  } flex h-full w-full justify-between items-center cursor-pointer rounded-xl transition duration-300 p-4`}
+                  className="outline outline-1 text-zinc-700 flex h-full w-full justify-between items-center cursor-pointer rounded-2xl transition duration-300 p-4 bg-zinc-800 bg-opacity-70 hover:bg-opacity-100"
                 >
                   <CourseListItem course={course} />
                 </div>
@@ -153,10 +149,10 @@ const CourseList: React.FC = () => {
         </div>
       )}
       <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        handleChangePage={handleChangePage}
-      />
+            currentPage={currentPage}
+            totalPages={totalPages}
+            handleChangePage={handleChangePage}
+        />
       {data.length === 0 && !loading ? (
         <div
           className={`text-lg ${

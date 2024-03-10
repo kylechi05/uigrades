@@ -17,22 +17,22 @@ const Home: React.FC = () => {
   return (
     <div ref={pageRef} className="min-h-full flex flex-col z-10 relative justify-center items-center bg-dark">
       <LandingNavbar showHome/>
-      <div className='flex flex-col justify-start items-center gap-10 my-20 md:mb-48'>
+      <div className='flex flex-col justify-start items-center gap-10 mt-20'>
         <h1 className='text-7xl text-zinc-200 font-bold'><span className='text-primary'>UI</span>Grades</h1>
         <p className='text-zinc-200 text-center font-bold'><span className='glowing-head'>Explore Courses Taken by Fellow </span> <span className='glowing-head-primary'>Hawkeyes</span></p>
       </div>
-      <div className='flex flex-col justify-center items-center gap-10 relative h-screen w-full'>
+      <div className='flex flex-col justify-start items-center gap-56 relative min-h-screen w-full'>
+        <div className="h-full flex justify-center items-center mt-20">
+            <a href="/courses" className='main-button-n'>
+              <div className="main-button-inner">
+                <div className='main-button-text'>
+                Start Browsing
+                </div>
+              </div>
+            </a>
+          </div>
         <div className='flex flex-col justify-center items-center gap-10 relative w-7/12 h-full'>
           <Carousel />
-        </div>
-        <div className="mb-52 md:mb-40 lg:mb-0 h-full flex justify-center items-center">
-          <a href="/courses" className='main-button-n'>
-            <div className="main-button-inner">
-              <div className='main-button-text'>
-              Start Browsing
-              </div>
-            </div>
-          </a>
         </div>
       </div>
       <Footer />
