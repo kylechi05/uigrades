@@ -51,9 +51,9 @@ const Pagination: React.FC<PaginationProps> = ({
           3
         </span>
         <span
-          className={`rounded-sm outline outline-1 text-zinc-300 opacity-70 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm`}
+          className={`rounded-sm outline outline-1 text-zinc-300 opacity-70 transition duration-300 w-12 h-8 justify-center flex items-center shadow-md text-sm`}
         >
-          ...
+          {currentPage}...
         </span>
         <span
           className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer`}
