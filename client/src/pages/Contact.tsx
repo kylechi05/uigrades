@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, ChangeEvent, FormEvent } from "react";
-import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
 import Loading from "../components/Loading.tsx";
 import LandingNavbar from "../components/LandingNavbar.tsx";
@@ -37,7 +36,8 @@ const Contact:React.FC = () => {
     setLoading(true);
 
     const formData = new FormData(event.currentTarget);
-    formData.append("access_key", "de4c836a-d8df-45b4-a690-b2221217e60c");
+    //formData.append("access_key", "de4c836a-d8df-45b4-a690-b2221217e60c");
+    formData.append("access_key", "de10e37b-617c-4ddb-967e-1392e2c7ebc2")
 
     const res = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -52,6 +52,9 @@ const Contact:React.FC = () => {
     } else {
       setResult(res.message);
     }
+    setTimeout(() => {
+      setResult("");
+    }, 4000);
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -70,7 +73,7 @@ const Contact:React.FC = () => {
               <h1 className="text-4xl md:text-7xl font-bold text-primary">Questions or Concerns?</h1>
               <p className="text-xl md:text-4xl">Reach out to us to stay up to date or report any issues you encounter</p>
           </div>
-          <form className="flex justify-center items-center flex-col gap-5 w-full text-white py-10 max-w-[400px] mx-auto">
+          <form className="flex justify-center items-center flex-col gap-5 w-full text-white py-10 max-w-[400px] mx-auto" onSubmit={onSubmit}>
             <div className="w-full h-20 text-sm">
               <label htmlFor='name' className="mb-[-30px] pl-5 pt-10 text-zinc-300 z-50 flex relative opacity-80">Name</label>
               <input
@@ -79,17 +82,19 @@ const Contact:React.FC = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 placeholder="Leo"
+                required
                 className="w-full h-full relative py-10 px-5 pb-3 relative text-zinc-300 rounded-2xl outline outline-1 opacity-70 focus:opacity-100 focus:outline focus:outline-zinc-300 bg-zinc-800 transition duration-200"
               />
             </div>
             <div className="w-full h-20 text-sm">
               <label htmlFor='email' className="mb-[-30px] pl-5 pt-10 text-zinc-300 z-50 flex relative opacity-80">Email</label>
               <input
-                type="text"
+                type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="leo@email.com"
+                required
                 className="w-full h-full relative py-10 px-5 pb-3 relative text-zinc-300 rounded-2xl outline outline-1 opacity-70 focus:opacity-100 focus:outline focus:outline-zinc-300 bg-zinc-800 transition duration-200"
               />
             </div>
@@ -100,16 +105,16 @@ const Contact:React.FC = () => {
                 value={formData.message}
                 onChange={handleInputChange}
                 placeholder="Your message here"
+                required
                 className="w-full h-full relative py-10 px-5 pb-3 relative text-zinc-300 rounded-2xl outline outline-1 opacity-70 focus:opacity-100 focus:outline focus:outline-zinc-300 bg-zinc-800 transition duration-200"
               />
             </div>
-              <button type="submit" className="main-button-n mt-20">
+              {loading ? <div className="mt-10"><Loading small/></div> : <button type="submit" className={`mt-10 ${!formData.name || !formData.email || !formData.message ? 'cursor-not-allowed' : 'main-button-n'}`}>
                 <div className="main-button-inner">
                   <div className="main-button-text">Submit</div>
                 </div>
-              </button>
-              {loading && <Loading />}
-              <p className="text-zinc-300">{result}</p>
+              </button>}
+              <p className="text-zinc-300 text-center h-20">{result}</p>
           </form>
       </div>
       <Footer />
