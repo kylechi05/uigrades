@@ -17,13 +17,13 @@ const CreditProfile: React.FC<CreditProfileProps> = ({img, name, title, org, lin
   const { isDarkMode } = useTheme();
 
   return (
-    <div className="flex flex-row justify-center items-center gap-5">
+    <div className="flex flex-row justify-start h-44 items-center gap-5 opacity-80 hover:opacity-100 transition duration-300">
       <img
         src={img}
         alt={`${name}'s profile picture`}
-        className="rounded-full w-32 h-32 border-4 border-yellow-400"
+        className="w-44 h-44 rounded-tl-[2rem] rounded-br-[2rem] object-cover"
       />
-      <div className="flex flex-col justify-center items-start gap-2">
+      <div className="flex flex-col justify-start h-full items-start gap-2">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">{name}</h1>
         <h2 className="text-sm text-zinc-500">{org}</h2>
         <h3 className="text-sm text-zinc-500">{title}</h3>

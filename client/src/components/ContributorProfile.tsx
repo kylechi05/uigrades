@@ -12,7 +12,7 @@ const ContributorProfile: React.FC<ContributorProfileProps> = ({ img, username, 
       <img
         src={img}
         alt={`${username}'s profile picture`}
-        className="rounded-full w-12 h-12 border-2 cursor-pointer border-yellow-400"
+        className="rounded-md w-24 h-24 cursor-pointer opacity-80 hover:opacity-100 transition duration-300 hover:shadow-xl"
       />
     </a>
   );

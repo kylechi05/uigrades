@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Navbar from "../components/Navbar.tsx";
+import LandingNavbar from "../components/LandingNavbar.tsx";
 import Footer from "../components/Footer.tsx";
 import { useTheme } from "../context/ThemeContext.js";
 import changelogs from "../modules/changelogs.js";
@@ -44,7 +44,7 @@ const ChangeLog:React.FC = () => {
 
   return (
     <div className="w-full flex justify-center items-center flex-col relative bg-dark min-h-screen" ref={pageRef}>
-      <Navbar />
+      <LandingNavbar />
       <div
         className={`w-4/5 flex justify-start mt-20 items-center flex-col gap-5 mb-10`}
       >

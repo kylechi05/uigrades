@@ -21,10 +21,14 @@ const LandingNavbar = ({showHome=false}) => {
       </div> :
       <span
           onClick={goBack}
-          className={`text-xl text-zinc-400 hover:text-zinc-300 transition duration-200 ease-in-out cursor-pointer`}
+          className={`text-xl text-zinc-400 hover:text-zinc-300 transition duration-200 ease-in-out cursor-pointer w-full`}
         >
           <FontAwesomeIcon icon={faArrowLeft} />
         </span>
+    }
+
+    { !showHome &&
+      <Link to="/" className='w-full text-zinc-200 text-3xl cursor-pointer font-bold text-center'><span className='text-primary'>UI</span>Grades</Link>
     }
       
       <ul className="flex justify-end items-center gap-5 sm:gap-12 w-full pl-8">
