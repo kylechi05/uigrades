@@ -33,6 +33,12 @@ const LandingNavbar = ({showHome=false}) => {
       
       <ul className="flex justify-end items-center gap-5 sm:gap-12 w-full pl-8">
         <Link
+          to="/courses"
+          className={`text-zinc-400 glow`}
+        >
+          Courses
+        </Link>
+        <Link
           to="/contact"
           className={`text-zinc-400 glow`}
         >
@@ -43,12 +49,6 @@ const LandingNavbar = ({showHome=false}) => {
           className={`text-zinc-400 glow`}
         >
           About
-        </Link>
-        <Link
-          to="/usage-guide"
-          className={`text-zinc-400 glow`}
-        >
-          Usage Guide
         </Link>
       </ul>
     </div>

@@ -8,6 +8,8 @@ import Loading from "../components/Loading.tsx";
 import Footer from "../components/Footer.tsx";
 import { useTheme } from "../context/ThemeContext.js";
 import config from "../config.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBan } from "@fortawesome/free-solid-svg-icons";
 
 import "../App.css";
 
@@ -129,7 +131,18 @@ const CourseList: React.FC = () => {
         setCurrentPage={setCurrentPage}
         query={currSearchQuery}
       />
-      {loading ? (
+      {data.length === 0 && !loading ? (
+        <div className="flex flex-col text-center items-center justify-start gap-5 text-zinc-300 mt-20">
+        <FontAwesomeIcon icon={faBan} className="text-6xl text-red-500" />
+        <h1
+          className={`text-4xl font-bold`}
+        >
+          Page Not Found
+        </h1>
+        <p className='text-xl max-w-80'>We could not find the page you were looking for. Please try searching again.</p>
+      </div>
+      ) : (
+        loading ? (
         <Loading />
       ) : (
           <div className="flex flex-col justify-start items-start p-10 mb-5 mt-5 w-full min-h-[32rem]">
@@ -138,31 +151,20 @@ const CourseList: React.FC = () => {
                 <div
                   key={index}
                   onClick={() => handleCourseClick(course[0])}
-                  className="outline outline-1 text-zinc-700 flex h-full w-full justify-between items-center cursor-pointer rounded-2xl transition duration-300 p-4 bg-zinc-800 bg-opacity-70 hover:bg-opacity-100"
+                  className="outline outline-1 text-zinc-700 flex h-full w-full justify-between items-center cursor-pointer rounded-md transition duration-300 p-4 bg-zinc-800 bg-opacity-70 hover:bg-opacity-100"
                 >
                   <CourseListItem course={course} />
                 </div>
               ))}
             </div>
         </div>
+      )
       )}
       { totalPages > 1 && <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
             handleChangePage={handleChangePage}
         />}
-      {data.length === 0 && !loading ? (
-        <div
-          className={`text-lg ${
-            isDarkMode ? "text-zinc-300" : "text-zinc-700"
-          } flex items-center justify-center flex-col text-center px-10`}
-        >
-          <p className="text-2xl">Uh, this is weird: 404 error 😨</p>
-          <p className="">Did you spell it right?</p>
-        </div>
-      ) : (
-        ""
-      )}
 
       {!loading ? <Footer /> : null}
     </div>

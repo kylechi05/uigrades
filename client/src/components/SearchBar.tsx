@@ -25,10 +25,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, setCurrentPage, que
     >
         <FontAwesomeIcon
           icon={faSearch}
-          className={`text-zinc-300 mr-[-30px] z-[40] opacity-50`}
+          className={`text-zinc-300 mr-[-35px] z-[40] opacity-50`}
         />
         <input
-          className={`bg-dark rounded-lg w-full py-2 text-md pl-8 w-full text-zinc-300 opacity-70 focus:opacity-100 outline outline-zinc-300 outline-1 transition duration-300`}
+          className={`bg-dark rounded-md w-full py-2 text-md pl-8 w-full text-zinc-300 opacity-70 focus:opacity-100 outline outline-zinc-300 outline-1 transition duration-300`}
           id="searchBar"
           type="text"
           placeholder="ex. CS 1210 Fall 2022"
