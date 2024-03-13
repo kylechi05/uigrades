@@ -105,7 +105,7 @@ function Carousel() {
                         transitionTimingFunction: 'east-in-out',
                     }}
                 >
-                    <img src='/static/images/uigrades0.png' alt='browseLight.png'/>
+                    <img src='/static/images/uigrades1.png' alt='browseLight.png'/>
                 </li>
                 {/* RIGHT BACK */}
                 <li
