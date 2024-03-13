@@ -21,7 +21,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, setCurrentPage, que
 
   return (
     <div
-      className={`flex items-center justify-center gap-2 mt-5 w-96`}
+      className={`flex items-center justify-center gap-2 mt-5 w-3/4 md:w-96`}
     >
         <FontAwesomeIcon
           icon={faSearch}

@@ -274,7 +274,7 @@ const CoursePage:React.FC = () => {
           >
             <div className='flex justify-center items-center gap-5'>
             <p
-              className={`text-zinc-300 opacity-70 flex justify-center items-center text-lg font-bold`}
+              className={`text-zinc-300 opacity-70 flex justify-center items-center text-md md:text-lg font-bold`}
             >
               {!showingAggregatedGrades
                 ? `${course[1]} ${course[19]} ${course[20]}`
@@ -286,8 +286,7 @@ const CoursePage:React.FC = () => {
               <FontAwesomeIcon icon={faUser} className="text-primary" />{" "}
               {aggregatedGrades && showingAggregatedGrades
                 ? totalAggregatedStudents
-                : classTotal}{" "}
-              Hawkeyes
+                : classTotal}
             </p>
             <div
                 onClick={() => {
@@ -307,11 +306,11 @@ const CoursePage:React.FC = () => {
 
             {/* Toggle Container */}
             {aggregatedGrades.length > 0 && (
-                  <div className='flex justify-center items-center gap-5 w-full my-5'>
+            <div className='flex justify-center items-center gap-5 w-full my-5 text-zinc-300 text-center text-sm md:text-md'>
                   <p
-                    className={`text-zinc-300`}
+                    className={``}
                   >
-                    {"Show " + course[1] + " " + course[19] + " " + course[20] + " Section"}
+                    {course[19] + " " + course[20] + " Section"}
                   </p>
 
               <label className="inline-flex items-center cursor-pointer">
@@ -319,9 +318,9 @@ const CoursePage:React.FC = () => {
                 <div className="relative w-11 h-6 rounded-md after:rounded-md bg-zinc-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-primary after:h-5 after:w-5 after:transition-all peer-checked:bg-white"></div>
               </label>
                 <p
-                  className={`text-zinc-300`}
+                  className={``}
                 >
-                  Show <span className='text-primary'>All</span> {course[1].split(":")[0] + ":" + course[1].split(":")[1] + " " + course[19] + " " + course[20] + " Sections"}
+                  <span className='text-primary'>All</span> {course[19] + " " + course[20] + " Sections"}
                 </p>
                 </div>
               )}
@@ -342,7 +341,7 @@ const CoursePage:React.FC = () => {
                   handleRowClick(similarCourse[0]);
                 }}
                 key={index}
-                className={`text-zinc-300 bg-zinc-800 rounded-xl my-5 outline-1 outline outline-zinc-300 cursor-pointer opacity-70 hover:opacity-100 transition duration-300 min-w-[60%] md:min-w-[33%] lg:min-w-[33%] p-5 shadow-lg flex justify-between items-center`}
+                className={`text-zinc-300 bg-zinc-800 rounded-xl my-5 outline-1 outline outline-zinc-300 cursor-pointer opacity-70 hover:opacity-100 transition duration-300 min-w-[225px] md:min-w-[33%] lg:min-w-[33%] p-5 shadow-lg flex justify-between items-center`}
               >
                 <div>
                   <h3 className="font-bold text-primary">{similarCourse[1]}</h3>

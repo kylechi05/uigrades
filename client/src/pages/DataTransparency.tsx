@@ -27,7 +27,7 @@ const DataTransparency: React.FC = () => {
                     <br/>
                     <br/>
                     The script ran in order to preprocess the files can be found <a href="https://github.com/acm-uiowa/uigrades/blob/main/db/clean_data.py" target='_blank' className='text-primary'>here</a>. It is a simple script that utilizes Python and a library associated with the language called Pandas. 
-                    The preprocessing involves changing specific column names and merges several rows of data that have both a Primary Instructor and Course Supervisor in order to make the data more uniform especially across semesters after Winter 2023.
+                    The preprocessing involves changing specific column names and merges several rows of data that have both a Primary Instructor and Course Supervisor in order to make the data more uniform especially across semesters after Spring 2023.
                     <br/>
                     <br/>
                     More logic is being done in the <a href="https://github.com/acm-uiowa/uigrades/blob/main/db/controllers/apiController.js" target='_blank' className='text-primary'>API Controller</a>, however it is simply aggregating the various courses within a semester and summing their students as well as respective grades together. All data files can be found <a href="https://github.com/acm-uiowa/uigrades/tree/main/db/data" target='_blank' className='text-primary'>here</a> and reflect the various changes mentioned on this page.

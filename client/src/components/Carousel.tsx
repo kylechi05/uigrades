@@ -54,10 +54,10 @@ function Carousel() {
     // rotates the carousel
     const handleRotation = (direction) => {
         if (isClickable) {
-            if (direction === (((rotation - 120) % 360) + 360) % 360) {
-                setRotation((rotation) => rotation - 120)
-            } else {
+            if (direction === (((rotation + 120) % 360) + 360) % 360) {
                 setRotation((rotation) => rotation + 120)
+            } else {
+                setRotation((rotation) => rotation - 120)
             }
         }
     }
