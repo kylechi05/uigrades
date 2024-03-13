@@ -7,6 +7,8 @@ function Carousel() {
     const [clicked, setClicked] = useState(false) // if the button is clicked or not
     const [isClickable, setIsClickable] = useState(true) // make sure carousel isn't clicked/rotated during transitionDuration swapping
     
+    let cos30 = Math.cos(Math.PI / 6)
+
     let interval // interval used for continous rotation
     let timeoutIn // timeout used for reseting degrees to 0
     let timeoutOut // timeout used for resetting transitionduration
@@ -52,17 +54,17 @@ function Carousel() {
     // rotates the carousel
     const handleRotation = (direction) => {
         if (isClickable) {
-            if (direction === (((rotation - 90) % 360) + 360) % 360) {
-                setRotation((rotation) => rotation - 90)
+            if (direction === (((rotation - 120) % 360) + 360) % 360) {
+                setRotation((rotation) => rotation - 120)
             } else {
-                setRotation((rotation) => rotation + 90)
+                setRotation((rotation) => rotation + 120)
             }
         }
     }
 
     return (
         <div
-            className='flex flex-col w-full items-center justify-center cursor-pointer select-none'
+            className='flex flex-col w-full items-center justify-center cursor-pointer select-none md:pb-48'
         >
             <ul
                 className='flex w-full items-center justify-center h-48'
@@ -75,7 +77,6 @@ function Carousel() {
             >
                 {/* FRONT */}
                 <li
-                    id='front'
                     onClick={() => {
                         setClicked((clicked) => !clicked)
                         handleRotation(0)
@@ -90,16 +91,15 @@ function Carousel() {
                 >
                     <img src='/static/images/uigrades0.png' alt='browseLight.png'/>
                 </li>
-                {/* BACK */}
+                {/* LEFT BACK */}
                 <li
-                    id='back'
                     onClick={() => {
                         setClicked((clicked) => !clicked)
-                        handleRotation(180)
+                        handleRotation(120)
                     }}
-                    className={`absolute shadow-2xl ${((rotation % 360) + 360) % 360 === 180 ? 'w-full animated-outline' : 'w-4/5 opacity-60'}`}
+                    className={`absolute shadow-2xl ${((rotation % 360) + 360) % 360 === 120 ? 'w-full animated-outline' : 'w-4/5 opacity-60'}`}
                     style={{
-                        transform: `translateZ(clamp(-12rem, -15vw, -4rem)) rotateY(calc(-1 * ${rotation}deg))`,
+                        transform: `translateZ(clamp(-6rem, -7.5vw, -2rem)) translateX(clamp(calc(-12rem * ${cos30}), calc(-15vw * ${cos30}), calc(-4rem * ${cos30}))) rotateY(calc(-1 * ${rotation}deg))`,
                         transitionProperty: 'transform, width, opacity',
                         transitionDuration: `${transitionDuration}`,
                         transitionTimingFunction: 'east-in-out',
@@ -107,33 +107,15 @@ function Carousel() {
                 >
                     <img src='/static/images/uigrades0.png' alt='browseLight.png'/>
                 </li>
-                {/* LEFT */}
+                {/* RIGHT BACK */}
                 <li
-                    id='left'
                     onClick={() => {
                         setClicked((clicked) => !clicked)
-                        handleRotation(90)
+                        handleRotation(240)
                     }}
-                    className={`absolute shadow-2xl ${((rotation % 360) + 360) % 360 === 90 ? 'w-full animated-outline' : 'w-4/5 opacity-60'}`}
+                    className={`absolute shadow-2xl ${((rotation % 360) + 360) % 360 === 240 ? 'w-full animated-outline' : 'w-4/5 opacity-60'}`}
                     style={{
-                        transform: `translateX(clamp(-12rem, -15vw, -4rem)) rotateY(calc(-1 * ${rotation}deg))`,
-                        transitionProperty: 'transform, width, opacity',
-                        transitionDuration: `${transitionDuration}`,
-                        transitionTimingFunction: 'east-in-out',
-                    }}
-                >
-                    <img src='/static/images/uigrades1.png' alt='browseLight.png'/>
-                </li>
-                {/* RIGHT */}
-                <li
-                    id='right'
-                    onClick={() => {
-                        setClicked((clicked) => !clicked)
-                        handleRotation(270)
-                    }}
-                    className={`absolute shadow-2xl ${((rotation % 360) + 360) % 360 === 270 ? 'w-full animated-outline' : 'w-4/5 opacity-60'}`}
-                    style={{
-                        transform: `translateX(clamp(4rem, 15vw, 12rem)) rotateY(calc(-1 * ${rotation}deg))`,
+                        transform: `translateZ(clamp(-6rem, -7.5vw, -2rem)) translateX(clamp(calc(4rem * ${cos30}), calc(15vw * ${cos30}), calc(12rem * ${cos30}))) rotateY(calc(-1 * ${rotation}deg))`,
                         transitionProperty: 'transform, width, opacity',
                         transitionDuration: `${transitionDuration}`,
                         transitionTimingFunction: 'east-in-out',
