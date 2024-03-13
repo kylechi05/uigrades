@@ -23,12 +23,11 @@ const DataTransparency: React.FC = () => {
                     The course data that is used by UIGrades has been rightfully obtained from the University of Iowa. This page will hopefully help resolve any questions or concerns about the data that is being used by UIGrades.
                     <br/>
                     <br/>
-                    Due to the various forms of data the University has provided, thorough preprocessing of the data had to be done in order to ensure uniformity across semesters for users to understand. <strong className='text-primary'>None</strong> of the data values have been tampered with by UIGrades.
+                    Due to the various forms of data the University has provided, thorough preprocessing of the data had to be done in order to ensure uniformity across semesters for users to understand. <strong className='text-red-500'>None</strong> of the data values have been tampered with by UIGrades.
                     <br/>
                     <br/>
                     The script ran in order to preprocess the files can be found <a href="https://github.com/acm-uiowa/uigrades/blob/main/db/clean_data.py" target='_blank' className='text-primary'>here</a>. It is a simple script that utilizes Python and a library associated with the language called Pandas. 
-                    <br/>
-                    It is to be run block by block similar to a <a href="https://jupyter.org/" target='_blank' className='text-primary'>Jupyter Notebook</a>. The script changes specific column names and merges several rows of data that have both a Primary Instructor and Course Supervisor in order to make the data more uniform especially across semesters after Winter 2023.
+                    The preprocessing involves changing specific column names and merges several rows of data that have both a Primary Instructor and Course Supervisor in order to make the data more uniform especially across semesters after Winter 2023.
                     <br/>
                     <br/>
                     More logic is being done in the <a href="https://github.com/acm-uiowa/uigrades/blob/main/db/controllers/apiController.js" target='_blank' className='text-primary'>API Controller</a>, however it is simply aggregating the various courses within a semester and summing their students as well as respective grades together. All data files can be found <a href="https://github.com/acm-uiowa/uigrades/tree/main/db/data" target='_blank' className='text-primary'>here</a> and reflect the various changes mentioned on this page.
