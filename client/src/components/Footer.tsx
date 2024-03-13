@@ -14,7 +14,7 @@ const Footer = () => {
     <div className='flex justify-center items-center w-full h-full flex-col static mt-auto'>
       <div className='flex justify-center items-center gap-4'></div>
       <div className='flex justify-between items-center gap-4 border-t-2 border-white border-opacity-20 w-3/4 text-zinc-400 opacity-60 py-7 text-sm tracking-widest flex-col md:flex-row'>
-          <h1>© {currentYear} UIGrades Built With Excellence 💛 </h1>
+          <h1 className='text-center'>© {currentYear} UIGrades Built With Excellence 💛 </h1>
           <div className='flex justify-center items-center gap-10 text-zinc-200'>
           <Link
             to="/changelog"

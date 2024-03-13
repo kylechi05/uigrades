@@ -73,7 +73,7 @@ const Contact:React.FC = () => {
               <h1 className="text-4xl md:text-7xl font-bold text-primary">Questions or Concerns?</h1>
               <p className="text-xl md:text-4xl">Reach out to us to stay up to date or report any issues you encounter</p>
           </div>
-          <form className="flex justify-center items-center flex-col gap-5 w-full text-white py-10 max-w-[400px] mx-auto" onSubmit={onSubmit}>
+          <form className="flex justify-center items-center flex-col gap-5 w-full text-white py-10 max-w-[400px] mx-auto px-8 sm:px-0" onSubmit={onSubmit}>
             <div className="w-full h-20 text-sm">
               <label htmlFor='name' className="mb-[-30px] pl-5 pt-10 text-zinc-300 z-50 flex relative opacity-80">Name</label>
               <input
@@ -83,7 +83,7 @@ const Contact:React.FC = () => {
                 onChange={handleInputChange}
                 placeholder="Leo"
                 required
-                className="w-full h-full relative py-10 px-5 pb-3 relative text-zinc-300 rounded-2xl outline outline-1 opacity-70 focus:opacity-100 focus:outline focus:outline-zinc-300 bg-zinc-800 transition duration-200"
+                className="w-full h-full relative py-10 px-5 pb-3 text-zinc-300 rounded-2xl outline outline-1 opacity-70 focus:opacity-100 focus:outline focus:outline-zinc-300 bg-zinc-800 transition duration-200"
               />
             </div>
             <div className="w-full h-20 text-sm">
