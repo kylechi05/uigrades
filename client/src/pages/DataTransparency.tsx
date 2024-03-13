@@ -15,8 +15,8 @@ const DataTransparency: React.FC = () => {
 
   return (
     <div ref={pageRef} className="min-h-full flex flex-col z-10 relative justify-center items-center bg-dark">
-      <LandingNavbar showHome/>
-      <div className='flex flex-col items-center justify-center gap-32 min-h-screen w-3/4 md:text-justify text-zinc-300 leading-relaxed'>
+      <LandingNavbar/>
+      <div className='flex flex-col items-center justify-start mt-16 gap-32 min-h-screen w-3/4 md:text-justify text-zinc-300 leading-relaxed'>
                 <div className='flex flex-col items-start justify-start gap-5'>
                 <h1 className='md:text-5xl text-3xl text-primary font-bold underline-offset-[10px]'>Data Transparency</h1>
                 <p className='text-lg md:text-2xl font-extralight'>
