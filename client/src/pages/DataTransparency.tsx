@@ -16,7 +16,7 @@ const DataTransparency: React.FC = () => {
   return (
     <div ref={pageRef} className="min-h-full flex flex-col z-10 relative justify-center items-center bg-dark">
       <LandingNavbar/>
-      <div className='flex flex-col items-center justify-start mt-16 gap-32 min-h-screen w-3/4 md:text-justify text-zinc-300 leading-relaxed'>
+      <div className='flex flex-col items-center justify-start mt-16 pb-8 gap-32 min-h-screen w-3/4 md:text-justify text-zinc-300 leading-relaxed'>
                 <div className='flex flex-col items-start justify-start gap-5'>
                 <h1 className='md:text-5xl text-3xl text-primary font-bold underline-offset-[10px]'>Data Transparency</h1>
                 <p className='text-lg md:text-2xl font-extralight'>
@@ -36,7 +36,7 @@ const DataTransparency: React.FC = () => {
                     For further questions or concerns on technical details, please contact <a href="mailto:liaozhu@uiowa.edu" target="_blank" className='text-primary'>Liao Zhu</a> or <a href="/contact" className='text-primary'>contact us</a>.
                 </p>
                 </div>
-            </div>
+      </div>
       <Footer />
     </div>
   );
