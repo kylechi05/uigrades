@@ -101,8 +101,9 @@ const About: React.FC = () => {
             </Link>{" "}
             page.
           </p>
-          <div className="w-full flex justify-start items-center">
+          <div className="w-full flex justify-start items-center gap-4">
             <Link to='/usage-guide' className="opacity-70 hover:opacity-100 text-zinc-300 rounded-md transition duration-300 p-4 py-3 outline outline-1 outline-zinc-300">Usage Guide</Link>
+            <Link to='/data-transparency' className="opacity-70 hover:opacity-100 text-zinc-300 rounded-md transition duration-300 p-4 py-3 outline outline-1 outline-zinc-300">Data Transparency</Link>
           </div>
         </div>
         <div className="flex flex-col justify-start items-center w-full flex-grow gap-20">

@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import LandingNavbar from '../components/LandingNavbar.tsx';
 import Footer from '../components/Footer.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faUser, faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import {faUser, faArrowUpRightFromSquare, faQuestion } from '@fortawesome/free-solid-svg-icons';
 import Loading from "../components/Loading.tsx"
 import MessagePopup from "../components/MessagePopup.tsx"
 import { useTheme } from '../context/ThemeContext.js';
 import config from '../config.js';
+import PromptInfoModal from '../components/PromptInfoModal.tsx';
 
 import '../App.css';
 
@@ -75,6 +76,7 @@ const CoursePage:React.FC = () => {
   const [totalAggregatedStudents, setTotalAggregatedStudents] = useState<number>(0); // total number of students in all sections of the course
   const id:number = Number(new URLSearchParams(window.location.search).get("id"));
   const [isNew, setIsNew] = useState(false);
+  const [showPromptInfo, setShowPromptInfo] = useState(false);
 
   // @ts-ignore
   const SERVER:string = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
@@ -140,7 +142,7 @@ const CoursePage:React.FC = () => {
         setClassTotal(classSize);
         setAggregatedGrades(fetchedAggregatedGrades);
         setTotalAggregatedStudents(totalStudents);  
-        
+
         const topOfPagePlaceholder = document.getElementById("top-of-page-placeholder");
         if (topOfPagePlaceholder) {
             topOfPagePlaceholder.scrollIntoView({ behavior: "smooth" });
@@ -240,9 +242,15 @@ const CoursePage:React.FC = () => {
             className={`flex items-center flex-col gap-4 w-full text-zinc-300`}
           >
             <div className='flex justify-center font-bold items-center gap-3 md:gap-5 text-2xl md:text-4xl lg:text-5xl flex-col'>
-              <h1 className={`text-primary`}>
-                {aggregatedGrades && showingAggregatedGrades ? `${course[1].split(":")[0]}:${course[1].split(":")[1]}` : course[1]}{" "}
-              </h1>
+              <div className='flex justify-center items-center gap-2'>
+                <h1 className={`text-primary`}>
+                  {aggregatedGrades && showingAggregatedGrades ? `${course[1].split(":")[0]}:${course[1].split(":")[1]}` : course[1]}{" "}
+                </h1>
+                {showPromptInfo && <PromptInfoModal setShowPromptInfo={setShowPromptInfo} />}
+                {!showPromptInfo && course[21] == 1 && <span className='flex justify-center items-center gap-2 w-5 h-5 cursor-pointer text-zinc-300 opacity-70 hover:opacity-100 duration-300 transition outline-zinc-300 outline outline-1 rounded-full p-2 text-xs' onClick={() => setShowPromptInfo(true)}>
+                      <FontAwesomeIcon icon={faQuestion} />
+                  </span>}
+              </div>
               <div className='flex justify-center items-end gap-2 text-lg md:text-3xl text-center'>
                 <h2 className="text-zinc-300">
                   {course[2]}{" "}

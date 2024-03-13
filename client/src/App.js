@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PageNotFound from './pages/PageNotFound.tsx';
 import Home from './pages/Home.tsx';
 import UsageGuide from './pages/UsageGuide.tsx';
+import DataTransparency from './pages/DataTransparency.tsx';
 import ReactGA from 'react-ga4';
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/about" element={<About/>} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/usage-guide" element={<UsageGuide/>} />
+        <Route path="/data-transparency" element={<DataTransparency/>} />
         <Route path="*" element={<PageNotFound/>} />
       </Routes>
     </BrowserRouter>

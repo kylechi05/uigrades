@@ -22,7 +22,7 @@ const Home: React.FC = () => {
         <p className='text-zinc-200 text-center font-bold'><span className='glowing-head'>Explore Courses Taken by Fellow </span> <span className='glowing-head-primary'>Hawkeyes</span></p>
       </div>
       <div className='flex flex-col justify-start items-center gap-56 relative min-h-screen w-full'>
-        <div className="h-full flex justify-center items-center mt-20">
+        <div className="h-full flex justify-center items-center mt-20 mb-0 lg:mb-20">
             <a href="/courses" className='main-button-n'>
               <div className="main-button-inner">
                 <div className='main-button-text'>
