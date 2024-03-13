@@ -36,8 +36,7 @@ const CourseListItem: React.FC<CourseListItemProps> = ({course}) => {
   const [classTotal, setClassTotal] = useState(0);
 
     useEffect(() => {
-      // index 4 - 17 contain all grades, we can sum these up to get the total number of students
-      // index 4 - 8 contain new course grades
+      // index 5 - 18 are the grades
       if (course) {
         let total = 0;
         for (let i = 5; i < 19; i++) {
@@ -54,7 +53,7 @@ const CourseListItem: React.FC<CourseListItemProps> = ({course}) => {
             <h2 className="font-bold w-[200px] sm:w-full md:w-[150px] lg:w-[225px] xl:w-[350px] truncate overflow-hidden whitespace-nowrap overflow-ellipsis">
               {course[2]}
             </h2>
-          <p className="max-w-[250px] truncate overflow-hidden whitespace-nowrap overflow-ellipsis">{course[3]}</p>
+          <p className="max-w-[250px] truncate overflow-hidden whitespace-nowrap overflow-ellipsis">{course[3].split("-")[0]}</p>
           <p className="">
             {course[19]} {course[20]}
           </p>

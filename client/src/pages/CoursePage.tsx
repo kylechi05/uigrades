@@ -140,7 +140,7 @@ const CoursePage:React.FC = () => {
         setClassTotal(classSize);
         setAggregatedGrades(fetchedAggregatedGrades);
         setTotalAggregatedStudents(totalStudents);  
-
+        
         const topOfPagePlaceholder = document.getElementById("top-of-page-placeholder");
         if (topOfPagePlaceholder) {
             topOfPagePlaceholder.scrollIntoView({ behavior: "smooth" });
@@ -243,28 +243,19 @@ const CoursePage:React.FC = () => {
               <h1 className={`text-primary`}>
                 {aggregatedGrades && showingAggregatedGrades ? `${course[1].split(":")[0]}:${course[1].split(":")[1]}` : course[1]}{" "}
               </h1>
-              <div className='flex justify-center items-end gap-2 text-3xl text-center'>
+              <div className='flex justify-center items-end gap-2 text-lg md:text-3xl text-center'>
                 <h2 className="text-zinc-300">
                   {course[2]}{" "}
                 </h2>
-                <i className='opacity-70 text-xl'>
+                <i className='opacity-70 text-sm md:text-xl'>
                   {course[19]} {course[20]}
                 </i>
               </div>
             </div>
-            <div className="flex items-center justify-start gap-1 text-md md:text-xl flex-col">
-              <div className='flex justify-center items-center gap-2'>
-                <p className="text-zinc-300">{aggregatedGrades && showingAggregatedGrades ? "Primary Instructor" : <span className='font-bold'>Primary Instructor: </span>}{course[3].split("-")[0]}</p>
-              </div>
-              {course[4] != '' && <p className='text-zinc-300'><span className='font-bold text-zinc-300'>Course Supervisor: </span>{course[4].split("-")[0]}</p>}
+            <div className={`flex ${aggregatedGrades && showingAggregatedGrades ? "items-center" : "items-start"} justify-start gap-1 text-md md:text-xl flex-col`}>
+              <p className="text-zinc-300">{aggregatedGrades && showingAggregatedGrades ? <span className='font-bold'>Primary Instructor</span> : <div><span className='font-bold text-primary'>Primary Instructor: </span>{course[3].split("-")[0]}</div>}</p>
+              {course[4] !== "" && (!aggregatedGrades || !showingAggregatedGrades) && <p className='text-zinc-300'><span className='font-bold text-primary'>Course Supervisor: </span>{course[4].split("-")[0]}</p>}
             </div>
-            <p className="">
-              <FontAwesomeIcon icon={faUser} className="text-primary" />{" "}
-              {aggregatedGrades && showingAggregatedGrades
-                ? totalAggregatedStudents
-                : classTotal}{" "}
-              Hawkeyes
-            </p>
           </div>)}
 
           {/* Graph container */}
@@ -275,15 +266,20 @@ const CoursePage:React.FC = () => {
           >
             <div className='flex justify-center items-center gap-5'>
             <p
-              className={`${
-                isDarkMode ? "text-zinc-400" : "text-zinc-600"
-              } flex justify-center items-center text-lg font-bold`}
+              className={`text-zinc-300 opacity-70 flex justify-center items-center text-lg font-bold`}
             >
               {!showingAggregatedGrades
                 ? `${course[1]} ${course[19]} ${course[20]}`
                 : `All ${course[1] && course[1].split(":")[0]}:${
                     course[1] && course[1].split(":")[1]
                   } ${course[19]} ${course[20]} Sections`}
+            </p>
+            <p className="flex justify-center items-center gap-2 opacity-70">
+              <FontAwesomeIcon icon={faUser} className="text-primary" />{" "}
+              {aggregatedGrades && showingAggregatedGrades
+                ? totalAggregatedStudents
+                : classTotal}{" "}
+              Hawkeyes
             </p>
             <div
                 onClick={() => {
