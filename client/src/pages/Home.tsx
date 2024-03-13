@@ -31,7 +31,7 @@ const Home: React.FC = () => {
               </div>
             </a>
           </div>
-        <div className='flex flex-col justify-center items-center gap-10 relative w-7/12 h-full'>
+        <div className='flex flex-col justify-center items-center gap-10 relative w-7/12 h-full mb-20'>
           <Carousel />
         </div>
       </div>

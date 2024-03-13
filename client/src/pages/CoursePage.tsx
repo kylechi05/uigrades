@@ -346,7 +346,7 @@ const CoursePage:React.FC = () => {
               >
                 <div>
                   <h3 className="font-bold text-primary">{similarCourse[1]}</h3>
-                  <p className="max-w-[100px] md:max-w-[150px] lg:max-w-[200px] truncate overflow-hidden whitespace-nowrap overflow-ellipsis">{similarCourse[3]}</p>
+                  <p className="max-w-[100px] md:max-w-[150px] lg:max-w-[200px] truncate overflow-hidden whitespace-nowrap overflow-ellipsis">{similarCourse[3].split("-")[0]}</p>
                   <p className="description">
                     {similarCourse[19]} {similarCourse[20]}
                   </p>
