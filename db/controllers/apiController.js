@@ -61,6 +61,7 @@ initSqlJs().then(async SQL => {
                         SUBJECT_COURSE_SECTION,
                         COURSE_TITLE,
                         PRIMARY_INSTRUCTOR_NAME,
+                        SECONDARY_INSTRUCTOR_NAME,
                         A_PLUS,
                         A,
                         A_MINUS,
@@ -186,6 +187,7 @@ const getAllCourses = (req, res) => {
             'SUBJECT_COURSE_SECTION',
             'COURSE_TITLE',
             'PRIMARY_INSTRUCTOR_NAME',
+            'SECONDARY_INSTRUCTOR_NAME',
             'SEMESTER',
             'YEAR'
         ];
@@ -248,19 +250,12 @@ const getCourse = (req, res) => {
         const course = result[0].values[0];
         // determine if course is a new course or not and calculate class size accordingly
         let total = 0;
-        if (course[20] == 0) {
-            for (let i = 4; i < 18; i++) {
-                total += parseFloat(course[i]);
-            }
-        } else {
-            for (let i = 4; i < 9; i++) {
-                total += parseFloat(course[i]);
-            }
+        for (let i = 5; i < 19; i++) {
+            total += parseFloat(course[i]) || 0;
         }
-
         // logic to find aggregated courses since it's all done on initial page load anyways might as well just return it all in one json object
         const courseSubjectSection = course[1].split(":")[0]+':'+course[1].split(":")[1]
-        const aggregatedCourses = db.exec(`SELECT * FROM courses WHERE SUBJECT_COURSE_SECTION LIKE "%${courseSubjectSection}%" AND SEMESTER = "${course[18]}" AND YEAR = "${course[19]}"`); // get a list of all courses with the same subject and section and semester and year
+        const aggregatedCourses = db.exec(`SELECT * FROM courses WHERE SUBJECT_COURSE_SECTION LIKE "%${courseSubjectSection}%" AND SEMESTER = "${course[19]}" AND YEAR = "${course[20]}"`); // get a list of all courses with the same subject and section and semester and year
         if (aggregatedCourses[0].values.length <= 1) {
             // res.json([]);
             return res.json({course: result[0].values[0], classSize: total, aggregatedGrades: [], totalStudents: 0})
@@ -269,10 +264,10 @@ const getCourse = (req, res) => {
         const aggregatedGrades = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         const newAggregatedGrades = [0,0,0,0,0]; // A, B, C, D_F, W
         let totalStudents = 0;
-        if (course[20] == 0) {
+        if (course[21] == 0) {
             aggregatedCourses[0].values.forEach(course => {
-                for (let i = 4; i < 18; i++) {
-                    aggregatedGrades[i-4] += parseFloat(course[i])
+                for (let i = 5; i < 19; i++) {
+                    aggregatedGrades[i-5] += parseFloat(course[i])
                 }
             });
             // get the total amount of students
@@ -281,16 +276,18 @@ const getCourse = (req, res) => {
             });
         } else { // new data
             aggregatedCourses[0].values.forEach(course => {
-                for (let i = 4; i < 9; i++) {
-                    newAggregatedGrades[i-4] += parseFloat(course[i])
-                }
+                newAggregatedGrades[0] += parseFloat(course[6])
+                newAggregatedGrades[1] += parseFloat(course[9])
+                newAggregatedGrades[2] += parseFloat(course[12])
+                newAggregatedGrades[3] += parseFloat(course[15])
+                newAggregatedGrades[4] += parseFloat(course[18])
             });
             // get the total amount of students
             newAggregatedGrades.forEach(grade => {
                 totalStudents += grade;
             });
         }   
-        return course[20] == 0 ? res.json({course: result[0].values[0], classSize: total, aggregatedGrades: aggregatedGrades, totalStudents: totalStudents}) : res.json({course: result[0].values[0], classSize: total, aggregatedGrades: newAggregatedGrades, totalStudents: totalStudents});
+        return course[21] == 0 ? res.json({course: result[0].values[0], classSize: total, aggregatedGrades: aggregatedGrades, totalStudents: totalStudents}) : res.json({course: result[0].values[0], classSize: total, aggregatedGrades: newAggregatedGrades, totalStudents: totalStudents});
     } catch (error) {
         console.error("Error fetching course", error);
         res.status(500).json({ error: "Internal Server Error" });
@@ -316,48 +313,48 @@ const getSimilarCourses = (req, res) => {
     }
 }
 
-const getAggregatedCourses = (req, res) => {
-    try {
-        const id = req.params.id;
-        const result = db.exec(`SELECT * FROM courses WHERE id = ${id}`);
-        const course = result[0].values[0];
-        const courseSubjectSection = course[1].split(":")[0]+':'+course[1].split(":")[1]
-        const aggregatedCourses = db.exec(`SELECT * FROM courses WHERE SUBJECT_COURSE_SECTION LIKE "%${courseSubjectSection}%" AND SEMESTER = "${course[18]}" AND YEAR = "${course[19]}"`); // get a list of all courses with the same subject and section and semester and year
-        if (aggregatedCourses[0].values.length <= 1) {
-            // res.json([]);
-            return null;
-        }
-        // iterate through aggregated Courses and create an array that holds the total number of each grade
-        const aggregatedGrades = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-        const newAggregatedGrades = [0,0,0,0,0]; // A, B, C, D_F, W
-        let totalStudents = 0;
-        if (course[20] == 0) {
-            aggregatedCourses[0].values.forEach(course => {
-                for (let i = 4; i < 18; i++) {
-                    aggregatedGrades[i-4] += parseFloat(course[i])
-                }
-            });
-            // get the total amount of students
-            aggregatedGrades.forEach(grade => {
-                totalStudents += grade;
-            });
-            return {aggregatedGrades: aggregatedGrades, totalStudents: totalStudents}
-        } else { // new data
-            aggregatedCourses[0].values.forEach(course => {
-                for (let i = 4; i < 9; i++) {
-                    aggregatedGrades[i-4] += parseFloat(course[i])
-                }
-            });s
-            // get the total amount of students
-            newAggregatedGrades.forEach(grade => {
-                totalStudents += grade;
-            });
-            return {aggregatedGrades: newAggregatedGrades, totalStudents: totalStudents}
-        }
-    } catch (error) {
-        console.error("Error fetching aggregated courses", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-}
+// const getAggregatedCourses = (req, res) => {
+//     try {
+//         const id = req.params.id;
+//         const result = db.exec(`SELECT * FROM courses WHERE id = ${id}`);
+//         const course = result[0].values[0];
+//         const courseSubjectSection = course[1].split(":")[0]+':'+course[1].split(":")[1]
+//         const aggregatedCourses = db.exec(`SELECT * FROM courses WHERE SUBJECT_COURSE_SECTION LIKE "%${courseSubjectSection}%" AND SEMESTER = "${course[18]}" AND YEAR = "${course[19]}"`); // get a list of all courses with the same subject and section and semester and year
+//         if (aggregatedCourses[0].values.length <= 1) {
+//             // res.json([]);
+//             return null;
+//         }
+//         // iterate through aggregated Courses and create an array that holds the total number of each grade
+//         const aggregatedGrades = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+//         const newAggregatedGrades = [0,0,0,0,0]; // A, B, C, D_F, W
+//         let totalStudents = 0;
+//         if (course[20] == 0) {
+//             aggregatedCourses[0].values.forEach(course => {
+//                 for (let i = 4; i < 18; i++) {
+//                     aggregatedGrades[i-4] += parseFloat(course[i])
+//                 }
+//             });
+//             // get the total amount of students
+//             aggregatedGrades.forEach(grade => {
+//                 totalStudents += grade;
+//             });
+//             return {aggregatedGrades: aggregatedGrades, totalStudents: totalStudents}
+//         } else { // new data
+//             aggregatedCourses[0].values.forEach(course => {
+//                 for (let i = 4; i < 9; i++) {
+//                     aggregatedGrades[i-4] += parseFloat(course[i])
+//                 }
+//             });s
+//             // get the total amount of students
+//             newAggregatedGrades.forEach(grade => {
+//                 totalStudents += grade;
+//             });
+//             return {aggregatedGrades: newAggregatedGrades, totalStudents: totalStudents}
+//         }
+//     } catch (error) {
+//         console.error("Error fetching aggregated courses", error);
+//         res.status(500).json({ error: "Internal Server Error" });
+//     }
+// }
 
-module.exports = {getAllCourses, getCourse, getSimilarCourses, getAggregatedCourses}
+module.exports = {getAllCourses, getCourse, getSimilarCourses}

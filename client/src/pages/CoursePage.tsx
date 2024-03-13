@@ -20,6 +20,7 @@ interface Course {
   SUBJECT_COURSE_SECTION: string;
   COURSE_TITLE: string;
   PRIMARY_INSTRUCTOR_NAME: string;
+  SECONDARY_INSTRUCTOR_NAME: string;
   A_PLUS: string;
   A: string;
   A_MINUS: string;
@@ -44,6 +45,7 @@ const CoursePage:React.FC = () => {
     SUBJECT_COURSE_SECTION: '',
     COURSE_TITLE: '',
     PRIMARY_INSTRUCTOR_NAME: '',
+    SECONDARY_INSTRUCTOR_NAME: '',
     A_PLUS: '',
     A: '',
     A_MINUS: '',
@@ -94,6 +96,7 @@ const CoursePage:React.FC = () => {
       SUBJECT_COURSE_SECTION: '',
       COURSE_TITLE: '',
       PRIMARY_INSTRUCTOR_NAME: '',
+      SECONDARY_INSTRUCTOR_NAME: '',
       A_PLUS: '',
       A: '',
       A_MINUS: '',
@@ -129,7 +132,7 @@ const CoursePage:React.FC = () => {
         const classSize = data['classSize'];
         const fetchedAggregatedGrades = data['aggregatedGrades'];
         const totalStudents = data['totalStudents'];
-        const courseGrades: number[] = [fetchedCourse[4], fetchedCourse[5], fetchedCourse[6], fetchedCourse[7], fetchedCourse[8], fetchedCourse[9], fetchedCourse[10], fetchedCourse[11], fetchedCourse[12], fetchedCourse[13], fetchedCourse[14], fetchedCourse[15], fetchedCourse[16], fetchedCourse[17]];
+        const courseGrades: number[] = fetchedCourse[21] == 0 ? [fetchedCourse[5], fetchedCourse[6], fetchedCourse[7], fetchedCourse[8], fetchedCourse[9], fetchedCourse[10], fetchedCourse[11], fetchedCourse[12], fetchedCourse[13], fetchedCourse[14], fetchedCourse[15], fetchedCourse[16], fetchedCourse[17], fetchedCourse[18]] : [fetchedCourse[6], fetchedCourse[9], fetchedCourse[12], fetchedCourse[15], fetchedCourse[18]];
 
         setCourseGrades(courseGrades);
         setOriginalCourseGrades(courseGrades); // placeholder temp variable since we're switching between aggregated and non-aggregated grades
@@ -152,11 +155,11 @@ const CoursePage:React.FC = () => {
   useEffect(() => {
     setShowingAggregatedGrades(false);
     getCourse();
-    setIsNew(course[20] === 1);
+    setIsNew(course[21] === 1);
   }, []);
 
   useEffect(() => {
-    document.title = `UIGrades | ${course[1]}: ${course[18]} ${course[19]}`;
+    document.title = `UIGrades | ${course[1]}: ${course[19]} ${course[20]}`;
     getSimilarCourses();
     // setAggregatedGrades([]);
     //@ts-ignore
@@ -174,13 +177,6 @@ const CoursePage:React.FC = () => {
     const data = await res.json();
     setSimilarCourses(data);
   };
-
-  // const getAggregatedCourseGrades = async () => {
-  //   const res = await fetch(`${SERVER}/aggregated-courses/${id}`);
-  //   const data = await res.json();
-  //   setAggregatedGrades(data.aggregatedGrades); // array of grades
-  //   setTotalAggregatedStudents(data.totalStudents); // total number of students in all sections of the course
-  // }
   
   const toggleShowAggregatedGrades = () => {
     if (showingAggregatedGrades) {
@@ -213,15 +209,11 @@ const CoursePage:React.FC = () => {
     navigate(`/course?id=${similarCourseId}`);
   }
 
-  // index 4 - 17 contain all grades, we can sum these up to get the total number of students
-  // index 4 - 8 contains all new grades
+  // index 5- 19 contain all grades, we can sum these up to get the total number of students ofc w/o including the hyphened data for new courses
   const getTotalForSimilarCourse = (similarCourse): number => {
-    if (similarCourse[20] == 1) {
-      return similarCourse.slice(4, 9).reduce((acc: number, val: string) => acc + parseInt(val), 0);
-    }
     return similarCourse
-      .slice(4, 18)
-      .reduce((acc: number, val: string) => acc + parseInt(val), 0);
+      .slice(5, 19)
+      .reduce((acc: number, val: string) => acc + (parseInt(val) || 0), 0);
   };
 
 
@@ -247,19 +239,24 @@ const CoursePage:React.FC = () => {
           <div
             className={`flex items-center flex-col gap-4 w-full text-zinc-300`}
           >
-            <div className='flex justify-center font-bold items-center gap-3 md:gap-5 text-2xl md:text-4xl lg:text-5xl'>
+            <div className='flex justify-center font-bold items-center gap-3 md:gap-5 text-2xl md:text-4xl lg:text-5xl flex-col'>
               <h1 className={`text-primary`}>
                 {aggregatedGrades && showingAggregatedGrades ? `${course[1].split(":")[0]}:${course[1].split(":")[1]}` : course[1]}{" "}
               </h1>
-              <h2 className="text-zinc-300">
-                {course[2]}{" "}
-              </h2>
+              <div className='flex justify-center items-end gap-2 text-3xl text-center'>
+                <h2 className="text-zinc-300">
+                  {course[2]}{" "}
+                </h2>
+                <i className='opacity-70 text-xl'>
+                  {course[19]} {course[20]}
+                </i>
+              </div>
             </div>
-            <div className="flex items-center justify-start gap-1 text-md md:text-xl">
-              <p className="gray">{aggregatedGrades && showingAggregatedGrades ? "Primary Instructor" : course[3]}</p> -
-              <i>
-                {course[18]} {course[19]}
-              </i>
+            <div className="flex items-center justify-start gap-1 text-md md:text-xl flex-col">
+              <div className='flex justify-center items-center gap-2'>
+                <p className="text-zinc-300">{aggregatedGrades && showingAggregatedGrades ? "Primary Instructor" : <span className='font-bold'>Primary Instructor: </span>}{course[3].split("-")[0]}</p>
+              </div>
+              {course[4] != '' && <p className='text-zinc-300'><span className='font-bold text-zinc-300'>Course Supervisor: </span>{course[4].split("-")[0]}</p>}
             </div>
             <p className="">
               <FontAwesomeIcon icon={faUser} className="text-primary" />{" "}
@@ -283,10 +280,10 @@ const CoursePage:React.FC = () => {
               } flex justify-center items-center text-lg font-bold`}
             >
               {!showingAggregatedGrades
-                ? `${course[1]} ${course[18]} ${course[19]}`
+                ? `${course[1]} ${course[19]} ${course[20]}`
                 : `All ${course[1] && course[1].split(":")[0]}:${
                     course[1] && course[1].split(":")[1]
-                  } ${course[18]} ${course[19]} Sections`}
+                  } ${course[19]} ${course[20]} Sections`}
             </p>
             <div
                 onClick={() => {
@@ -305,12 +302,12 @@ const CoursePage:React.FC = () => {
             <BarGraph course={courseGrades} />
 
             {/* Toggle Container */}
-            {aggregatedGrades && (
+            {aggregatedGrades.length > 0 && (
                   <div className='flex justify-center items-center gap-5 w-full my-5'>
                   <p
                     className={`text-zinc-300`}
                   >
-                    {"Show " + course[1] + " " + course[18] + " " + course[19] + " Section"}
+                    {"Show " + course[1] + " " + course[19] + " " + course[20] + " Section"}
                   </p>
 
               <label className="inline-flex items-center cursor-pointer">
@@ -320,7 +317,7 @@ const CoursePage:React.FC = () => {
                 <p
                   className={`text-zinc-300`}
                 >
-                  Show <span className='text-primary'>All</span> {course[1].split(":")[0] + ":" + course[1].split(":")[1] + " " + course[18] + " " + course[19] + " Sections"}
+                  Show <span className='text-primary'>All</span> {course[1].split(":")[0] + ":" + course[1].split(":")[1] + " " + course[19] + " " + course[20] + " Sections"}
                 </p>
                 </div>
               )}
@@ -347,7 +344,7 @@ const CoursePage:React.FC = () => {
                   <h3 className="font-bold text-primary">{similarCourse[1]}</h3>
                   <p className="max-w-[100px] md:max-w-[150px] lg:max-w-[200px] truncate overflow-hidden whitespace-nowrap overflow-ellipsis">{similarCourse[3]}</p>
                   <p className="description">
-                    {similarCourse[18]} {similarCourse[19]}
+                    {similarCourse[19]} {similarCourse[20]}
                   </p>
                 </div>
                 <div className="ml-5 flex justify-center items-center gap-2">

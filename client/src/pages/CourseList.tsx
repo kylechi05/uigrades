@@ -18,6 +18,7 @@ interface Course {
   SUBJECT_COURSE_SECTION: string;
   COURSE_TITLE: string;
   PRIMARY_INSTRUCTOR_NAME: string;
+  SECONDARY_INSTRUCTOR_NAME: string;
   A_PLUS: string;
   A: string;
   A_MINUS: string;

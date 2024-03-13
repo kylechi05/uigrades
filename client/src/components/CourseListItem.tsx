@@ -33,24 +33,19 @@ interface CourseListItemProps {
 }
 
 const CourseListItem: React.FC<CourseListItemProps> = ({course}) => {
-  const [isNew, setIsNew] = useState(false);
   const [classTotal, setClassTotal] = useState(0);
 
     useEffect(() => {
-      document.title = 'UIGrades | Course List';
-      if (course[20] === 1) {
-          setIsNew(true);
-      }
       // index 4 - 17 contain all grades, we can sum these up to get the total number of students
       // index 4 - 8 contain new course grades
       if (course) {
         let total = 0;
-        for (let i = 4; isNew ? i < 9 : i < 18; i++) {
+        for (let i = 5; i < 19; i++) {
           total += parseInt(course[i]) || 0;
         }
         setClassTotal(total);
       }
-    }, [course, isNew]);
+    }, [course]);
 
     return (
       <div className='flex justify-between items-center w-full text-zinc-300'>
@@ -61,7 +56,7 @@ const CourseListItem: React.FC<CourseListItemProps> = ({course}) => {
             </h2>
           <p className="max-w-[250px] truncate overflow-hidden whitespace-nowrap overflow-ellipsis">{course[3]}</p>
           <p className="">
-            {course[18]} {course[19]}
+            {course[19]} {course[20]}
           </p>
         </div>
         <p className="items-center flex gap-1">

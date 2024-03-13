@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
 import {
@@ -39,9 +39,9 @@ const BarGraph: React.FC<BarGraphProps> = ({course}) => {
         },
     };
 
-    const labels = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+','D','D-', 'F', 'W'];
+    const labels = String(course[5]) == "-" || course.length == 5 ? ['A', 'B', 'C', 'D+F', 'W'] : ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+','D','D-', 'F', 'W'];
 
-    const data = {
+    const data = String(course[5]) == "-" || course.length == 5 ? {
       labels: labels,
       datasets: [
         {
@@ -97,7 +97,35 @@ const BarGraph: React.FC<BarGraphProps> = ({course}) => {
           borderWidth: 2,
         },
       ],
-    };
+    } : {
+      labels: labels,
+      datasets: [
+        {
+          label: ` Hawkeyes`,
+          data: [
+            course[0],
+            course[1],
+            course[2],
+            course[3],
+            course[4],
+          ],
+          backgroundColor: [
+            "rgba(255, 25, 25, 0.5)",
+            "rgba(255, 50, 50, 0.5)",
+            "rgba(255, 65, 65, 0.5)",
+            "rgba(255, 120, 0, 0.5)",
+            "rgba(255, 150, 0, 0.5)",
+          ],
+          borderColor: [
+            "rgb(255, 0, 0)",
+            "rgb(255, 50, 50)",
+            "rgb(255, 65, 65)",
+            "rgb(255, 120, 0)",
+            "rgb(255, 150, 0)",
+            ],
+            borderWidth: 2,
+            },
+          ]};
 
     return (
         <Bar data={data} options={options} />
