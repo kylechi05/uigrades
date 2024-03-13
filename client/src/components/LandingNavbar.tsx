@@ -15,20 +15,23 @@ const LandingNavbar = ({showHome=false}) => {
 
   return (
     <div className="flex justify-between items-center w-full py-10 sticky top-0 left-0 blurred-container z-[50] h-20">
-      { showHome ? 
-      <div className='flex items-center gap-4 justify-center'>
+      <div className='flex items-center gap-4 justify-start w-full'>
+        { showHome ? 
         <Link to="/" className='text-zinc-200 text-[1.5rem] cursor-pointer font-bold'><span className='text-primary'>UI</span>Grades</Link>
-      </div> :
-      <span
+        :
+        <span
           onClick={goBack}
-          className={`text-xl text-zinc-400 hover:text-zinc-300 transition duration-200 ease-in-out cursor-pointer w-full`}
+          className={`text-xl text-zinc-400 hover:text-zinc-300 transition duration-200 ease-in-out cursor-pointer`}
         >
           <FontAwesomeIcon icon={faArrowLeft} />
         </span>
-    }
+        }
+      </div> 
 
     { !showHome &&
-      <Link to="/" className='w-full text-zinc-200 text-3xl cursor-pointer font-bold text-center'><span className='text-primary'>UI</span>Grades</Link>
+    <div className='w-full flex justify-center items-center'>
+      <Link to="/" className='text-zinc-200 text-3xl cursor-pointer font-bold text-center'><span className='text-primary'>UI</span>Grades</Link>
+      </div>
     }
       
       <ul className="flex justify-end items-center gap-5 sm:gap-12 w-full pl-8">

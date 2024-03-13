@@ -23,7 +23,7 @@ Necessary Libraries:
 
 ## Updating
 
-When adding new data, go to [/db/data](./db/data/) and add the new `.csv` files.
+When adding new data, go to [/db/data](./db/data/) and add the new `.csv` files. *Note that data from Summer 2023 and onwards has been placed in the [/db/new_data](./db/new_data/) directory due to the new file format* 
 
 ## Running
 

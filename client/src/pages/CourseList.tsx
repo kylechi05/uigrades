@@ -34,6 +34,7 @@ interface Course {
   WITHDRAWN: string;
   SEMESTER: string;
   YEAR: string;
+  IS_NEW: number;
 }
 
 interface ApiDataInterface {

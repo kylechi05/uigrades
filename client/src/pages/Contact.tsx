@@ -36,8 +36,8 @@ const Contact:React.FC = () => {
     setLoading(true);
 
     const formData = new FormData(event.currentTarget);
-    //formData.append("access_key", "de4c836a-d8df-45b4-a690-b2221217e60c");
-    formData.append("access_key", "de10e37b-617c-4ddb-967e-1392e2c7ebc2")
+    formData.append("access_key", "de4c836a-d8df-45b4-a690-b2221217e60c");
+    //my personal key for testing formData.append("access_key", "de10e37b-617c-4ddb-967e-1392e2c7ebc2")
 
     const res = await fetch("https://api.web3forms.com/submit", {
       method: "POST",

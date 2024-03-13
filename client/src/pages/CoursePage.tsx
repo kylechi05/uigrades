@@ -36,6 +36,7 @@ interface Course {
   WITHDRAWN: string;
   SEMESTER: string;
   YEAR: string;
+  IS_NEW: number;
 }
 
 const CoursePage:React.FC = () => {
@@ -59,6 +60,7 @@ const CoursePage:React.FC = () => {
     WITHDRAWN: '',
     SEMESTER: '',
     YEAR: '',
+    IS_NEW: 0
   });
   const [courseGrades, setCourseGrades] = useState<number[]>([])
   const [originalCourseGrades, setOriginalCourseGrades] = useState<number[]>([]) // used to reset the courseGrades state
@@ -70,6 +72,7 @@ const CoursePage:React.FC = () => {
   const [aggregatedGrades, setAggregatedGrades] = useState<number[]>([]);
   const [totalAggregatedStudents, setTotalAggregatedStudents] = useState<number>(0); // total number of students in all sections of the course
   const id:number = Number(new URLSearchParams(window.location.search).get("id"));
+  const [isNew, setIsNew] = useState(false);
 
   // @ts-ignore
   const SERVER:string = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
@@ -107,6 +110,7 @@ const CoursePage:React.FC = () => {
       WITHDRAWN: '',
       SEMESTER: '',
       YEAR: '',
+      IS_NEW: 0
     });
     setCourseGrades([]);
     setOriginalCourseGrades([]);
@@ -120,18 +124,19 @@ const CoursePage:React.FC = () => {
         if (!res.ok) {
             throw new Error('Failed to fetch course data');
         }
-        const fetchedCourse = await res.json();
-        
+        const data = await res.json();
+        const fetchedCourse = data['course'];
+        const classSize = data['classSize'];
+        const fetchedAggregatedGrades = data['aggregatedGrades'];
+        const totalStudents = data['totalStudents'];
         const courseGrades: number[] = [fetchedCourse[4], fetchedCourse[5], fetchedCourse[6], fetchedCourse[7], fetchedCourse[8], fetchedCourse[9], fetchedCourse[10], fetchedCourse[11], fetchedCourse[12], fetchedCourse[13], fetchedCourse[14], fetchedCourse[15], fetchedCourse[16], fetchedCourse[17]];
-        setCourseGrades(courseGrades);
-        setOriginalCourseGrades(courseGrades);
-        setCourse(fetchedCourse);
 
-        let total = 0;
-        for (let i = 4; i < 18; i++) {
-            total += parseFloat(fetchedCourse[i]);
-        }
-        setClassTotal(total);
+        setCourseGrades(courseGrades);
+        setOriginalCourseGrades(courseGrades); // placeholder temp variable since we're switching between aggregated and non-aggregated grades
+        setCourse(fetchedCourse);
+        setClassTotal(classSize);
+        setAggregatedGrades(fetchedAggregatedGrades);
+        setTotalAggregatedStudents(totalStudents);  
 
         const topOfPagePlaceholder = document.getElementById("top-of-page-placeholder");
         if (topOfPagePlaceholder) {
@@ -144,19 +149,18 @@ const CoursePage:React.FC = () => {
     }
 };
 
-
-
   useEffect(() => {
     setShowingAggregatedGrades(false);
     getCourse();
-    //@ts-ignore
-    pageRef.current.scrollIntoView();
+    setIsNew(course[20] === 1);
   }, []);
 
   useEffect(() => {
     document.title = `UIGrades | ${course[1]}: ${course[18]} ${course[19]}`;
     getSimilarCourses();
-    getAggregatedCourseGrades();
+    // setAggregatedGrades([]);
+    //@ts-ignore
+    pageRef.current.scrollIntoView();
   }, [course]);
 
   // handles back button click
@@ -171,12 +175,12 @@ const CoursePage:React.FC = () => {
     setSimilarCourses(data);
   };
 
-  const getAggregatedCourseGrades = async () => {
-    const res = await fetch(`${SERVER}/aggregated-courses/${id}`);
-    const data = await res.json();
-    setAggregatedGrades(data.aggregatedGrades); // array of grades
-    setTotalAggregatedStudents(data.totalStudents); // total number of students in all sections of the course
-  }
+  // const getAggregatedCourseGrades = async () => {
+  //   const res = await fetch(`${SERVER}/aggregated-courses/${id}`);
+  //   const data = await res.json();
+  //   setAggregatedGrades(data.aggregatedGrades); // array of grades
+  //   setTotalAggregatedStudents(data.totalStudents); // total number of students in all sections of the course
+  // }
   
   const toggleShowAggregatedGrades = () => {
     if (showingAggregatedGrades) {
@@ -195,7 +199,6 @@ const CoursePage:React.FC = () => {
       try {
         await getCourse();
         await getSimilarCourses();
-        await getAggregatedCourseGrades();
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -211,7 +214,11 @@ const CoursePage:React.FC = () => {
   }
 
   // index 4 - 17 contain all grades, we can sum these up to get the total number of students
+  // index 4 - 8 contains all new grades
   const getTotalForSimilarCourse = (similarCourse): number => {
+    if (similarCourse[20] == 1) {
+      return similarCourse.slice(4, 9).reduce((acc: number, val: string) => acc + parseInt(val), 0);
+    }
     return similarCourse
       .slice(4, 18)
       .reduce((acc: number, val: string) => acc + parseInt(val), 0);
@@ -230,7 +237,7 @@ const CoursePage:React.FC = () => {
         </div>
       )}
     
-    {courseGrades.length > 0 && (
+    {courseGrades.length > 0 &&
 
       <div className={`flex flex-col items-center my-20 w-full`}>
         <div className=" flex flex-col items-center justify-center w-full">
@@ -296,29 +303,27 @@ const CoursePage:React.FC = () => {
               </div>
             </div>
             <BarGraph course={courseGrades} />
-            <div className='flex justify-center items-center gap-5 w-full my-5'>
-                {aggregatedGrades && (
+
+            {/* Toggle Container */}
+            {aggregatedGrades && (
+                  <div className='flex justify-center items-center gap-5 w-full my-5'>
                   <p
-                    onClick={() => toggleShowAggregatedGrades()}
                     className={`text-zinc-300`}
                   >
                     {"Show " + course[1] + " " + course[18] + " " + course[19] + " Section"}
                   </p>
-                )}
 
               <label className="inline-flex items-center cursor-pointer">
                 <input type="checkbox" value="" className="sr-only peer" checked={showingAggregatedGrades} onChange={toggleShowAggregatedGrades}/>
                 <div className="relative w-11 h-6 rounded-md after:rounded-md bg-zinc-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-primary after:h-5 after:w-5 after:transition-all peer-checked:bg-white"></div>
               </label>
-              {aggregatedGrades && (
                 <p
-                  onClick={() => toggleShowAggregatedGrades()}
                   className={`text-zinc-300`}
                 >
                   Show <span className='text-primary'>All</span> {course[1].split(":")[0] + ":" + course[1].split(":")[1] + " " + course[18] + " " + course[19] + " Sections"}
                 </p>
+                </div>
               )}
-            </div>
           </div>
         </div>
         <div className="justify-center flex flex-col items-center gap-5 w-full">
@@ -340,12 +345,12 @@ const CoursePage:React.FC = () => {
               >
                 <div>
                   <h3 className="font-bold text-primary">{similarCourse[1]}</h3>
-                  <p className="description">{similarCourse[3]}</p>
+                  <p className="max-w-[100px] md:max-w-[150px] lg:max-w-[200px] truncate overflow-hidden whitespace-nowrap overflow-ellipsis">{similarCourse[3]}</p>
                   <p className="description">
                     {similarCourse[18]} {similarCourse[19]}
                   </p>
                 </div>
-                <div className="ml-5">
+                <div className="ml-5 flex justify-center items-center gap-2">
                   <FontAwesomeIcon
                     icon={faUser}
                     className="text-yellow-400 text-xl"
@@ -360,7 +365,7 @@ const CoursePage:React.FC = () => {
         </div>
         {/* add button to filter only by course subject */}
 
-      </div>)}
+      </div>}
       {courseGrades.length > 0 && (
       <Footer />)}
     </div>

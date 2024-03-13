@@ -21,5 +21,6 @@ CREATE TABLE courses (
     F TEXT,
     WITHDRAWN TEXT,
     SEMESTER TEXT,
-    YEAR TEXT
+    YEAR TEXT,
+    IS_NEW INTEGER
 );
