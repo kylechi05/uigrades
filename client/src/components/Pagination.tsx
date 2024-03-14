@@ -21,7 +21,7 @@ const Pagination: React.FC<PaginationProps> = ({
     return null;
   }
   return (
-    <div className="flex justify-center items-center sm:gap-10 gap-4 mb-16 mt-auto">
+    <div className="flex justify-center items-center sm:gap-10 gap-4 mb-16 mt-auto w-3/4 md:w-auto">
       <button
         onClick={() => handleChangePage("-1")}
         disabled={currentPage === 1}
@@ -31,32 +31,32 @@ const Pagination: React.FC<PaginationProps> = ({
       >
         <FontAwesomeIcon icon={faAngleLeft} />
       </button>
-      <div className="flex justify-center items-center gap-4">
+      <div className="flex justify-center items-center gap-4 text-xs">
         <span
-          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer`}
+          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md cursor-pointer`}
           onClick={() => handleChangePage("1")}
         >
           1
         </span>
         <span
-          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer ${totalPages >= 2 ? "" : "opacity-50 cursor-not-allowed"}`}
+          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md cursor-pointer ${totalPages >= 2 ? "" : "opacity-50 cursor-not-allowed"}`}
           onClick={() => totalPages >= 2 ? handleChangePage("2") : null}
         >
           2
         </span>
         <span
-          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer ${totalPages >= 3 ? "" : "opacity-50 cursor-not-allowed"}`}
+          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md cursor-pointer ${totalPages >= 3 ? "" : "opacity-50 cursor-not-allowed"}`}
           onClick={() => totalPages >= 3 ? handleChangePage("3") : null}
         >
           3
         </span>
         <span
-          className={`rounded-sm outline outline-1 text-zinc-300 opacity-70 transition duration-300 w-12 h-8 justify-center flex items-center shadow-md text-sm`}
+          className={`rounded-sm outline outline-1 text-zinc-300 opacity-70 transition duration-300 w-12 h-8 justify-center flex items-center shadow-md`}
         >
           {currentPage}...
         </span>
         <span
-          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md text-sm cursor-pointer`}
+          className={`rounded-sm outline outline-1 text-zinc-300 hover:bg-zinc-800 transition duration-300 w-8 h-8 justify-center flex items-center shadow-md cursor-pointer`}
           onClick={() => handleChangePage("last")}
         >
           {totalPages}

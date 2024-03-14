@@ -22,7 +22,7 @@ export default function PromptInfoModal({setShowPromptInfo}: {setShowPromptInfo:
     }, [setShowPromptInfo]);
 
     return (
-        <div className="w-full h-full absolute top-0 left-0 z-40 darker-blurred-container cursor-pointer z-[100]">
+        <div className="w-full h-full absolute md:fixed top-0 left-0 z-40 darker-blurred-container cursor-pointer z-[100]">
         <div id="promptInfoModal" className="text-zinc-300 flex justify-center items-center absolute left-[5%] md:left-[25%] top-[10%] md:top-[25%] w-11/12 md:w-1/2 flex-col gap-8 rounded-2xl z-50 p-10">
             <h1 className="text-[2rem] w-full text-start text-primary">Data Disclaimer</h1>
             <p className="text-[1rem] w-full text-start leading-loose opacity-80 whitespace-break-spaces font-extralight">

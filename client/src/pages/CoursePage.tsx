@@ -252,7 +252,7 @@ const CoursePage:React.FC = () => {
                   </span>}
               </div>
               <div className='flex justify-center items-end gap-2 text-lg md:text-3xl text-center'>
-                <h2 className="text-zinc-300">
+                <h2 className="text-zinc-300 max-w-64 md:max-w-auto truncate overflow-hidden whitespace-nowrap overflow-ellipsis">
                   {course[2]}{" "}
                 </h2>
                 <i className='opacity-70 text-sm md:text-xl'>
@@ -278,9 +278,7 @@ const CoursePage:React.FC = () => {
             >
               {!showingAggregatedGrades
                 ? `${course[1]} ${course[19]} ${course[20]}`
-                : `All ${course[1] && course[1].split(":")[0]}:${
-                    course[1] && course[1].split(":")[1]
-                  } ${course[19]} ${course[20]} Sections`}
+                : `All ${course[19]} ${course[20]} Sections`}
             </p>
             <p className="flex justify-center items-center gap-2 opacity-70">
               <FontAwesomeIcon icon={faUser} className="text-primary" />{" "}
