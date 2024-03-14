@@ -411,3 +411,20 @@ body {
   scrollbar-width: none;
   /* Firefox */
 }
+
+.nav-menu path {
+  stroke:rgb(161, 161, 170);
+  fill: none;
+  stroke-width: 6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  transition-duration: 0.4s;
+}
+
+.nav-menu .menu-ends {
+  stroke-dasharray: 70 1000;
+}
+
+.nav-menu .menu-middle {
+  stroke-dasharray: 55 1000;
+}
