@@ -4,7 +4,7 @@ import CourseListItem from "../components/CourseListItem.tsx";
 import Pagination from "../components/Pagination.tsx";
 import { useNavigate } from "react-router-dom";
 import LandingNavbar from "../components/LandingNavbar.tsx";
-import Loading from "../components/Loading.tsx";
+import CourseListLoader from "../components/CourseListLoader.tsx";
 import Footer from "../components/Footer.tsx";
 import { useTheme } from "../context/ThemeContext.js";
 import config from "../config.js";
@@ -145,7 +145,7 @@ const CourseList: React.FC = () => {
       </div>
       ) : (
         loading ? (
-        <Loading />
+        <CourseListLoader />
       ) : (
           <div className="flex flex-col justify-start items-start p-10 mb-5 mt-5 w-full min-h-[32rem]">
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-2 w-full h-full">
