@@ -12,10 +12,9 @@ const Footer = () => {
 
   return (
     <div className='flex justify-center items-center w-full h-full flex-col static mt-auto'>
-      <div className='flex justify-center items-center gap-4'></div>
-      <div className='flex justify-between items-center gap-4 border-t-2 border-white border-opacity-20 w-3/4 text-zinc-400 opacity-60 py-7 text-sm tracking-widest flex-col md:flex-row'>
+      <div className='flex justify-between items-center gap-4 border-t-2 border-white border-opacity-20 w-3/4 text-zinc-400 opacity-60 py-7 text-xs md:text-sm tracking-normal md:tracking-widest flex-col md:flex-row'>
           <h1 className='text-center'>© {currentYear} UIGrades Built With Excellence 💛 </h1>
-          <div className='flex justify-between items-center gap-10 text-zinc-200 font-thin text-center text-xs md:text-sm'>
+          <div className='flex justify-between items-center gap-10 text-zinc-200 font-thin text-center'>
             <Link
               to="/changelog"
               className={`hover:text-white opacity-100 transition duration-200 ease-in-out`}

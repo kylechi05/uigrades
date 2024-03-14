@@ -102,8 +102,8 @@ const About: React.FC = () => {
             page.
           </p>
           <div className="w-full flex justify-start items-center gap-4">
-            <Link to='/usage-guide' className="opacity-70 hover:opacity-100 text-zinc-300 rounded-md transition duration-300 p-4 py-3 outline outline-1 outline-zinc-300">Usage Guide</Link>
-            <Link to='/data-transparency' className="opacity-70 hover:opacity-100 text-zinc-300 rounded-md transition duration-300 p-4 py-3 outline outline-1 outline-zinc-300">Data Transparency</Link>
+            <Link to='/usage-guide' className="flex justify-center items-center text-xs w-1/2 h-12 md:w-auto md:h-auto text-center md:text-base opacity-70 hover:opacity-100 text-zinc-300 rounded-md transition duration-300 p-4 py-3 outline outline-1 outline-zinc-300">Usage Guide</Link>
+            <Link to='/data-transparency' className="flex justify-center items-center text-xs w-1/2 h-12 md:w-auto md:h-auto text-center md:text-base opacity-70 hover:opacity-100 text-zinc-300 rounded-md transition duration-300 p-4 py-3 outline outline-1 outline-zinc-300">Data Transparency</Link>
           </div>
         </div>
         <div className="flex flex-col justify-start items-center w-full flex-grow gap-20">
@@ -129,17 +129,17 @@ const About: React.FC = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col justify-start items-center gap-4 w-full flex-grow">
+          <div className="flex flex-col justify-start items-start gap-4 w-full ">
             <h1 className="font-bold text-4xl lg:text-6xl w-full text-left">
               Contributors
             </h1>
-            <div className="flex justify-start w-full items-center gap-2">
+            <div className="flex justify-start items-center overflow-auto h-full w-full overflow-x-scroll no-scrollbar gap-3">
               {allContributors.map((contributor: ContributorInterface, idx: number) => (
                 <ContributorProfile
-                  key={idx}
-                  username={contributor.username}
-                  img={contributor.img}
-                  github={contributor.github}
+                    key={idx}
+                    username={contributor.username}
+                    img={contributor.img}
+                    github={contributor.github}
                 />
               ))}  
             </div>
@@ -148,19 +148,19 @@ const About: React.FC = () => {
             <h1 className="font-bold text-4xl lg:text-6xl w-full text-left">
               Organizations
             </h1>
-            <div className="flex justify-start w-full items-center gap-2">
+            <div className="flex justify-start w-full items-center gap-3">
               <a href="https://usg.uiowa.edu/" target="_blank" className="">
                 <img
                   src="/static/images/usg.jpeg"
                   alt="USG logo"
-                  className="rounded-md w-24 h-24 cursor-pointer opacity-80 hover:opacity-100 transition duration-300 hover:shadow-xl"
+                  className="rounded-md w-20 h-20 md:w-24 md:h-24 cursor-pointer opacity-80 hover:opacity-100 transition duration-300 hover:shadow-xl"
                 />
               </a>
               <a href="https://acm.org.uiowa.edu/" target="_blank" className="">
                 <img
                   src="/static/images/acm.png"
                   alt="ACM logo"
-                  className="rounded-md w-24 h-24 cursor-pointer opacity-80 hover:opacity-100 transition duration-300 hover:shadow-xl"
+                  className="rounded-md w-20 h-20 md:w-24 md:h-24 cursor-pointer opacity-80 hover:opacity-100 transition duration-300 hover:shadow-xl"
                 />
               </a>
             </div>

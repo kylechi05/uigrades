@@ -46,7 +46,7 @@ const ChangeLog:React.FC = () => {
     <div className="w-full flex justify-center items-center flex-col relative bg-dark min-h-screen" ref={pageRef}>
       <LandingNavbar />
       <div
-        className={`w-4/5 flex justify-start mt-20 items-center flex-col gap-5 mb-10`}
+        className={`w-3/4 flex justify-start mt-20 items-center flex-col gap-5 mb-10`}
       >
         <div
           className={`flex justify-center items-center flex-col ${
@@ -59,7 +59,7 @@ const ChangeLog:React.FC = () => {
           {logs.map((changelog, idx) => {
             return (
               <div
-                className={`flex justify-start items-start flex-col w-full px-10 gap-2 ${
+                className={`flex justify-start items-start flex-col w-full gap-2 ${
                   isDarkMode ? "text-zinc-200" : "text-zinc-700"
                 }`}
                 key={idx}
