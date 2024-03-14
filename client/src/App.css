@@ -412,6 +412,16 @@ body {
   /* Firefox */
 }
 
+@keyframes slideRight {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
 .nav-menu path {
   stroke:rgb(161, 161, 170);
   fill: none;
