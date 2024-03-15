@@ -20,10 +20,11 @@ Necessary Libraries:
 - [ChartJS](https://www.chartjs.org/)
 - [Tailwind](https://tailwindcss.com/)
 - [Fontawesome](https://fontawesome.com/)
+- [Pandas](https://pandas.pydata.org/)
 
 ## Updating
 
-When adding new data, go to [/db/data](./db/data/) and add the new `.csv` files. *Note that data from Summer 2023 and onwards has been placed in the [/db/new_data](./db/new_data/) directory due to the new file format* 
+When adding new data, go to [/db/data](./db/data/) and add the new `.csv` files. If changes are to be made to the [clean_data.py](./db/clean_data.py) script make sure you are in the root directory, then run: `cd db`, (create a virtual environment **recommended**) `pip3 install -r requirements.txt`.
 
 ## Running
 
@@ -44,3 +45,7 @@ node index.js
 ```
 
 Open up [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## Disclaimer
+
+UIGrades is an objective data-based tool for students to visualize past semester courses’ grade distributions at the University of Iowa. If you’re using UIGrades to select classes to take, please use it in conjunction with MyUI. Grade distributions are not necessarily an indicator of course difficulty nor a reflection on the instructor or department rewarding those grades. There are several factors that determine the ultimate grade distribution of a course, difficulty being only one. Additionally, UIGrades is not a substitute for an advising appointment. Please see your designated academic advisor for questions about your proposed course schedule.
