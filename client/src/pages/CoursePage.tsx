@@ -272,9 +272,9 @@ const CoursePage:React.FC = () => {
               isDarkMode ? "text-stone-50" : ""
             } my-10 flex flex-col justify-center items-center`}
           >
-            <div className='flex justify-center items-center gap-5'>
+            <div className='flex justify-center items-center gap-5 text-zinc-300 opacity-70 '>
             <p
-              className={`text-zinc-300 opacity-70 flex justify-center items-center text-md md:text-lg font-bold`}
+              className={`flex justify-center items-center text-md md:text-lg font-bold`}
             >
               {!showingAggregatedGrades
                 ? `${course[1]} ${course[19]} ${course[20]}`
