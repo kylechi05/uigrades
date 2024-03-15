@@ -220,7 +220,7 @@ const CoursePage:React.FC = () => {
 
 
   return (
-    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative bg-dark">
+    <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative bg-dark min-h-screen">
       {shared && <MessagePopup message="Link copied to clipboard!" />}
       <LandingNavbar />
 
