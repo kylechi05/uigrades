@@ -12,15 +12,15 @@
 
 
 const changelogs = [
-  //   {
-  //   version: '3.1.0',
-  //   type: ['Update'],
-  //   date: 'January 2024',
-  //   features: ['Fall 2023 courses added!'],
-  //   description: "Added Fall 2023 courses to the database.",
-  //   author: 'LZ',
-  //   showDescription: false
-  // },
+  {
+    version: '4.0.0',
+    type: ['Update', 'Improvement'],
+    date: 'March 2024',
+    features: ['Modern UI Change', 'Integrated New Data (Post Spring 24)', 'Updated Scripts to Handle New Data Format', 'Added Disclaimers About Data for Transparency'],
+    description: 'Version 4.0.0 is a major update to the application. The UI has been modernized to be more user friendly with a dark theme applied constantly now. New data has been integrated into the site along with disclaimers regarding privacy conerns with the data. Please refer to https://uigrades.vercel.app/usage-guide , https://uigrades.vercel.app/data-transparency , and https://uigrades.vercel.app/about for more details.',
+    author: 'LZ',
+    showDescription: false
+  },
 
   {
     version: '3.4.1',

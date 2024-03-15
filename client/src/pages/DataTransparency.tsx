@@ -2,6 +2,7 @@ import Footer from '../components/Footer.tsx'
 import LandingNavbar from '../components/LandingNavbar.tsx'
 import "../App.css";
 import React, { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const DataTransparency: React.FC = () => {
 
@@ -35,6 +36,7 @@ const DataTransparency: React.FC = () => {
                     <br/>
                     For further questions or concerns on technical details, please contact <a href="mailto:liaozhu@uiowa.edu" target="_blank" className='text-primary'>Liao Zhu</a> or <a href="/contact" className='text-primary'>contact us</a>.
                 </p>
+                <Link to='https://github.com/acm-uiowa/uigrades' className='flex justify-center items-center text-xs w-auto h-auto text-center md:text-base opacity-70 hover:opacity-100 text-zinc-300 rounded-md transition duration-300 p-4 py-3 outline outline-1 outline-zinc-300'>All Code</Link>
                 </div>
       </div>
       <Footer />
