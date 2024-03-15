@@ -339,7 +339,7 @@ const CoursePage:React.FC = () => {
                   handleRowClick(similarCourse[0]);
                 }}
                 key={index}
-                className={`text-zinc-300 bg-zinc-800 rounded-xl my-5 outline-1 outline outline-zinc-300 cursor-pointer opacity-70 hover:opacity-100 transition duration-300 min-w-[225px] md:min-w-[33%] lg:min-w-[33%] p-5 shadow-lg flex justify-between items-center`}
+                className={`text-zinc-300 bg-zinc-800 rounded-xl my-5 outline-1 outline outline-zinc-300 cursor-pointer opacity-70 hover:opacity-100 transition duration-300 min-w-auto md:min-w-[50%] lg:min-w-[33%] p-5 shadow-lg flex justify-between items-center`}
               >
                 <div>
                   <h3 className="font-bold text-primary">{similarCourse[1]}</h3>
@@ -348,12 +348,12 @@ const CoursePage:React.FC = () => {
                     {similarCourse[19]} {similarCourse[20]}
                   </p>
                 </div>
-                <div className="ml-5 flex justify-center items-center gap-2">
+                <div className="ml-5 flex justify-center items-center gap-2 text-md md:text-xl">
                   <FontAwesomeIcon
                     icon={faUser}
-                    className="text-yellow-400 text-xl"
+                    className="text-yellow-400"
                   />{" "}
-                  <span className="text-xl">
+                  <span className="">
                     {getTotalForSimilarCourse(similarCourse)}
                   </span>
                 </div>
