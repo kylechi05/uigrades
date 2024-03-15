@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import BarGraph from '../components/BarGraph.tsx';
 import { useNavigate } from 'react-router-dom';
-import LandingNavbar from '../components/LandingNavbar.tsx';
+import Navbar from '../components/Navbar.tsx';
 import Footer from '../components/Footer.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser, faArrowUpRightFromSquare, faQuestion } from '@fortawesome/free-solid-svg-icons';
@@ -222,7 +222,7 @@ const CoursePage:React.FC = () => {
   return (
     <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative bg-dark min-h-screen">
       {shared && <MessagePopup message="Link copied to clipboard!" />}
-      <LandingNavbar />
+      <Navbar />
 
 
       {isLoading && (

@@ -1,5 +1,5 @@
 import Footer from '../components/Footer.tsx'
-import LandingNavbar from '../components/LandingNavbar.tsx'
+import Navbar from '../components/Navbar.tsx'
 import "../App.css";
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -16,7 +16,7 @@ const DataTransparency: React.FC = () => {
 
   return (
     <div ref={pageRef} className="min-h-full flex flex-col z-10 relative justify-center items-center bg-dark">
-      <LandingNavbar/>
+      <Navbar/>
       <div className='flex flex-col items-center justify-start mt-16 pb-8 gap-32 min-h-screen w-3/4 md:text-justify text-zinc-300 leading-relaxed'>
                 <div className='flex flex-col items-start justify-start gap-5'>
                 <h1 className='md:text-5xl text-3xl text-primary font-bold underline-offset-[10px]'>Data Transparency</h1>

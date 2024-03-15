@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import LandingNavbar from "../components/LandingNavbar.tsx";
+import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
-import { useTheme } from "../context/ThemeContext.js";
 import changelogs from "../modules/changelogs.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
@@ -18,7 +17,6 @@ interface ChangeLog {
 }
 
 const ChangeLog:React.FC = () => {
-  const { isDarkMode } = useTheme();
   const [logs, setLogs] = useState<ChangeLog[]>(changelogs);
   const pageRef = useRef(null)
 
@@ -44,14 +42,12 @@ const ChangeLog:React.FC = () => {
 
   return (
     <div className="w-full flex justify-center items-center flex-col relative bg-dark min-h-screen" ref={pageRef}>
-      <LandingNavbar />
+      <Navbar />
       <div
         className={`w-3/4 flex justify-start mt-20 items-center flex-col gap-5 mb-10`}
       >
         <div
-          className={`flex justify-center items-center flex-col ${
-            isDarkMode ? "text-zinc-200" : "text-zinc-700"
-          }`}
+          className={`flex justify-center items-center flex-col text-zinc-300`}
         >
           <h1 className="font-bold text-3xl md:text-5xl">Changelog</h1>
         </div>
@@ -59,9 +55,7 @@ const ChangeLog:React.FC = () => {
           {logs.map((changelog, idx) => {
             return (
               <div
-                className={`flex justify-start items-start flex-col w-full gap-2 ${
-                  isDarkMode ? "text-zinc-200" : "text-zinc-700"
-                }`}
+                className={`flex justify-start items-start flex-col w-full gap-2 text-zinc-300`}
                 key={idx}
               >
                 <div className="flex justify-start items-center gap-2">

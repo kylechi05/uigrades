@@ -3,7 +3,7 @@ import SearchBar from "../components/SearchBar.tsx";
 import CourseListItem from "../components/CourseListItem.tsx";
 import Pagination from "../components/Pagination.tsx";
 import { useNavigate } from "react-router-dom";
-import LandingNavbar from "../components/LandingNavbar.tsx";
+import Navbar from "../components/Navbar.tsx";
 import CourseListLoader from "../components/CourseListLoader.tsx";
 import Footer from "../components/Footer.tsx";
 import { useTheme } from "../context/ThemeContext.js";
@@ -127,7 +127,7 @@ const CourseList: React.FC = () => {
 
   return (
     <div ref={pageRef} className="w-full flex justify-start items-center flex-col relative min-h-screen bg-dark">
-      <LandingNavbar showHome/>
+      <Navbar showHome/>
       <SearchBar
         handleSearch={getCourses}
         setCurrentPage={setCurrentPage}

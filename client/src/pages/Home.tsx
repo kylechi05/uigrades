@@ -1,5 +1,5 @@
 import Footer from '../components/Footer.tsx'
-import LandingNavbar from '../components/LandingNavbar.tsx'
+import Navbar from '../components/Navbar.tsx'
 import Carousel from '../components/Carousel.tsx'
 import "../App.css";
 import React, { useRef, useEffect } from 'react';
@@ -16,7 +16,7 @@ const Home: React.FC = () => {
 
   return (
     <div ref={pageRef} className="min-h-full flex flex-col z-10 relative justify-center items-center bg-dark">
-      <LandingNavbar showHome/>
+      <Navbar showHome/>
       <div className='flex flex-col justify-start items-center gap-10 mt-20'>
         <h1 className='text-5xl md:text-7xl text-zinc-200 font-bold'><span className='text-primary'>UI</span>Grades</h1>
         <p className='text-zinc-200 text-center font-bold'><span className='glowing-head'>Explore Courses Taken by Fellow </span> <span className='glowing-head-primary'>Hawkeyes</span></p>

@@ -1,4 +1,4 @@
-import LandingNavbar from "../components/LandingNavbar.tsx"
+import Navbar from "../components/Navbar.tsx"
 import Footer from "../components/Footer.tsx"
 import CreditProfile from '../components/CreditProfile.tsx'
 import { Link } from 'react-router-dom'
@@ -51,7 +51,7 @@ const About: React.FC = () => {
 
   return (
     <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative min-h-screen text-zinc-700 bg-dark">
-      <LandingNavbar />
+      <Navbar />
       <div
         className={`my-5 gap-10 flex flex-col text-zinc-300 w-3/4`}
       >

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import LandingNavbar from '../components/LandingNavbar.tsx'
+import Navbar from '../components/Navbar.tsx'
 import Footer from '../components/Footer.tsx'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext.js'
@@ -19,7 +19,7 @@ const PageNotFound: React.FC = () => {
 
   return (
     <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative min-h-screen bg-dark">
-      <LandingNavbar />
+      <Navbar />
       <div className="flex flex-col text-center items-center justify-start mt-20 gap-5 text-zinc-300">
         <FontAwesomeIcon icon={faBan} className="text-6xl text-red-500" />
         <h1

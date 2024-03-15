@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import LandingNavbar from '../components/LandingNavbar.tsx'
+import Navbar from '../components/Navbar.tsx'
 import Footer from '../components/Footer.tsx'
 
 const UsageGuide: React.FC = () => {
@@ -14,7 +14,7 @@ const UsageGuide: React.FC = () => {
 
     return (
         <div ref={pageRef} className="w-full flex justify-center items-center flex-col relative min-h-screen bg-dark">
-        <LandingNavbar />
+        <Navbar />
             <div className='mt-8 pb-8 flex flex-col items-start justify-start gap-32 min-h-screen w-3/4 md:text-justify text-zinc-300 leading-relaxed'>
                 <div className='flex flex-col items-start justify-start gap-5'>
                 <h1 className='md:text-5xl text-3xl text-primary font-bold underline-offset-[10px]'>Disclaimer</h1>
