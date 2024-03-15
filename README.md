@@ -26,6 +26,8 @@ Necessary Libraries:
 
 When adding new data, go to [/db/data](./db/data/) and add the new `.csv` files. If changes are to be made to the [clean_data.py](./db/clean_data.py) script make sure you are in the root directory, then run: `cd db`, (create a virtual environment **recommended**) `pip3 install -r requirements.txt`.
 
+*Note* If you're making your own virtual environment called something other than **virt** please add it to the [.gitignore](.gitignore)
+
 ## Running
 
 To run the application, run the following commands in your terminal:
