@@ -2,7 +2,6 @@ import "../App.css";
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBackspace, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { useTheme } from "../context/ThemeContext";
 
 interface SearchBarProps {
   handleSearch: (page: number, query: string) => void;
@@ -11,7 +10,6 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, setCurrentPage, query }) => {
-  const { isDarkMode } = useTheme();
 
   const clearInput = () => {
     handleSearch(1, "");

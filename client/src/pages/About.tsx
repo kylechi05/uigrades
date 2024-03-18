@@ -2,9 +2,9 @@ import Navbar from "../components/Navbar.tsx"
 import Footer from "../components/Footer.tsx"
 import CreditProfile from '../components/CreditProfile.tsx'
 import { Link } from 'react-router-dom'
-import { useTheme } from "../context/ThemeContext.js"
 import React, { useEffect, useState, useRef } from 'react'
 import contributors from "../modules/contributors.js"
+import nonGithubContributors from "../modules/nonGithubContributors.js"
 import ContributorProfile from "../components/ContributorProfile.tsx"
 
 interface ContributorInterface {
@@ -13,9 +13,12 @@ interface ContributorInterface {
   github: string;
 }
 
-const About: React.FC = () => {
+interface nonGithubContributorInterface {
+  image: string;
+  social: string;
+}
 
-  const { isDarkMode } = useTheme();
+const About: React.FC = () => {
 
   const [allContributors, setAllContributors] = useState<any[]>([]);
 
@@ -142,6 +145,13 @@ const About: React.FC = () => {
                     github={contributor.github}
                 />
               ))}  
+              {nonGithubContributors.map((contributor: nonGithubContributorInterface, idx: number) => (
+                <ContributorProfile
+                    key={idx}
+                    img={contributor.image}
+                    social={contributor.social}
+                />
+              ))}
             </div>
           </div>
           <div className="flex flex-col justify-start w-full items-center gap-5">

@@ -25,9 +25,11 @@ Necessary Libraries:
 ## Updating
 
 When adding new data, go to [/db/data](./db/data/) and add the new `.csv` files. If changes are to be made to the [clean_data.py](./db/clean_data.py) script make sure you are in the root directory, then run:
-1. `cd db`
-2. `source virt/bin/activate`
-3. `pip3 install -r requirements.txt`
+```
+cd db
+source virt/bin/activate
+pip3 install -r requirements.txt
+```
 The script should now be able to run / be edited
 
 ## Running

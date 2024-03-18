@@ -456,3 +456,31 @@ body {
   stroke-linejoin: round;
   stroke-linecap: round;
 }
+
+/* Target Safari */
+@media not all and (min-resolution:.001dpcm) {
+
+  @media {
+    .safari-course-item {
+      max-height: 150px;
+    }
+  }
+
+  @media screen and (min-width: 1200px){
+    .safari-course-grid {
+      margin-bottom: 150px;
+    }
+  }
+
+  @media screen and (max-width: 1150px) {
+
+    /* Safari-only CSS here */
+    /* .safari-pagination {
+      margin-top: 100px;
+    } */
+
+    .safari-course-grid {
+      margin-bottom: 75px;
+    }
+  }
+}

@@ -2,13 +2,10 @@ import React, { useEffect, useRef } from 'react'
 import Navbar from '../components/Navbar.tsx'
 import Footer from '../components/Footer.tsx'
 import { Link } from 'react-router-dom'
-import { useTheme } from '../context/ThemeContext.js'
 import { faBan } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const PageNotFound: React.FC = () => {
-
-  const { isDarkMode } = useTheme()
   
   const pageRef = useRef(null)
 

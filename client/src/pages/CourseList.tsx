@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
 import CourseListLoader from "../components/CourseListLoader.tsx";
 import Footer from "../components/Footer.tsx";
-import { useTheme } from "../context/ThemeContext.js";
 import config from "../config.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
@@ -53,8 +52,6 @@ const CourseList: React.FC = () => {
   const pageSize:number = 9;
   // @ts-ignore
   const SERVER:string = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
-
-  const { isDarkMode } = useTheme();
 
   const pageRef = useRef(null);
 
@@ -126,7 +123,7 @@ const CourseList: React.FC = () => {
   };
 
   return (
-    <div ref={pageRef} className="w-full flex justify-start items-center flex-col relative min-h-screen bg-dark">
+    <div ref={pageRef} className="w-full flex justify-start items-center flex-col relative min-h-screen bg-dark safari-course-list">
       <Navbar showHome/>
       <SearchBar
         handleSearch={getCourses}
@@ -148,12 +145,12 @@ const CourseList: React.FC = () => {
         <CourseListLoader />
       ) : (
           <div className="flex flex-col justify-start items-start p-10 mb-5 mt-5 w-full min-h-[32rem]">
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-2 w-full h-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-2 w-full h-full safari-course-grid">
               {data.map((course: Course, index: number) => (
                 <div
                   key={index}
                   onClick={() => handleCourseClick(course[0])}
-                  className="outline outline-1 text-zinc-700 flex h-full w-full justify-between items-center cursor-pointer rounded-md transition duration-300 p-4 bg-zinc-800 bg-opacity-70 hover:bg-opacity-100"
+                  className="outline outline-1 text-zinc-700 flex h-full w-full justify-between items-center cursor-pointer rounded-md transition duration-300 p-4 bg-zinc-800 bg-opacity-70 hover:bg-opacity-100 safari-course-item"
                 >
                   <CourseListItem course={course} />
                 </div>

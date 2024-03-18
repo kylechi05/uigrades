@@ -3,7 +3,6 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {faAngleRight} from "@fortawesome/free-solid-svg-icons"
 import {faAngleLeft} from "@fortawesome/free-solid-svg-icons"
-import { useTheme } from "../context/ThemeContext.js";
 
 interface PaginationProps {
   currentPage: number;
@@ -16,12 +15,11 @@ const Pagination: React.FC<PaginationProps> = ({
   totalPages,
   handleChangePage,
 }) => {
-  const { isDarkMode } = useTheme();
   if (totalPages <= 1) {
     return null;
   }
   return (
-    <div className="flex justify-center items-center sm:gap-10 gap-4 mb-16 mt-auto w-3/4 md:w-auto">
+    <div className="flex justify-center items-center sm:gap-10 gap-4 mb-16 mt-auto w-3/4 md:w-auto safari-pagination">
       <button
         onClick={() => handleChangePage("-1")}
         disabled={currentPage === 1}

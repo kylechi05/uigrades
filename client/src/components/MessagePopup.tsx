@@ -1,4 +1,3 @@
-import {useTheme} from '../context/ThemeContext'
 import React from 'react';
 
 interface MessagePopupProps {
@@ -6,7 +5,6 @@ interface MessagePopupProps {
 }
 
 const MessagePopup: React.FC<MessagePopupProps> = ({message}) => {
-    const {isDarkMode} = useTheme()
     return (
       <div
         className={`flex justify-center items-center top-16 z-[60] text-md fixed bg-zinc-800 outline-1 outline outline-zinc-700 p-4 rounded-xl text-zinc-300`}

@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import React from 'react'
-import { useTheme } from '../context/ThemeContext';
 
 interface CreditProfileProps {
   img: string;
@@ -13,8 +12,6 @@ interface CreditProfileProps {
 }
 
 const CreditProfile: React.FC<CreditProfileProps> = ({img, name, title, org, linkedin, github}) => {
-
-  const { isDarkMode } = useTheme();
 
   return (
     <div className=" flex flex-row justify-start items-start gap-5 opacity-80 hover:opacity-100 transition duration-300">
@@ -32,9 +29,7 @@ const CreditProfile: React.FC<CreditProfileProps> = ({img, name, title, org, lin
             href={linkedin}
             target="_blank"
             rel="noreferrer"
-            className={`text-xs flex justify-center items-center gap-1 hover:text-yellow-400 transition duration-200 ${
-              isDarkMode ? "text-zinc-400" : "text-zinc-700"
-            }`}
+            className={`text-xs flex justify-center items-center gap-1 hover:text-zinc-300 transition duration-200 text-zinc-400`}
           >
             <FontAwesomeIcon icon={faLinkedin} />
             Linkedin
@@ -44,9 +39,7 @@ const CreditProfile: React.FC<CreditProfileProps> = ({img, name, title, org, lin
               href={github}
               target="_blank"
               rel="noreferrer"
-              className={`text-xs flex justify-center items-center gap-1 hover:text-yellow-400 transition duration-200 cursor-pointer ${
-                isDarkMode ? "text-zinc-400" : "text-zinc-700"
-              }`}
+              className={`text-xs flex justify-center items-center gap-1 hover:text-zinc-300 transition duration-200 cursor-pointer text-zinc-400`}
             >
               <FontAwesomeIcon icon={faGithub} />
               Github

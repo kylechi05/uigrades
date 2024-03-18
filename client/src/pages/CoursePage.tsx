@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser, faArrowUpRightFromSquare, faQuestion } from '@fortawesome/free-solid-svg-icons';
 import Loading from "../components/Loading.tsx"
 import MessagePopup from "../components/MessagePopup.tsx"
-import { useTheme } from '../context/ThemeContext.js';
 import config from '../config.js';
 import PromptInfoModal from '../components/PromptInfoModal.tsx';
 
@@ -80,8 +79,6 @@ const CoursePage:React.FC = () => {
 
   // @ts-ignore
   const SERVER:string = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
-
-  const { isDarkMode } = useTheme();
 
   const navigate = useNavigate();
 
@@ -268,9 +265,7 @@ const CoursePage:React.FC = () => {
 
           {/* Graph container */}
           <div
-            className={`${"w-full px-2 md:w-3/5"} ${
-              isDarkMode ? "text-stone-50" : ""
-            } my-10 flex flex-col justify-center items-center`}
+            className={`w-full px-2 md:w-3/5" my-10 flex flex-col justify-center items-center`}
           >
             <div className='flex justify-center items-center gap-5 text-zinc-300 '>
             <p

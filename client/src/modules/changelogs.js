@@ -13,6 +13,15 @@
 
 const changelogs = [
   {
+    version: '4.0.1',
+    type: ['Bug Fix', 'Improvement'],
+    date: 'March 2024',
+    features: ['Fixed Safari Tablet Styling Issues', 'Added USG Contributor'],
+    description: '',
+    author: 'LZ',
+    showDescription: false
+  },
+  {
     version: '4.0.0',
     type: ['Update', 'Improvement'],
     date: 'March 2024',
