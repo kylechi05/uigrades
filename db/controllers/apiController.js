@@ -199,7 +199,8 @@ const getAllCourses = (req, res) => {
             }
             whereClause += '(' + queryAttributes.map(attr => `${attr} LIKE "%${term}%"`).join(' OR ') + ')';
         });
-
+	
+	/* we need some sort of loop or stop condition to know when to stop sending batches. instead of select *, we do select 9...then those as a batch, then do the next 9 etc. etc. until stop condition that way there's less downtime / lag for th euser */
         const query = `SELECT * FROM courses WHERE ${whereClause} LIMIT ${PAGESIZE} OFFSET ${offset}`;
         const result = db.exec(query);
 
