@@ -38,6 +38,8 @@ The script should now be able to run / be edited
 2. Save these spreadsheets as `.csv` filetypes and add them to [/db/data](./db/data/)
 3. In the [/db](./db) directory, run the first part of [clean_data.py](./db/clean_data.py) (please see the comments in this file) using the command `python3 clean_data.py`, once it's been processed comment out the first part and run the second part by uncommenting it and running the file again
 4. Once new data has been processed, start the database (see below) and changes should be reflected
+5. Push changes to github, then go to [Render](https://render.com/) and login using the acm github account
+6. Restart the server in Render then the changes should be changed on the production site
 
 ## Running
 
