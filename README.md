@@ -27,10 +27,17 @@ Necessary Libraries:
 When adding new data, go to [/db/data](./db/data/) and add the new `.csv` files. If changes are to be made to the [clean_data.py](./db/clean_data.py) script make sure you are in the root directory, then run:
 ```
 cd db
-source virt/bin/activate
+source uigrades/bin/activate
 pip3 install -r requirements.txt
 ```
 The script should now be able to run / be edited
+
+## Adding New Data
+
+1. First change the filename of the spreadsheet to "Semester_Year" format (not winter will overlap two years so do "Winter_Year1_Year2")
+2. Save these spreadsheets as `.csv` filetypes and add them to [/db/data](./db/data/)
+3. In the [/db](./db) directory, run the first part of [clean_data.py](./db/clean_data.py) (please see the comments in this file) using the command `python3 clean_data.py`, once it's been processed comment out the first part and run the second part by uncommenting it and running the file again
+4. Once new data has been processed, start the database (see below) and changes should be reflected
 
 ## Running
 

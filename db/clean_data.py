@@ -12,8 +12,10 @@ def clean_new_file(file_to_clean):
     df = pd.read_csv(file_to_clean)
     ### ===== RUN THIS BLOCK FIRST =====
     '''
-    semester = file_to_clean.split("/")[1].split(".")[0].split("_")[0]
-    year = file_to_clean.split("/")[1].split(".")[0].split("_")[1]
+    # file_to_clean looks like this "data/file_name.csv"
+    semester_year = file_to_clean.split("/")[1].split(".")[0].split("_")
+    semester = semester_year[0]
+    year = semester_year[1] if len(semester_year) < 3 else semester_year[1] + "-" + semester_year[2]
     df = df.dropna(how='all') # for some reason xlsx to csv leaves a bunch of nan rows
 
     df['SECONDARY_INSTRUCTOR_NAME'] = ""
@@ -44,10 +46,9 @@ def clean_new_file(file_to_clean):
 
     df = df[new_order]
     '''
-    
+
     ### ===== RUN THIS BLOCK SECOND =====
     
-    '''
     # for each row in the df check if the PRIMARY_INSTRUCTOR_NAME ends with "Course Supervisor" and if so, set the SECONDARY_INSTRUCTOR_NAME to that value
     d = {} # dictionary that will hold SUBJECT_COURSE_SECTION as key and the rest of the row as the value as an array
     for index, row in df.iterrows():
@@ -71,8 +72,8 @@ def clean_new_file(file_to_clean):
     
     # now we need to append the new_df to the df
     df = pd.concat([df, new_df])
-    '''
-    
+
+    # ====== LEAVE THIS UNCOMMENTED ========
     # Saving the DataFrame to a new CSV file
     df.to_csv(file_to_clean, index=False)
     
@@ -82,5 +83,7 @@ def clean_new_file(file_to_clean):
 # clean_new_file("data/Fall_2022.csv")
 # clean_new_file("data/Spring_2023.csv")
 # clean_new_file("data/Winter_2022_2023.csv")
-clean_new_file("data/Summer_2023.csv")
-clean_new_file("data/Fall_2023.csv")
+# clean_new_file("data/Summer_2023.csv")
+# clean_new_file("data/Fall_2023.csv")
+#clean_new_file("data/Spring_2024.csv")
+clean_new_file("data/Winter_2023_2024.csv")
