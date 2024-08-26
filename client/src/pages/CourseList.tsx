@@ -79,9 +79,25 @@ const CourseList: React.FC = () => {
     // getCourses(currentPage, currSearchQuery);
   }, [currentPage, currSearchQuery]);
 
+  // should trigger this useeffect when the current search query changes
+  // this is a debouncer for course searching, use this so every letter doesn't fetch and update data
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      getCourses(currentPage, currSearchQuery);
+    }, 200);
+
+    return () => {
+      clearTimeout(timeout);
+    }
+  }, [currSearchQuery]);
+
+  const handleSearch = async (page:number, q:string) => {
+    setCurrSearchQuery(q);
+    setCurrentPage(page);
+  }
+
   const getCourses = async (page:number, q:string) => {
     try {
-      setCurrSearchQuery(q);
       const res = await fetch(`${SERVER}/courses?page=${page}&q=${q}`);
 
       // invalid page, default to page 1
@@ -123,11 +139,10 @@ const CourseList: React.FC = () => {
   };
 
   return (
-    <div ref={pageRef} className="w-full flex justify-start items-center flex-col relative min-h-screen bg-dark safari-course-list">
+    <div ref={pageRef} className="w-full flex justify-start items-center flex-col relative min-h-screen bg-dark">
       <Navbar showHome/>
       <SearchBar
-        handleSearch={getCourses}
-        setCurrentPage={setCurrentPage}
+        handleSearch={handleSearch}
         query={currSearchQuery}
       />
       {data.length === 0 && !loading ? (
@@ -145,12 +160,12 @@ const CourseList: React.FC = () => {
         <CourseListLoader />
       ) : (
           <div className="flex flex-col justify-start items-start p-10 mb-5 mt-5 w-full min-h-[32rem]">
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-2 w-full h-full safari-course-grid">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-2 w-full h-full">
               {data.map((course: Course, index: number) => (
                 <div
                   key={index}
                   onClick={() => handleCourseClick(course[0])}
-                  className="outline outline-1 text-zinc-700 flex h-full w-full justify-between items-center cursor-pointer rounded-md transition duration-300 p-4 bg-zinc-800 bg-opacity-70 hover:bg-opacity-100 safari-course-item"
+                  className="outline outline-1 text-zinc-700 flex h-full w-full justify-between items-center cursor-pointer rounded-md transition duration-300 p-4 bg-zinc-800 bg-opacity-70 hover:bg-opacity-100"
                 >
                   <CourseListItem course={course} />
                 </div>
