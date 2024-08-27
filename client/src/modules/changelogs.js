@@ -15,7 +15,7 @@ const changelogs = [
   {
     version: '4.1.0',
     type: ['Update', 'Bug Fix'],
-    date: 'March 2024',
+    date: 'August 2024',
     features: ['Fixed Search Stutter', 'Added New Data'],
     description: 'Added debounce to search to prevent stuttering. New data has been added to the site including Winter 23-24 and Spring 24.',
     author: 'LZ + KC',
