@@ -77,6 +77,9 @@ const CoursePage:React.FC = () => {
   const id:number = Number(new URLSearchParams(window.location.search).get("id"));
   const [isNew, setIsNew] = useState(false);
   const [showPromptInfo, setShowPromptInfo] = useState(false);
+  const [courseSubject, setCourseSubject] = useState<string>("");
+  const [courseNumber, setCourseNumber] = useState<string>("");
+  const [courseSection, setCourseSection] = useState<string>("");
 
   // @ts-ignore
   const SERVER:string = config[process.env.NODE_ENV]["SERVER"]; // grab the correct server url based on the environment
@@ -137,6 +140,9 @@ const CoursePage:React.FC = () => {
         setCourseGrades(courseGrades);
         setOriginalCourseGrades(courseGrades); // placeholder temp variable since we're switching between aggregated and non-aggregated grades
         setCourse(fetchedCourse);
+        setCourseSubject(fetchedCourse[1].split(":")[0]);
+        setCourseNumber(fetchedCourse[1].split(":")[1]);
+        setCourseSection(fetchedCourse[1].split(":")[2]);
         setClassTotal(classSize);
         setAggregatedGrades(fetchedAggregatedGrades);
         setTotalAggregatedStudents(totalStudents);  
@@ -242,7 +248,7 @@ const CoursePage:React.FC = () => {
             <div className='flex justify-center font-bold items-center gap-3 md:gap-5 text-2xl md:text-4xl lg:text-5xl flex-col'>
               <div className='flex justify-center items-center gap-2'>
                 <h1 className={`text-primary`}>
-                  {aggregatedGrades && showingAggregatedGrades ? `${course[1].split(":")[0]}:${course[1].split(":")[1]}` : course[1]}{" "}
+                  {aggregatedGrades && showingAggregatedGrades ? `${courseSubject}:${courseNumber}` : course[1]}{" "}
                 </h1>
                 {showPromptInfo && <PromptInfoModal setShowPromptInfo={setShowPromptInfo} />}
                 {!showPromptInfo && course[21] == 1 && <span className='flex justify-center items-center gap-2 w-5 h-5 cursor-pointer text-zinc-300 opacity-70 hover:opacity-100 duration-300 transition outline-zinc-300 outline outline-1 rounded-full p-2 text-xs' onClick={() => setShowPromptInfo(true)}>
@@ -299,7 +305,7 @@ const CoursePage:React.FC = () => {
                     <FontAwesomeIcon icon={faShareNodes} />
                   </div>
                   <Link
-                    to={`https://myui.uiowa.edu/my-ui/courses/dashboard.page?q.academicUnitId=&q.courseSubject=CS&q.courseNumber=4330&q.sectionNumber=&q.keywords=&q.instructors=&q.genEd=&q.sun=false&q.mon=false&q.tue=false&q.wed=false&q.thu=false&q.fri=false&q.sat=false&q.startTime=&q.endTime=&q.arrangedTime=false&q.saturdayAndEvening=false&q.distanceEd=false&q.onWeb=false&q.onIcn=false&q.gis=&q.courseType=&q.wk3=false&q.wk6=false&q.wk8=false&q.offcycle=false&q.onlyOpen=false&q.learningCenter=&q.showHonors=&q.showTile=&q.startDate=&q.sort=COURSE_NUMBER&q.sessionId=&showResults=1`}
+                    to={`https://myui.uiowa.edu/my-ui/courses/dashboard.page?q.academicUnitId=&q.courseSubject=${courseSubject}&q.courseNumber=${courseNumber}&q.sectionNumber=&q.keywords=&q.instructors=&q.genEd=&q.sun=false&q.mon=false&q.tue=false&q.wed=false&q.thu=false&q.fri=false&q.sat=false&q.startTime=&q.endTime=&q.arrangedTime=false&q.saturdayAndEvening=false&q.distanceEd=false&q.onWeb=false&q.onIcn=false&q.gis=&q.courseType=&q.wk3=false&q.wk6=false&q.wk8=false&q.offcycle=false&q.onlyOpen=false&q.learningCenter=&q.showHonors=&q.showTile=&q.startDate=&q.sort=COURSE_NUMBER&q.sessionId=&showResults=1`}
                     target='_blank'
                     className="flex justify-center items-center gap-2 cursor-pointer text-zinc-300 opacity-70 hover:opacity-100 duration-300 transition outline-zinc-300 outline outline-1 rounded-md p-2 text-xs w-7 h-7"
                   >
